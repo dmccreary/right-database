@@ -1,0 +1,21 @@
+{
+  "title": "ATAM Nine-Step Process Navigator",
+  "description": "Remembering and Understanding (Bloom's levels 1–2) — students recall all nine ATAM steps in order and understand the purpose, participants, and outputs of each step.",
+  "creator": "Dementia Education Project",
+  "date": "2026-05-20",
+  "subject": [
+    "dementia"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY 4.0",
+  "identifier": "atam-nine-step-navigator",
+  "library": "p5.js",
+  "bloomLevel": "TBD",
+  "bloomVerb": "TBD",
+  "completion_status": "scaffold",
+  "chapter_number": 1,
+  "chapter_title": "Chapter 1 - The ATAM Method",
+  "chapter_dir": "01-atam-method"
+}

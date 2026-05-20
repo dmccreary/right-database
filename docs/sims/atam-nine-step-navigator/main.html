@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>ATAM Nine-Step Process Navigator</title>
+    <style>
+        /* CANVAS_HEIGHT: 590 */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background: #f8f9fa; }
+        #sim {
+            display: flex;
+            width: 100%;
+            max-width: 900px;
+            height: 560px;
+            background: white;
+            border: 1px solid #dee2e6;
+        }
+        #step-list {
+            width: 230px;
+            min-width: 230px;
+            border-right: 2px solid #1a3a6c;
+            overflow-y: auto;
+            background: #f0f4f8;
+        }
+        #step-list-title {
+            padding: 10px 12px;
+            background: #1a3a6c;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 0.03em;
+        }
+        .step-card {
+            padding: 10px 12px;
+            border-bottom: 1px solid #d0d8e0;
+            cursor: pointer;
+            transition: background 0.15s;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .step-card:hover { background: #dce8f5; }
+        .step-card.selected {
+            background: #e8f0fa;
+            border-left: 4px solid #f0a500;
+            padding-left: 8px;
+        }
+        .step-num {
+            min-width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .step-card-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1a3a6c;
+            line-height: 1.3;
+        }
+        #detail {
+            flex: 1;
+            padding: 20px 22px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        #detail h2 { font-size: 18px; color: #1a3a6c; margin-bottom: 10px; }
+        .phase-badge {
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 14px;
+        }
+        .detail-section { margin-bottom: 14px; }
+        .detail-label {
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: #888;
+            margin-bottom: 4px;
+        }
+        .detail-value { font-size: 14px; color: #333; line-height: 1.6; }
+        .artifacts-list { margin: 0; padding-left: 18px; }
+        .artifacts-list li { font-size: 13px; color: #444; line-height: 1.7; }
+        #nav-buttons {
+            margin-top: auto;
+            padding-top: 14px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-btn {
+            padding: 8px 20px;
+            background: #1a3a6c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .nav-btn:hover { background: #2255a0; }
+        .nav-btn:disabled { background: #aaa; cursor: default; }
+        #step-counter { font-size: 13px; color: #888; }
+        #instr {
+            width: 100%;
+            max-width: 900px;
+            background: #fff;
+            border: 1px solid #dee2e6;
+            border-top: none;
+            padding: 8px 14px;
+            font-size: 13px;
+            color: #666;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="sim">
+  <div id="step-list">
+    <div id="step-list-title">Nine ATAM Steps</div>
+    <div id="cards"></div>
+  </div>
+  <div id="detail">
+    <h2 id="d-title"></h2>
+    <span class="phase-badge" id="d-badge"></span>
+    <div class="detail-section">
+      <div class="detail-label">Participants</div>
+      <div class="detail-value" id="d-participants"></div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-label">Activity</div>
+      <div class="detail-value" id="d-activity"></div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-label">Artifacts Produced</div>
+      <ul class="artifacts-list" id="d-artifacts"></ul>
+    </div>
+    <div id="nav-buttons">
+      <button class="nav-btn" id="btn-prev" onclick="navigate(-1)">← Prev</button>
+      <span id="step-counter"></span>
+      <button class="nav-btn" id="btn-next" onclick="navigate(1)">Next →</button>
+    </div>
+  </div>
+</div>
+<div id="instr">Click a step in the left panel or use ← Prev / Next → to move through all nine ATAM steps.</div>
+<br/>
+<a href=".">Back to ATAM Nine-Step Process Navigator</a>
+
+<script>
+// ATAM Nine-Step Process Navigator
+// CANVAS_HEIGHT: 590
+
+const STEPS = [
+  { num:1, name:'Present ATAM', phase:'Presentation', color:'#4a90d9',
+    participants:'ATAM team lead, all stakeholders',
+    activity:'The evaluation team presents the ATAM method to stakeholders — its purpose, vocabulary, activities, and expected outputs. This establishes shared understanding before analysis begins.',
+    artifacts:['None (informational only)'] },
+  { num:2, name:'Present Business Drivers', phase:'Presentation', color:'#4a90d9',
+    participants:'Project decision makers, product owners',
+    activity:"Key stakeholders present the system's business context — why the system exists, what goals it must support, market and regulatory constraints, and what success looks like from a business perspective.",
+    artifacts:['Documented business driver list'] },
+  { num:3, name:'Present Architecture', phase:'Presentation', color:'#4a90d9',
+    participants:'Lead architect(s), evaluation team',
+    activity:'The architecture team presents the current or proposed architecture using multiple views (component, deployment, data flow). Architectural constraints and design decisions made to date are surfaced.',
+    artifacts:['Architecture views','Initial constraint list'] },
+  { num:4, name:'Identify Architectural Approaches', phase:'Analysis', color:'#f0a500',
+    participants:'Architects, evaluation team',
+    activity:'The evaluation team elicits the architectural patterns and strategies present in the architecture — caching strategies, replication topologies, consistency models, partitioning schemes, and more.',
+    artifacts:['Catalog of architectural approaches'] },
+  { num:5, name:'Generate Utility Tree', phase:'Analysis', color:'#f0a500',
+    participants:'All stakeholders, evaluation team',
+    activity:'The team collaboratively builds the utility tree — identifying quality attributes, refining them into sub-characteristics, and eliciting specific quality attribute scenarios. Scenarios are prioritized with (H/M/L, H/M/L) ratings for importance and difficulty.',
+    artifacts:['Prioritized utility tree','(H,H)/(H,M)/(M,H) scenarios identified'] },
+  { num:6, name:'Analyze Architectural Approaches', phase:'Analysis', color:'#f0a500',
+    participants:'Architects, evaluation team',
+    activity:'The evaluation team probes the architectural approaches against the (H,H) utility tree scenarios. Sensitivity points and tradeoff points are identified. Risks and non-risks are documented as they are discovered.',
+    artifacts:['Initial risk list','Non-risk list','Sensitivity points','Tradeoff points'] },
+  { num:7, name:'Brainstorm & Prioritize Scenarios', phase:'Analysis', color:'#f0a500',
+    participants:'All stakeholders',
+    activity:'A broader set of stakeholders brainstorm additional scenarios not yet in the utility tree. The full scenario list is re-prioritized. This step surfaces requirements not visible to the architect or project team.',
+    artifacts:['Expanded, re-prioritized scenario list'] },
+  { num:8, name:'Analyze Approaches (continued)', phase:'Analysis', color:'#f0a500',
+    participants:'Architects, evaluation team',
+    activity:'The highest-priority scenarios from Step 7 that are not yet covered are analyzed against the architectural approaches. Additional risks, non-risks, sensitivity points, and tradeoff points are documented.',
+    artifacts:['Final risk list','Final non-risk list','Complete sensitivity and tradeoff point catalog'] },
+  { num:9, name:'Present Results', phase:'Reporting', color:'#4aaa4a',
+    participants:'All stakeholders',
+    activity:'The evaluation team presents a consolidated summary: the utility tree, identified risks (with themes), non-risks, sensitivity points, tradeoff points, and architectural decision records. Stakeholders validate findings and identify next actions.',
+    artifacts:['Final ATAM report','Risk themes','Architectural decision records (ADRs)'] },
+];
+
+let current = 0;
+
+function renderCards() {
+  const c = document.getElementById('cards');
+  c.innerHTML = '';
+  STEPS.forEach((s, i) => {
+    const d = document.createElement('div');
+    d.className = 'step-card' + (i === current ? ' selected' : '');
+    d.onclick = () => select(i);
+    d.innerHTML = `<div class="step-num" style="background:${s.color}">${s.num}</div>
+                   <div class="step-card-name">${s.name}</div>`;
+    c.appendChild(d);
+  });
+}
+
+function renderDetail() {
+  const s = STEPS[current];
+  document.getElementById('d-title').textContent = `Step ${s.num}: ${s.name}`;
+  const badge = document.getElementById('d-badge');
+  badge.textContent = s.phase;
+  badge.style.background = s.color;
+  document.getElementById('d-participants').textContent = s.participants;
+  document.getElementById('d-activity').textContent = s.activity;
+  document.getElementById('d-artifacts').innerHTML = s.artifacts.map(a=>`<li>${a}</li>`).join('');
+  document.getElementById('step-counter').textContent = `${current + 1} of 9`;
+  document.getElementById('btn-prev').disabled = current === 0;
+  document.getElementById('btn-next').disabled = current === STEPS.length - 1;
+}
+
+function select(i) { current = i; renderCards(); renderDetail(); }
+function navigate(dir) { const n = current + dir; if (n >= 0 && n < STEPS.length) select(n); }
+
+select(0);
+</script>
+</body>
+</html>

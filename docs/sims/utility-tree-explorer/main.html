@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>Interactive Utility Tree Explorer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.9/vis-network.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.9/dist/vis-network.min.css"/>
+    <style>
+        /* CANVAS_HEIGHT: 620 */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background: #f8f9fa; }
+        #outer { display: flex; flex-direction: column; width: 100%; }
+        #title-bar {
+            background: #1a3a6c; color: white;
+            padding: 8px 14px; font-size: 15px; font-weight: bold;
+        }
+        #main-row { display: flex; height: 520px; }
+        #network { flex: 1; background: #fff; border-right: 1px solid #dde; }
+        #info-panel {
+            width: 290px; min-width: 290px;
+            padding: 14px; overflow-y: auto;
+            background: #f7f9fc;
+            border-left: 2px solid #1a3a6c;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        #info-placeholder { color: #aaa; font-size: 13px; margin-top: 40px; text-align: center; }
+        #info-content { display: none; }
+        #info-content h3 { font-size: 15px; color: #1a3a6c; margin-bottom: 6px; }
+        .info-row { margin-bottom: 8px; }
+        .info-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; margin-bottom: 2px; }
+        .info-value { font-size: 13px; color: #333; line-height: 1.55; }
+        .priority-badge {
+            display: inline-block; padding: 2px 10px;
+            border-radius: 10px; font-size: 12px; font-weight: bold; color: white;
+        }
+        #legend {
+            padding: 8px 14px; background: #f0f4f8;
+            border-top: 1px solid #dde; display: flex; gap: 18px; flex-wrap: wrap;
+            align-items: center; font-size: 12px; color: #555;
+        }
+        .leg-item { display: flex; align-items: center; gap: 5px; }
+        .leg-box { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; }
+        #instr {
+            padding: 6px 14px; background: #fff;
+            border-top: 1px solid #dee2e6;
+            font-size: 12px; color: #888; text-align: center;
+        }
+        #reset-btn {
+            position: absolute; top: 44px; left: 8px;
+            padding: 5px 12px; background: #1a3a6c; color: white;
+            border: none; border-radius: 4px; cursor: pointer; font-size: 12px; z-index: 5;
+        }
+        #reset-btn:hover { background: #2255a0; }
+        #network-wrap { position: relative; flex: 1; }
+    </style>
+</head>
+<body>
+<div id="outer">
+  <div id="title-bar">Interactive Utility Tree Explorer</div>
+  <div id="main-row">
+    <div id="network-wrap">
+      <button id="reset-btn" onclick="resetView()">Reset View</button>
+      <div id="network"></div>
+    </div>
+    <div id="info-panel">
+      <div id="info-placeholder">Click any node to see details</div>
+      <div id="info-content">
+        <h3 id="i-name"></h3>
+        <div class="info-row">
+          <div class="info-label">Scenario</div>
+          <div class="info-value" id="i-scenario"></div>
+        </div>
+        <div class="info-row" id="i-stim-row">
+          <div class="info-label">Stimulus</div>
+          <div class="info-value" id="i-stimulus"></div>
+        </div>
+        <div class="info-row" id="i-resp-row">
+          <div class="info-label">Response</div>
+          <div class="info-value" id="i-response"></div>
+        </div>
+        <div class="info-row" id="i-meas-row">
+          <div class="info-label">Measure</div>
+          <div class="info-value" id="i-measure"></div>
+        </div>
+        <div class="info-row" id="i-pri-row">
+          <div class="info-label">Priority (Importance, Difficulty)</div>
+          <div><span class="priority-badge" id="i-priority"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="legend">
+    <strong>Legend:</strong>
+    <div class="leg-item"><div class="leg-box" style="background:#4a90d9;border:2px solid #2a6aaa"></div> Root (Utility)</div>
+    <div class="leg-item"><div class="leg-box" style="background:#f0a500;border:2px solid #c08000"></div> Quality Attribute</div>
+    <div class="leg-item"><div class="leg-box" style="background:#7db8e8;border:2px solid #4488bb"></div> Refinement</div>
+    <div class="leg-item"><div class="leg-box" style="background:#e8f4e8;border:2px solid #4a7c4a"></div> Scenario leaf — click for details</div>
+    <div class="leg-item" style="margin-left:8px;color:#c00"><strong>(H,H)</strong> = critical</div>
+    <div class="leg-item" style="color:#e06000"><strong>(H,M)</strong> = high</div>
+    <div class="leg-item" style="color:#888"><strong>(M,M)</strong> = medium</div>
+  </div>
+  <div id="instr">Click any node — Quality Attribute and Refinement nodes expand/collapse their children. Scenario nodes show QA scenario details.</div>
+</div>
+<br/>
+<a href=".">Back to Interactive Utility Tree Explorer</a>
+
+<script>
+// CANVAS_HEIGHT: 620
+
+const LEAF_INFO = {
+  100: { scenario:'Under sustained IoT ingestion load of 100,000 events per second, the database sustains write throughput with p99 write latency below 5ms.', stimulus:'Sustained 100K writes/sec for 4 hours', response:'All writes committed', measure:'p99 write latency < 5ms, zero write rejections', priority:'(H,H)', pColor:'#c00' },
+  101: { scenario:'Under normal operational load, 99th percentile read latency for single-key lookups remains below 10ms.', stimulus:'Mixed read workload at 10K QPS', response:'Reads served from primary or replica', measure:'p99 < 10ms', priority:'(H,M)', pColor:'#d06000' },
+  200: { scenario:'The database cluster sustains 99.99% monthly availability measured at the application layer.', stimulus:'Normal operational load', response:'Service available', measure:'< 52 min downtime per year', priority:'(H,H)', pColor:'#c00' },
+  201: { scenario:'When the primary node fails, the cluster elects a new leader and resumes writes within 30 seconds.', stimulus:'Primary node becomes unavailable', response:'New primary elected, writes resume', measure:'Write gap < 30 seconds', priority:'(H,M)', pColor:'#d06000' },
+  300: { scenario:'Financial transactions require serializable isolation to prevent phantom reads in balance calculations.', stimulus:'Concurrent transactions modifying same account', response:'No phantom reads', measure:'Zero anomalous reads under concurrent load', priority:'(H,H)', pColor:'#c00' },
+  301: { scenario:'After a user updates their profile, subsequent reads from any replica return the updated value.', stimulus:'User writes profile update, immediately reads', response:'Updated value returned', measure:'Zero stale reads for the writing session', priority:'(M,M)', pColor:'#888' },
+  400: { scenario:'The database horizontally partitions data across nodes as volume grows to 10TB with no schema changes.', stimulus:'Data volume grows from 1TB to 10TB', response:'Query performance maintained', measure:'p99 read latency degrades < 20% vs 1TB baseline', priority:'(H,M)', pColor:'#d06000' },
+  500: { scenario:'A new database node can be provisioned, configured, and added to the cluster using a single idempotent command.', stimulus:'Operations team adds a new node', response:'Node joins cluster, begins replication', measure:'Provisioning completes in < 10 minutes', priority:'(M,H)', pColor:'#d06000' },
+};
+
+const NODE_LABELS = {
+  0:'Utility', 1:'Performance', 2:'Availability', 3:'Consistency', 4:'Scalability', 5:'Operability',
+  10:'Write Throughput', 11:'Read Latency', 20:'Uptime SLA', 21:'Failover Behavior',
+  30:'Isolation Guarantees', 31:'Read-After-Write', 40:'Horizontal Scale-Out', 41:'Data Volume Limits',
+  50:'Operational Complexity', 51:'Observability',
+  100:'Write 100K/sec\n(H,H)', 101:'p99 read <10ms\n(H,M)',
+  200:'99.99% uptime\n(H,H)', 201:'Failover <30s\n(H,M)',
+  300:'Serializable reads\n(H,H)', 301:'Read-your-writes\n(M,M)',
+  400:'Scale to 10TB\n(H,M)',
+  500:'Single-cmd deploy\n(M,H)',
+};
+
+const nodes = new vis.DataSet([
+  { id:0,  label:'Utility',              color:{background:'#4a90d9',border:'#2a6aaa'}, font:{color:'#fff',size:16}, shape:'ellipse', level:0 },
+  { id:1,  label:'Performance',          color:{background:'#f0a500',border:'#c08000'}, font:{size:14}, shape:'box', level:1 },
+  { id:2,  label:'Availability',         color:{background:'#f0a500',border:'#c08000'}, font:{size:14}, shape:'box', level:1 },
+  { id:3,  label:'Consistency',          color:{background:'#f0a500',border:'#c08000'}, font:{size:14}, shape:'box', level:1 },
+  { id:4,  label:'Scalability',          color:{background:'#f0a500',border:'#c08000'}, font:{size:14}, shape:'box', level:1 },
+  { id:5,  label:'Operability',          color:{background:'#f0a500',border:'#c08000'}, font:{size:14}, shape:'box', level:1 },
+  { id:10, label:'Write Throughput',     color:{background:'#7db8e8',border:'#4488bb'}, font:{size:12}, shape:'box', level:2 },
+  { id:11, label:'Read Latency',         color:{background:'#7db8e8',border:'#4488bb'}, font:{size:12}, shape:'box', level:2 },
+  { id:20, label:'Uptime SLA',           color:{background:'#7db8e8',border:'#4488bb'}, font:{size:12}, shape:'box', level:2 },
+  { id:21, label:'Failover Behavior',    color:{background:'#7db8e8',border:'#4488bb'}, font:{size:12}, shape:'box', level:2 },
+  { id:30, label:'Isolation Guarantees', color:{background:'#7db8e8',border:'#4488bb'}, font:{size:12}, shape:'box', level:2 },
+  { id:31, label:'Read-After-Write',     color:{background:'#7db8e8',border:'#4488bb'}, font:{size:12}, shape:'box', level:2 },
+  { id:40, label:'Horizontal Scale-Out', color:{background:'#7db8e8',border:'#4488bb'}, font:{size:12}, shape:'box', level:2 },
+  { id:41, label:'Data Volume Limits',   color:{background:'#7db8e8',border:'#4488bb'}, font:{size:12}, shape:'box', level:2 },
+  { id:50, label:'Operational\nComplexity',color:{background:'#7db8e8',border:'#4488bb'},font:{size:12},shape:'box',level:2},
+  { id:51, label:'Observability',        color:{background:'#7db8e8',border:'#4488bb'}, font:{size:12}, shape:'box', level:2 },
+  { id:100,label:'Write 100K/sec\n(H,H)',color:{background:'#ffe0e0',border:'#cc0000'}, font:{size:11}, shape:'box', level:3 },
+  { id:101,label:'p99 read <10ms\n(H,M)',color:{background:'#ffe8cc',border:'#cc6600'}, font:{size:11}, shape:'box', level:3 },
+  { id:200,label:'99.99% uptime\n(H,H)', color:{background:'#ffe0e0',border:'#cc0000'}, font:{size:11}, shape:'box', level:3 },
+  { id:201,label:'Failover <30s\n(H,M)', color:{background:'#ffe8cc',border:'#cc6600'}, font:{size:11}, shape:'box', level:3 },
+  { id:300,label:'Serializable reads\n(H,H)',color:{background:'#ffe0e0',border:'#cc0000'},font:{size:11},shape:'box',level:3},
+  { id:301,label:'Read-your-writes\n(M,M)',color:{background:'#e8f4e8',border:'#4a7c4a'},font:{size:11},shape:'box',level:3},
+  { id:400,label:'Scale to 10TB\n(H,M)', color:{background:'#ffe8cc',border:'#cc6600'}, font:{size:11}, shape:'box', level:3 },
+  { id:500,label:'Single-cmd deploy\n(M,H)',color:{background:'#ffe8cc',border:'#cc6600'},font:{size:11},shape:'box',level:3},
+]);
+
+const edges = new vis.DataSet([
+  {from:0,to:1},{from:0,to:2},{from:0,to:3},{from:0,to:4},{from:0,to:5},
+  {from:1,to:10},{from:1,to:11},
+  {from:2,to:20},{from:2,to:21},
+  {from:3,to:30},{from:3,to:31},
+  {from:4,to:40},{from:4,to:41},
+  {from:5,to:50},{from:5,to:51},
+  {from:10,to:100},{from:11,to:101},
+  {from:20,to:200},{from:21,to:201},
+  {from:30,to:300},{from:31,to:301},
+  {from:40,to:400},
+  {from:50,to:500},
+]);
+
+const container = document.getElementById('network');
+const options = {
+  layout: { hierarchical: { direction:'UD', sortMethod:'directed', levelSeparation:90, nodeSpacing:120 } },
+  physics: false,
+  interaction: { hover:true, tooltipDelay:100 },
+  nodes: { shape:'box', borderWidth:1.5, shadow:false, margin:6, widthConstraint:{maximum:120} },
+  edges: { arrows:'to', color:{color:'#888'}, width:1.2, smooth:{type:'cubicBezier', forceDirection:'vertical'} },
+};
+
+const network = new vis.Network(container, {nodes, edges}, options);
+
+network.on('click', function(params) {
+  if (!params.nodes.length) { hideInfo(); return; }
+  const id = params.nodes[0];
+  if (LEAF_INFO[id]) {
+    showInfo(id);
+  } else {
+    hideInfo();
+  }
+});
+
+function showInfo(id) {
+  const d = LEAF_INFO[id];
+  document.getElementById('info-placeholder').style.display = 'none';
+  document.getElementById('info-content').style.display = 'block';
+  document.getElementById('i-name').textContent = NODE_LABELS[id] || ('Node ' + id);
+  document.getElementById('i-scenario').textContent = d.scenario;
+  document.getElementById('i-stimulus').textContent = d.stimulus;
+  document.getElementById('i-response').textContent = d.response;
+  document.getElementById('i-measure').textContent = d.measure;
+  const pb = document.getElementById('i-priority');
+  pb.textContent = d.priority;
+  pb.style.background = d.pColor;
+}
+
+function hideInfo() {
+  document.getElementById('info-placeholder').style.display = 'block';
+  document.getElementById('info-content').style.display = 'none';
+}
+
+function resetView() { network.fit({ animation:{ duration:600, easingFunction:'easeInOutQuad' } }); }
+</script>
+</body>
+</html>

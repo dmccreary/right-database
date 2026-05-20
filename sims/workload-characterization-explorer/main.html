@@ -3,132 +3,299 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
     <title>Workload Characterization Explorer</title>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #212529;
-        }
-        #container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-        }
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #1a3a6c;
-        }
-        .placeholder {
-            border: 2px dashed #adb5bd;
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            color: #6c757d;
-            margin: 20px 0;
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .placeholder .badge {
-            display: inline-block;
-            background: #ffc107;
-            color: #212529;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .placeholder h2 {
-            font-size: 18px;
-            color: #495057;
-            margin-bottom: 8px;
-        }
-        .placeholder p {
-            font-size: 14px;
-            max-width: 480px;
-        }
-        .meta {
-            margin-top: 20px;
-            font-size: 13px;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
-        }
-        .meta strong { color: #495057; }
+        body { margin: 0; padding: 0; font-family: Arial, sans-serif; }
     </style>
 </head>
 <body>
-    <div id="container">
-        <h1>Workload Characterization Explorer</h1>
-        <div class="placeholder">
-            <span class="badge">SCAFFOLD</span>
-            <h2>MicroSim Not Yet Implemented</h2>
-            <p>This MicroSim has been scaffolded from its specification but the
-            interactive content has not been built yet. See the chapter source
-            and the <code>index.md</code> in this directory for the full spec.</p>
-        </div>
-        <div class="meta">
-            <p><strong>Sim ID:</strong> workload-characterization-explorer</p>
-            <p><strong>Library:</strong> p5.js</p>
-            <p><strong>Bloom Level:</strong> TBD</p>
-            <p><strong>Learning Objective:</strong> Analyzing (Bloom's level 4) — students compare the architectural signatures of OLTP, OLAP, and HTAP workloads across seven dimensions and identify which database design choices each workload drives.</p>
-        </div>
-    </div>
+<main></main>
+<br/>
+<a href=".">Back to Workload Characterization Explorer</a>
 
-    <!--
-    SPECIFICATION (from chapter index.md):
+<script>
+// Workload Characterization Explorer — p5.js
+// CANVAS_HEIGHT: 580
 
-    Type: interactive-infographic
-    **sim-id:** workload-characterization-explorer
-    **Library:** p5.js
-    **Status:** Specified
-    
-    **Learning objective:** Analyzing (Bloom's level 4) — students compare the architectural signatures of OLTP, OLAP, and HTAP workloads across seven dimensions and identify which database design choices each workload drives.
-    
-    **Canvas:** 900 × 540px, responsive. Left panel (280px): three large clickable workload cards (OLTP, OLAP, HTAP). Right panel (580px): a radar chart showing the selected workload's profile across seven axes, plus a text summary below.
-    
-    **Workload data:**
-    
-    Seven radar axes (each scored 1–5):
-    - Concurrency (simultaneous users)
-    - Write frequency
-    - Read frequency
-    - Result set size
-    - Query complexity
-    - Latency sensitivity
-    - Consistency strictness
-    
-    OLTP scores: Concurrency=5, Write=4, Read=4, ResultSize=1, Complexity=2, Latency=5, Consistency=5
-    OLAP scores: Concurrency=1, Write=1, Read=5, ResultSize=5, Complexity=5, Latency=2, Consistency=2
-    HTAP scores: Concurrency=4, Write=4, Read=5, ResultSize=3, Complexity=4, Latency=4, Consistency=4
-    
-    **Left panel cards:**
-    - OLTP card: blue (#4682B4), icon of "⚡ Fast Transactions", subtitle "Point reads/writes at scale"
-    - OLAP card: purple (#6f42c1), icon of "📊 Deep Analysis", subtitle "Aggregate scans over history"
-    - HTAP card: orange (#E65100), icon of "🔀 Hybrid", subtitle "Both, from one system"
-    
-    **Right panel:**
-    Radar chart with axes labeled. Selected workload polygon filled at 40% opacity in the workload's card color. A second semi-transparent grey polygon shows the "other" workload profiles at low opacity for comparison.
-    
-    Below the radar: a text block with three subsections:
-    - "Typical storage engine" (B-tree / Columnar / Both)
-    - "Canonical database examples" (PostgreSQL, MySQL / Snowflake, BigQuery / TiDB, SingleStore)
-    - "When to choose this workload pattern" (2-sentence description)
-    
-    **Interaction:**
-    - Clicking a workload card highlights it and updates the radar and text panel with animation (300ms ease).
-    - Default selected on load: OLTP.
-    - Hovering a radar axis label shows a tooltip with a one-sentence description of that dimension.
-    
-    **Responsive:** Below 700px, left panel stacks above the radar chart.
-    -->
+let containerWidth, canvasWidth;
+const drawHeight = 500;
+const controlHeight = 80;
+const canvasHeight = drawHeight + controlHeight;
+
+// Axes (7 dimensions)
+const AXES = [
+  'Concurrency', 'Write Frequency', 'Read Frequency',
+  'Result Set Size', 'Query Complexity', 'Latency Sensitivity', 'Consistency Strictness'
+];
+const N_AXES = AXES.length;
+
+// Workload definitions (scores 1–5 on each axis)
+const WORKLOADS = [
+  {
+    name: 'OLTP', icon: '⚡',
+    subtitle: 'Point reads/writes at scale',
+    color: '#4682B4', lightColor: 'rgba(70,130,180,0.35)',
+    scores: [5, 4, 4, 1, 2, 5, 5],
+    storage: 'B-tree (row-oriented)',
+    examples: 'PostgreSQL, MySQL, Oracle',
+    when: 'Choose OLTP when you need high-concurrency transactional workloads with strict consistency — e-commerce orders, banking, user accounts. Each transaction touches few rows and must complete in milliseconds.',
+  },
+  {
+    name: 'OLAP', icon: '📊',
+    subtitle: 'Aggregate scans over history',
+    color: '#6f42c1', lightColor: 'rgba(111,66,193,0.35)',
+    scores: [1, 1, 5, 5, 5, 2, 2],
+    storage: 'Columnar (compressed)',
+    examples: 'Snowflake, BigQuery, Redshift',
+    when: 'Choose OLAP when you need to scan and aggregate billions of rows for business intelligence, reporting, or data science. Few concurrent users, high latency acceptable, consistency is eventual.',
+  },
+  {
+    name: 'HTAP', icon: '🔀',
+    subtitle: 'Both, from one system',
+    color: '#E65100', lightColor: 'rgba(230,81,0,0.35)',
+    scores: [4, 4, 5, 3, 4, 4, 4],
+    storage: 'Hybrid row + columnar',
+    examples: 'TiDB, SingleStore, CockroachDB',
+    when: 'Choose HTAP when you need both fresh transactional data and analytical queries without ETL delay — real-time dashboards, fraud detection, operational analytics. Higher complexity and cost.',
+  },
+];
+
+let selected = 0; // index into WORKLOADS
+let cardButtons = [];
+let hovered = -1;
+
+// Card layout (left panel)
+const CARD_X = 10;
+const CARD_W = 220;
+const CARD_H = 80;
+const CARD_GAP = 14;
+const CARDS_START_Y = 60;
+
+// Radar chart center and radius
+function radarCX() { return CARD_X + CARD_W + (canvasWidth - CARD_X - CARD_W) / 2; }
+function radarCY() { return drawHeight * 0.46; }
+function radarR()  { return Math.min((canvasWidth - CARD_X - CARD_W - 40) / 2, drawHeight * 0.38); }
+
+function setup() {
+  updateCanvasSize();
+  const canvas = createCanvas(containerWidth, canvasHeight);
+  canvas.parent(document.querySelector('main'));
+  textFont('Arial');
+  noLoop();
+  describe('Workload Characterization Explorer — compare OLTP, OLAP, and HTAP profiles on a radar chart', LABEL);
+}
+
+function draw() {
+  updateCanvasSize();
+  resizeCanvas(containerWidth, canvasHeight);
+  background(248, 249, 250);
+
+  // Draw control/info area
+  fill(255); stroke(220); strokeWeight(1);
+  rect(0, drawHeight, canvasWidth, controlHeight);
+
+  // Info text for selected workload
+  const w = WORKLOADS[selected];
+  noStroke();
+  fill(60); textAlign(LEFT, TOP); textSize(12);
+  const ix = CARD_X + CARD_W + 20;
+  const iw = canvasWidth - ix - 10;
+  fill(w.color); textSize(13); text(w.name + ' — ' + w.subtitle, ix, drawHeight + 8);
+  fill(80); textSize(11.5);
+  text('Storage: ' + w.storage, ix, drawHeight + 28);
+  text('Examples: ' + w.examples, ix, drawHeight + 44);
+  // Wrap the "when" text
+  drawWrapped(w.when, ix, drawHeight + 60, iw, 11);
+
+  // Left panel background
+  fill(240, 244, 250); stroke(210); strokeWeight(1);
+  rect(CARD_X - 4, 44, CARD_W + 8, drawHeight - 50, 5);
+
+  // Panel title
+  noStroke(); fill('#1a3a6c'); textAlign(LEFT, TOP); textSize(13);
+  text('Select Workload Type', CARD_X + 2, 50);
+
+  // Workload cards
+  cardButtons = [];
+  for (let i = 0; i < WORKLOADS.length; i++) {
+    const cy = CARDS_START_Y + 20 + i * (CARD_H + CARD_GAP);
+    cardButtons.push({ x: CARD_X, y: cy, w: CARD_W, h: CARD_H, idx: i });
+    drawCard(WORKLOADS[i], CARD_X, cy, CARD_W, CARD_H, i === selected, i === hovered);
+  }
+
+  // Radar chart
+  drawRadar();
+  drawRadarData();
+
+  // Legend
+  const legY = drawHeight - 28;
+  const legX = CARD_X + CARD_W + 22;
+  noStroke(); fill(100); textAlign(LEFT, CENTER); textSize(11);
+  text('Axis scale: 1 (low) → 5 (high)', legX, legY);
+
+  // Title
+  noStroke(); fill('#1a3a6c'); textAlign(LEFT, TOP); textSize(15);
+  text('Workload Characterization Explorer', CARD_X, 10);
+}
+
+function drawCard(wl, cx, cy, cw, ch, isSel, isHov) {
+  // Shadow
+  if (isSel) {
+    fill(0,0,0,25); noStroke();
+    rect(cx+3, cy+3, cw, ch, 8);
+  }
+  // Border
+  let sw = isSel ? 3 : (isHov ? 2 : 1.5);
+  let sc = isSel ? wl.color : (isHov ? '#888' : '#ccc');
+  stroke(sc); strokeWeight(sw); fill(255);
+  rect(cx, cy, cw, ch, 7);
+  // Left color bar
+  noStroke(); fill(wl.color);
+  rect(cx, cy, 6, ch, 7, 0, 0, 7);
+  // Icon + name
+  noStroke(); fill(wl.color); textSize(22); textAlign(LEFT, TOP);
+  text(wl.icon, cx + 16, cy + 10);
+  fill('#1a3a6c'); textSize(14); textStyle(BOLD);
+  text(wl.name, cx + 44, cy + 13);
+  textStyle(NORMAL);
+  fill(90); textSize(11);
+  text(wl.subtitle, cx + 44, cy + 32);
+  // Score bars (mini)
+  const barX = cx + 16;
+  const barY = cy + 54;
+  const barW = (cw - 24) / N_AXES;
+  for (let i = 0; i < N_AXES; i++) {
+    const bx = barX + i * barW;
+    fill(230); noStroke();
+    rect(bx, barY, barW - 2, 8, 2);
+    fill(wl.color);
+    rect(bx, barY, (barW - 2) * wl.scores[i] / 5, 8, 2);
+  }
+}
+
+function drawRadar() {
+  const cx = radarCX(), cy = radarCY(), r = radarR();
+  // Grid rings
+  for (let ring = 1; ring <= 5; ring++) {
+    const rr = r * ring / 5;
+    stroke(200); strokeWeight(1); noFill();
+    beginShape();
+    for (let i = 0; i < N_AXES; i++) {
+      const angle = TWO_PI * i / N_AXES - HALF_PI;
+      vertex(cx + rr * cos(angle), cy + rr * sin(angle));
+    }
+    endShape(CLOSE);
+    // Ring label
+    if (ring % 2 === 0) {
+      noStroke(); fill(160); textSize(10); textAlign(CENTER, CENTER);
+      text(ring, cx + 6, cy - rr + 4);
+    }
+  }
+  // Axis lines + labels
+  for (let i = 0; i < N_AXES; i++) {
+    const angle = TWO_PI * i / N_AXES - HALF_PI;
+    stroke(180); strokeWeight(1);
+    line(cx, cy, cx + r * cos(angle), cy + r * sin(angle));
+    // Label
+    const labelR = r + 22;
+    const lx = cx + labelR * cos(angle);
+    const ly = cy + labelR * sin(angle);
+    noStroke(); fill(60); textSize(11);
+    textAlign(CENTER, CENTER);
+    text(AXES[i], lx, ly);
+  }
+}
+
+function drawRadarData() {
+  const cx = radarCX(), cy = radarCY(), r = radarR();
+  // Draw all workloads faded
+  for (let wi = 0; wi < WORKLOADS.length; wi++) {
+    if (wi === selected) continue;
+    const wl = WORKLOADS[wi];
+    fill(wl.lightColor.replace('0.35', '0.12')); stroke(wl.color); strokeWeight(1);
+    opacity(60);
+    beginShape();
+    for (let i = 0; i < N_AXES; i++) {
+      const angle = TWO_PI * i / N_AXES - HALF_PI;
+      const rv = r * wl.scores[i] / 5;
+      vertex(cx + rv * cos(angle), cy + rv * sin(angle));
+    }
+    endShape(CLOSE);
+  }
+  // Draw selected workload prominently
+  const wl = WORKLOADS[selected];
+  fill(wl.lightColor); stroke(wl.color); strokeWeight(2.5);
+  beginShape();
+  for (let i = 0; i < N_AXES; i++) {
+    const angle = TWO_PI * i / N_AXES - HALF_PI;
+    const rv = r * wl.scores[i] / 5;
+    vertex(cx + rv * cos(angle), cy + rv * sin(angle));
+  }
+  endShape(CLOSE);
+  // Dots at vertices
+  fill(wl.color); noStroke();
+  for (let i = 0; i < N_AXES; i++) {
+    const angle = TWO_PI * i / N_AXES - HALF_PI;
+    const rv = r * wl.scores[i] / 5;
+    circle(cx + rv * cos(angle), cy + rv * sin(angle), 8);
+  }
+  // Selected label
+  noStroke(); fill(wl.color); textSize(16); textStyle(BOLD); textAlign(CENTER, CENTER);
+  text(wl.icon + ' ' + wl.name, cx, cy + r + 36);
+  textStyle(NORMAL);
+}
+
+function drawWrapped(txt, x, y, maxW, sz) {
+  textSize(sz); textAlign(LEFT, TOP); fill(80);
+  const words = txt.split(' ');
+  let line = '';
+  let ly = y;
+  for (let word of words) {
+    const test = line + (line ? ' ' : '') + word;
+    if (textWidth(test) > maxW && line) {
+      text(line, x, ly); ly += sz + 3; line = word;
+    } else {
+      line = test;
+    }
+  }
+  if (line) text(line, x, ly);
+}
+
+function mousePressed() {
+  for (const b of cardButtons) {
+    if (mouseX >= b.x && mouseX <= b.x + b.w && mouseY >= b.y && mouseY <= b.y + b.h) {
+      selected = b.idx; redraw(); return;
+    }
+  }
+}
+
+function mouseMoved() {
+  const prev = hovered;
+  hovered = -1;
+  for (const b of cardButtons) {
+    if (mouseX >= b.x && mouseX <= b.x + b.w && mouseY >= b.y && mouseY <= b.y + b.h) {
+      hovered = b.idx; break;
+    }
+  }
+  if (prev !== hovered) {
+    cursor(hovered >= 0 ? HAND : ARROW);
+    redraw();
+  }
+}
+
+function windowResized() {
+  updateCanvasSize();
+  resizeCanvas(containerWidth, canvasHeight);
+  redraw();
+}
+
+function updateCanvasSize() {
+  const c = document.querySelector('main').getBoundingClientRect();
+  containerWidth = Math.floor(c.width);
+  canvasWidth = containerWidth;
+}
+</script>
 </body>
 </html>

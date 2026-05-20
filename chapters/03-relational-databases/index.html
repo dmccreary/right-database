@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="DESCRIPTION All content licensed Creative Commons ShareAlike Attribution Noncommercial">
+        <meta name="description" content="Deep dive into the relational model — normalization, SQL, indexing strategies, MVCC and lock-based concurrency, write-ahead logging, and where PostgreSQL and MySQL excel and hit their limits.">
       
       
         <meta name="author" content="Dan McCreary">
@@ -29,7 +29,7 @@
     
     
       
-        <title>3. Relational Databases - Selecting the Right Database</title>
+        <title>Chapter 3 - Relational Databases - Selecting the Right Database</title>
       
     
     
@@ -77,16 +77,16 @@
     
   
 <meta property="og:type" content="website" />
-<meta property="og:title" content="3. Relational Databases - Selecting the Right Database" />
-<meta property="og:description" content="DESCRIPTION All content licensed Creative Commons ShareAlike Attribution Noncommercial" />
+<meta property="og:title" content="Chapter 3 - Relational Databases - Selecting the Right Database" />
+<meta property="og:description" content="Deep dive into the relational model — normalization, SQL, indexing strategies, MVCC and lock-based concurrency, write-ahead logging, and where PostgreSQL and MySQL excel and hit their limits." />
 <meta property="og:image" content="https://dmccreary.github.io/right-database/assets/images/social/chapters/03-relational-databases/index.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:url" content="https://dmccreary.github.io/right-database/chapters/03-relational-databases/" />
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="3. Relational Databases - Selecting the Right Database" />
-<meta property="twitter:description" content="DESCRIPTION All content licensed Creative Commons ShareAlike Attribution Noncommercial" />
+<meta property="twitter:title" content="Chapter 3 - Relational Databases - Selecting the Right Database" />
+<meta property="twitter:description" content="Deep dive into the relational model — normalization, SQL, indexing strategies, MVCC and lock-based concurrency, write-ahead logging, and where PostgreSQL and MySQL excel and hit their limits." />
 <meta property="twitter:image" content="https://dmccreary.github.io/right-database/assets/images/social/chapters/03-relational-databases/index.png" />
 </head>
   
@@ -141,7 +141,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              3. Relational Databases
+              Chapter 3 - Relational Databases
             
           </span>
         </div>
@@ -582,6 +582,234 @@
     <span class="md-ellipsis">
       
         Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-relational-model-data-as-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Relational Model: Data as Tables
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Relational Model: Data as Tables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-interactive-relational-model-explorer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Interactive Relational Model Explorer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-the-query-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQL: The Query Language
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normalization-eliminating-redundancy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Normalization: Eliminating Redundancy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Normalization: Eliminating Redundancy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-normalization-visualizer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Normalization Visualizer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#join-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Join Operations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#b-tree-indexes-and-query-execution-plans" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B-Tree Indexes and Query Execution Plans
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="B-Tree Indexes and Query Execution Plans">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-b-tree-index-traversal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: B-Tree Index Traversal
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stored-procedures-and-views" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stored Procedures and Views
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-write-ahead-log-and-crash-recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Write-Ahead Log and Crash Recovery
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concurrency-control-locking-vs-mvcc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concurrency Control: Locking vs. MVCC
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Concurrency Control: Locking vs. MVCC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-mvcc-vs-lock-based-concurrency-timeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: MVCC vs. Lock-Based Concurrency Timeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deadlock-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deadlock Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connection-pooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connection Pooling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postgresql-and-mysql-the-canonical-representatives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PostgreSQL and MySQL: The Canonical Representatives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-atam-lens-when-relational-databases-win-and-lose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The ATAM Lens: When Relational Databases Win and Lose
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The ATAM Lens: When Relational Databases Win and Lose">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-relational-database-atam-radar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Relational Database ATAM Radar
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Takeaways
       
     </span>
   </a>
@@ -1629,6 +1857,234 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#the-relational-model-data-as-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Relational Model: Data as Tables
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Relational Model: Data as Tables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-interactive-relational-model-explorer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Interactive Relational Model Explorer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-the-query-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQL: The Query Language
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normalization-eliminating-redundancy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Normalization: Eliminating Redundancy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Normalization: Eliminating Redundancy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-normalization-visualizer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Normalization Visualizer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#join-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Join Operations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#b-tree-indexes-and-query-execution-plans" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B-Tree Indexes and Query Execution Plans
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="B-Tree Indexes and Query Execution Plans">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-b-tree-index-traversal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: B-Tree Index Traversal
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stored-procedures-and-views" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stored Procedures and Views
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-write-ahead-log-and-crash-recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Write-Ahead Log and Crash Recovery
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concurrency-control-locking-vs-mvcc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concurrency Control: Locking vs. MVCC
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Concurrency Control: Locking vs. MVCC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-mvcc-vs-lock-based-concurrency-timeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: MVCC vs. Lock-Based Concurrency Timeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deadlock-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deadlock Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connection-pooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connection Pooling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postgresql-and-mysql-the-canonical-representatives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PostgreSQL and MySQL: The Canonical Representatives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-atam-lens-when-relational-databases-win-and-lose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The ATAM Lens: When Relational Databases Win and Lose
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The ATAM Lens: When Relational Databases Win and Lose">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-relational-database-atam-radar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Relational Database ATAM Radar
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1730,13 +2186,346 @@
 <li><a href="../02-database-foundations/">Chapter 2: Database Foundations</a></li>
 </ul>
 <hr />
-<p>TODO: Generate Chapter Content</p>
+<div class="admonition mascot-welcome">
+<p class="admonition-title">Welcome to Chapter 3!</p>
+<p><img src="../../img/mascot/welcome.png" class="mascot-admonition-img" alt="Dex waves hello">
+Relational databases have been the default choice for structured data since the 1970s, and understanding <em>why</em> they work — and where they don't — is essential before evaluating any alternative. This chapter builds the technical vocabulary you'll use to compare every paradigm that follows. Pay particular attention to normalization, MVCC, and the write-ahead log: these three ideas appear in disguised form in nearly every modern database, even the ones that market themselves as "NoSQL."</p>
+</div>
+<h2 id="the-relational-model-data-as-tables">The Relational Model: Data as Tables</h2>
+<p>Edgar Codd's 1970 paper "A Relational Model of Data for Large Shared Data Banks" introduced an idea that still shapes database design today: represent all data as relations — tables with rows and columns — and use a declarative query language to retrieve it. The revolutionary insight was <em>independence</em>: application code should not know how data is physically stored or retrieved. The database engine handles those details.</p>
+<p>A <strong>relational data model</strong> organizes data into tables (also called relations). Each table has a fixed schema: a named set of columns (attributes), each with a declared data type. Each row (tuple) represents one instance of the entity the table describes. Two properties must hold for a table to be a proper relation: every column must contain atomic (indivisible) values, and no two rows may be identical.</p>
+<p>The <strong>primary key</strong> is one or more columns whose values uniquely identify every row in a table. The engine enforces uniqueness automatically — attempting to insert a duplicate primary key raises a constraint violation. When a column in one table stores values that correspond to primary keys in another table, it is called a <strong>foreign key</strong>. The engine can enforce that every foreign key value refers to an existing primary key, a guarantee called referential integrity.</p>
+<p>Before examining a live example, note that three terms appear in almost every relational diagram — table, row, and column — and confusing them is a common source of schema design errors.</p>
+<ul>
+<li>A <strong>table</strong> defines the structure (what columns exist, what types they have).</li>
+<li>A <strong>row</strong> is one record: one complete set of column values.</li>
+<li>A <strong>column</strong> stores one attribute across all rows.</li>
+</ul>
+<h4 id="diagram-interactive-relational-model-explorer">Diagram: Interactive Relational Model Explorer</h4>
+<details markdown="1">
+<summary>Interactive Relational Model Explorer</summary>
+Type: MicroSim
+**sim-id:** relational-model-explorer<br/>
+**Library:** p5.js<br/>
+**Status:** Specified
+
+**Learning Objective:** Identify the structural components of the relational model (table, row, column, primary key, foreign key) and explain how foreign keys create relationships between tables. (Bloom L1–L2: Remember/Understand)
+
+**Canvas:** 760px wide × 460px tall. CANVAS_HEIGHT: 460.
+
+**Description:**
+Display two tables side by side: `orders` (left) and `customers` (right). Each table is rendered as a grid with a header row (column names in bold, light-gray background) and 4 data rows. Columns in `orders`: `order_id` (PK, highlighted gold), `customer_id` (FK, highlighted blue), `amount`, `status`. Columns in `customers`: `customer_id` (PK, highlighted gold), `name`, `city`.
+
+Draw an animated dashed arrow from the `customer_id` FK column in `orders` to the `customer_id` PK column in `customers` when the user hovers over any FK cell. The arrow should animate (dash offset scrolling) to indicate the referential link.
+
+**Interactions:**
+- Hovering any cell highlights the entire row that cell belongs to (yellow tint).
+- Clicking a FK cell in `orders` highlights the matching PK row in `customers` with a green tint and draws a bold connecting line between the two rows.
+- A bottom info panel updates on hover/click: "This FK value (3) refers to customer row 3: Alice / San Francisco." If the user clicks a row with no matching FK (null), display: "NULL foreign key — this order has no associated customer."
+- A "Referential Integrity" toggle button: when toggled ON, an attempt to insert a new `orders` row with an invalid `customer_id` is shown (row flashes red and a tooltip reads "Constraint violation: customer 99 does not exist").
+
+**Responsive:** Redraws on window resize maintaining aspect ratio.
+
+**Color conventions:** PK columns: `#FFD700` (gold). FK columns: `#4682B4` (steel blue). Selected rows: `#c8e6c9` (light green). Hover rows: `#FFF9C4` (light yellow). Header: `#ECEFF1`.
+</details>
+
+<h2 id="sql-the-query-language">SQL: The Query Language</h2>
+<p><strong>SQL (Structured Query Language)</strong> is the standardized language for defining, manipulating, and querying relational data. It is declarative: you describe <em>what</em> you want, not <em>how</em> to retrieve it. The database's query planner decides the physical retrieval strategy.</p>
+<p>SQL divides into three sublanguages that together cover every operation a relational database needs:</p>
+<ul>
+<li><strong>DDL (Data Definition Language):</strong> <code>CREATE TABLE</code>, <code>ALTER TABLE</code>, <code>DROP TABLE</code> — define the schema.</li>
+<li><strong>DML (Data Manipulation Language):</strong> <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code> — manipulate data.</li>
+<li><strong>DCL (Data Control Language):</strong> <code>GRANT</code>, <code>REVOKE</code> — control permissions.</li>
+</ul>
+<p>The most important and complex DML statement is <code>SELECT</code>. A query that retrieves all orders over $1,000 placed by customers in New York looks like this:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">order_id</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">amount</span>
+<span class="k">FROM</span><span class="w">   </span><span class="n">orders</span><span class="w"> </span><span class="n">o</span>
+<span class="k">JOIN</span><span class="w">   </span><span class="n">customers</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">customer_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">customer_id</span>
+<span class="k">WHERE</span><span class="w">  </span><span class="k">c</span><span class="p">.</span><span class="n">city</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;New York&#39;</span>
+<span class="w">  </span><span class="k">AND</span><span class="w">  </span><span class="n">o</span><span class="p">.</span><span class="n">amount</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1000</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">amount</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+<p>Before running this query, the database's query planner examines statistics about table sizes, available indexes, and column cardinalities to produce an execution plan — a tree of physical operators (index scan, hash join, sort) that retrieves the result as efficiently as possible.</p>
+<h2 id="normalization-eliminating-redundancy">Normalization: Eliminating Redundancy</h2>
+<p><strong>Normalization</strong> is the process of structuring a relational schema to reduce data redundancy and prevent update anomalies. The theory defines a series of <strong>normal forms</strong>, each a stronger constraint on how data is organized. For most production systems, reaching <strong>Third Normal Form (3NF)</strong> is the practical target.</p>
+<p>The problem normalization solves is best illustrated by what happens without it. Suppose an <code>orders</code> table stores customer name and city in every row. When a customer moves cities, every one of their order rows must be updated. Miss one, and the data is inconsistent. Normalization eliminates such redundancy by ensuring each fact is stored in exactly one place.</p>
+<p><strong>First Normal Form (1NF)</strong> requires that every column hold atomic values — no lists, no comma-separated strings, no repeating groups. A column <code>phone_numbers</code> containing "555-1234, 555-5678" violates 1NF; the fix is a separate <code>phone_numbers</code> table with one phone per row.</p>
+<p><strong>Second Normal Form (2NF)</strong> applies to tables with composite primary keys. Every non-key column must depend on the <em>entire</em> composite key, not just part of it.</p>
+<p><strong>Third Normal Form (3NF)</strong> requires that every non-key column depend directly on the primary key — and <em>only</em> on the primary key. No non-key column may determine another non-key column (no transitive dependencies). Storing <code>city</code> alongside <code>zip_code</code> in a customer table violates 3NF if zip code already determines city; the fix is a separate <code>zip_codes</code> table.</p>
+<h4 id="diagram-normalization-visualizer">Diagram: Normalization Visualizer</h4>
+<details markdown="1">
+<summary>Normalization Visualizer — 1NF to 3NF Step-by-Step</summary>
+Type: MicroSim
+**sim-id:** normalization-visualizer<br/>
+**Library:** p5.js<br/>
+**Status:** Specified
+
+**Learning Objective:** Apply the rules of 1NF and 3NF to transform a denormalized table into a properly normalized schema. (Bloom L3: Apply)
+
+**Canvas:** 780px wide × 520px tall. CANVAS_HEIGHT: 520.
+
+**Description:**
+Display a step-through wizard with 4 stages: Unnormalized → 1NF → 2NF → 3NF.
+
+**Unnormalized stage:** Show a single `order_details` table with columns: `order_id`, `customer_name`, `customer_city`, `zip_code`, `products` (a multi-valued cell showing "Laptop, Mouse"). Highlight the `products` column in red with a tooltip "Violation: non-atomic value."
+
+**1NF stage:** Expand the multi-valued `products` into separate rows. Each product gets its own row. Highlight the change in green. Show a callout: "Fixed: atomic values — one product per row."
+
+**2NF stage:** Show that `customer_name` depends only on `order_id`, not on the full composite key. Split into `orders` and `order_items`. Show the callout: "Fixed: no partial dependencies."
+
+**3NF stage:** Show that `customer_city` is determined by `zip_code` (transitive dependency — red highlight). Split to create a `zip_codes` reference table. Show the final schema of 4 normalized tables.
+
+**Controls:**
+- "Next Step" and "Prev Step" buttons navigate stages.
+- Violations show a red glow on offending column(s); fixed columns glow green.
+- A bottom text panel describes the current violation and the fix applied.
+
+**Responsive:** Redraws on window resize.
+</details>
+
+<h2 id="join-operations">Join Operations</h2>
+<p>A <strong>join operation</strong> combines rows from two or more tables based on a related column. It is the mechanism that makes normalized schemas useful: data stored in separate tables is re-assembled at query time. SQL supports several join types, each with different semantics for handling rows with no match.</p>
+<p>Before examining the variants, two terms need definitions: the <strong>driving table</strong> is the one whose rows are read first; the <strong>probing table</strong> is the one searched for matches.</p>
+<table>
+<thead>
+<tr>
+<th>Join Type</th>
+<th>Rows Returned</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INNER JOIN</td>
+<td>Only rows with matching values in both tables</td>
+</tr>
+<tr>
+<td>LEFT JOIN</td>
+<td>All rows from left table; NULLs for unmatched right rows</td>
+</tr>
+<tr>
+<td>RIGHT JOIN</td>
+<td>All rows from right table; NULLs for unmatched left rows</td>
+</tr>
+<tr>
+<td>FULL OUTER JOIN</td>
+<td>All rows from both tables; NULLs wherever no match</td>
+</tr>
+<tr>
+<td>CROSS JOIN</td>
+<td>Every combination of rows from both tables (Cartesian product)</td>
+</tr>
+</tbody>
+</table>
+<p>The physical implementation of a join is determined by the query planner. Three common algorithms are:</p>
+<ul>
+<li><strong>Nested-loop join:</strong> For each row in the driving table, scan the probing table for matches. Simple but O(n×m).</li>
+<li><strong>Hash join:</strong> Build a hash table from the smaller relation; probe it with rows from the larger. O(n+m) for unsorted data.</li>
+<li><strong>Merge join:</strong> Sort both relations on the join key, then merge. Efficient when both inputs are already sorted by an index.</li>
+</ul>
+<h2 id="b-tree-indexes-and-query-execution-plans">B-Tree Indexes and Query Execution Plans</h2>
+<p>Without indexes, every query requires a full table scan — reading every row to find matching ones. For tables with millions of rows, this is prohibitively slow. <strong>Indexes</strong> are auxiliary data structures that allow the engine to jump directly to relevant rows.</p>
+<p>The <strong>B-Tree index</strong> (balanced tree) is the default index type in PostgreSQL, MySQL, and most other relational databases. A B-Tree stores index entries in sorted order across a balanced multi-level tree. Each leaf node contains the indexed column value plus a pointer (row ID or primary key) to the heap row. The tree remains balanced after inserts and deletes through node splits and merges, guaranteeing O(log n) lookup regardless of table size.</p>
+<p>B-Trees excel at equality lookups (<code>WHERE customer_id = 42</code>), range scans (<code>WHERE amount BETWEEN 100 AND 500</code>), and ORDER BY acceleration when the sort column matches the index.</p>
+<p>A <strong>query execution plan</strong> is the tree of physical operations the engine will use to execute a query. Engineers use <code>EXPLAIN</code> (PostgreSQL) or <code>EXPLAIN ANALYZE</code> to inspect plans, identify unintentional full table scans, and diagnose slow queries.</p>
+<h4 id="diagram-b-tree-index-traversal">Diagram: B-Tree Index Traversal</h4>
+<details markdown="1">
+<summary>Interactive B-Tree Index Traversal</summary>
+Type: MicroSim
+**sim-id:** btree-index-traversal<br/>
+**Library:** p5.js<br/>
+**Status:** Specified
+
+**Learning Objective:** Demonstrate how a B-Tree index traverses from root to leaf to locate a specific key, and explain the O(log n) performance characteristic. (Bloom L2–L3: Understand/Apply)
+
+**Canvas:** 780px wide × 480px tall. CANVAS_HEIGHT: 480.
+
+**Description:**
+Render a 3-level B-Tree with fan-out 3. Root node contains 2 key values (30, 70) and 3 child pointers. Each internal node has 2 keys and 3 child pointers. Leaf nodes contain 2–3 key-value pairs and a "next leaf" pointer (dashed horizontal arrow).
+
+**Interactive search:** A text input at top lets the user type a key (1–99). Clicking "Search" animates the traversal: highlight root, evaluate against root values (tooltip: "42 < 70, go left"), highlight child pointer, move to next node, repeat to leaf. Each step: 600ms delay. Leaf hits show green; misses show red.
+
+**Range scan mode:** A "Range Scan" button reveals min/max inputs. Highlight all leaf nodes in range and animate leaf-to-leaf pointer traversal.
+
+**Counter panel:** Shows "Nodes visited: 3 of 13" and "Steps: O(log₃ 13) ≈ 2.3" after each search.
+
+**Responsive:** Redraws on window resize.
+</details>
+
+<div class="admonition mascot-tip">
+<p class="admonition-title">Index Selectivity Matters</p>
+<p><img src="../../img/mascot/tip.png" class="mascot-admonition-img" alt="Dex offers a tip">
+A B-Tree index on a boolean column is nearly useless — the engine still reads half the table. Index high-cardinality columns (many distinct values). The query planner uses statistics to decide when an index scan beats a full table scan; never assume an index is being used until you've run <code>EXPLAIN ANALYZE</code>.</p>
+</div>
+<h2 id="stored-procedures-and-views">Stored Procedures and Views</h2>
+<p>A <strong>stored procedure</strong> is a named, pre-compiled block of SQL stored in the database and executed on demand. Stored procedures reduce network round trips, can enforce business rules at the database level, and allow the engine to cache the execution plan.</p>
+<p>A <strong>database view</strong> is a named query stored in the database's catalog. When queried, the view executes its underlying SELECT and returns the result as if it were a table. Views serve two purposes: they simplify complex queries (encapsulating a multi-table join) and they provide a security layer (users can access a view without accessing the underlying tables). A <strong>materialized view</strong> physically stores the view's result set and refreshes it periodically — useful for expensive aggregations that don't need to be real-time.</p>
+<h2 id="the-write-ahead-log-and-crash-recovery">The Write-Ahead Log and Crash Recovery</h2>
+<p>The <strong>transaction log</strong> is a sequential, append-only file that records every change made to the database. Before a change is applied to actual data pages on disk, it is first written to the log. This "write-ahead" ordering is what gives the <strong>Write-Ahead Log (WAL)</strong> its name and its power.</p>
+<p>The WAL is the foundation of crash recovery. If the database crashes mid-transaction, on restart the engine scans the WAL from the last checkpoint: fully committed transactions (COMMIT record present) are <strong>redone</strong>; uncommitted transactions (no COMMIT record) are <strong>undone</strong>. The WAL also enables point-in-time recovery by shipping log files to a standby server, and in PostgreSQL it is the foundation of logical replication.</p>
+<h2 id="concurrency-control-locking-vs-mvcc">Concurrency Control: Locking vs. MVCC</h2>
+<p>When multiple transactions access the same data simultaneously, the database must prevent anomalies — lost updates, dirty reads, phantom reads. Relational databases use two primary concurrency control mechanisms.</p>
+<p><strong>Lock-based concurrency control</strong> (pessimistic concurrency) prevents conflicts by acquiring locks before accessing data. Shared locks allow concurrent reads; exclusive locks prevent both concurrent reads and writes. Transactions hold locks until they commit or roll back. Conflicts are prevented before they occur, at the cost of throughput — long-running transactions block other transactions on the same rows.</p>
+<p><strong>Multi-Version Concurrency Control (MVCC)</strong> takes a different approach: rather than blocking readers, the engine maintains multiple versions of each row simultaneously. Each transaction sees a consistent snapshot of the database as it existed at its start time. Readers see old versions; writers create new versions. Readers never block writers; writers never block readers.</p>
+<p>PostgreSQL stores old row versions in the heap itself (as "dead tuples") and reclaims them via a background VACUUM process. MySQL's InnoDB stores old versions in a separate undo log. Both approaches deliver read consistency without blocking, at the cost of storage overhead and periodic maintenance.</p>
+<h4 id="diagram-mvcc-vs-lock-based-concurrency-timeline">Diagram: MVCC vs. Lock-Based Concurrency Timeline</h4>
+<details markdown="1">
+<summary>MVCC vs. Lock-Based Concurrency — Interactive Timeline</summary>
+Type: MicroSim
+**sim-id:** mvcc-vs-locking<br/>
+**Library:** p5.js<br/>
+**Status:** Specified
+
+**Learning Objective:** Compare how MVCC and lock-based concurrency handle concurrent read and write transactions, and explain why readers don't block writers in MVCC. (Bloom L4: Analyze)
+
+**Canvas:** 780px wide × 500px tall. CANVAS_HEIGHT: 500.
+
+**Description:**
+Two side-by-side panels (left: "Lock-Based", right: "MVCC"), each showing a time-axis diagram of two concurrent transactions (Txn A = reader, Txn B = writer).
+
+**Lock-Based panel:** Txn B acquires X-lock at t=2. Txn A's read at t=3 is a blocked dashed red arrow. Txn B commits at t=5 (lock released). Txn A proceeds at t=6. Blocked period highlighted orange: "Txn A blocked 3 time units."
+
+**MVCC panel:** Txn B starts writing at t=2, creating version v2. Txn A reads at t=3 and sees version v1 (snapshot at start time). Both proceed simultaneously with no blocking. A "version store" sidebar shows v1 and v2 coexisting, with each transaction's pointer to its visible version.
+
+**Controls:**
+- "Play" button animates both timelines simultaneously at 1 step per second.
+- "Pause" stops animation.
+- Clicking any event shows a tooltip explaining what happens at that moment.
+- A "Show Dirty Read" button demonstrates what happens at Read Uncommitted isolation: Txn A reads Txn B's uncommitted v2, then Txn B rolls back, leaving Txn A with stale data.
+
+**Responsive:** Redraws on window resize.
+</details>
+
+<h3 id="deadlock-detection">Deadlock Detection</h3>
+<p>A <strong>deadlock</strong> occurs when two or more transactions each hold a lock that another transaction needs. Transaction A holds a lock on row 1 and waits for row 2; Transaction B holds a lock on row 2 and waits for row 1. Neither can proceed.</p>
+<p>Relational databases detect deadlocks by periodically scanning the <strong>wait-for graph</strong> — a directed graph where each node is a transaction and each edge represents "is waiting for a lock held by." A cycle in this graph indicates a deadlock. Upon detection, the engine chooses a victim transaction (usually the one that has done the least work) and rolls it back, releasing its locks and allowing the other transaction to proceed. Applications must be written to handle deadlock errors and retry rolled-back transactions.</p>
+<h2 id="connection-pooling">Connection Pooling</h2>
+<p>Database connections are expensive to establish: creating a TCP connection, authenticating, and initializing session state can take 20–100ms. For web applications handling hundreds of requests per second, opening a new connection per request is prohibitive.</p>
+<p><strong>Connection pooling</strong> maintains a pool of pre-established connections that are leased to application threads as needed and returned on completion. PgBouncer (for PostgreSQL) and ProxySQL (for MySQL) are widely used external pool managers; application frameworks also include built-in pools. Key configuration parameters are pool size (too small causes queuing; too large exhausts database memory), idle timeout, and maximum connection lifetime.</p>
+<h2 id="postgresql-and-mysql-the-canonical-representatives">PostgreSQL and MySQL: The Canonical Representatives</h2>
+<p><strong>PostgreSQL</strong> is the gold standard for open-source relational feature completeness. It supports full ACID transactions with MVCC, advanced data types (arrays, JSONB, ranges, geometric types), table partitioning, logical and streaming replication, row-level security, and an extension ecosystem that includes PostGIS (geospatial) and pgvector (vector search, covered in Chapter 14). Its query planner is among the most sophisticated of any open-source database.</p>
+<p><strong>MySQL</strong> (and its community fork MariaDB) emphasizes read throughput and operational simplicity. With the InnoDB storage engine, MySQL delivers ACID-compliant transactions, row-level locking, and MVCC. Its replication setup is simpler to operate and it remains the dominant database behind LAMP-stack applications. MySQL's JSON support and generated columns have closed much of the feature gap with PostgreSQL, though edge cases in type coercion and standards compliance still distinguish them.</p>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>PostgreSQL</th>
+<th>MySQL (InnoDB)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ACID compliance</td>
+<td>Full (all isolation levels)</td>
+<td>Full (Read Committed default)</td>
+</tr>
+<tr>
+<td>Default isolation level</td>
+<td>Read Committed</td>
+<td>Repeatable Read</td>
+</tr>
+<tr>
+<td>MVCC implementation</td>
+<td>Heap-based (dead tuples + VACUUM)</td>
+<td>Undo log</td>
+</tr>
+<tr>
+<td>JSON support</td>
+<td>JSONB (indexed, binary)</td>
+<td>JSON (text, partial index)</td>
+</tr>
+<tr>
+<td>Extension ecosystem</td>
+<td>Rich (pgvector, PostGIS, Citus)</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td>Replication</td>
+<td>Streaming + logical</td>
+<td>Binary log (async/semi-sync/group)</td>
+</tr>
+<tr>
+<td>Typical primary use case</td>
+<td>Complex OLTP, mixed workloads</td>
+<td>Web apps, read-heavy OLTP</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition mascot-warning">
+<p class="admonition-title">The Scalability Wall</p>
+<p><img src="../../img/mascot/warning.png" class="mascot-admonition-img" alt="Dex warns">
+Single-node relational databases scale vertically beautifully — add CPU, RAM, and faster storage and throughput improves. But they hit a ceiling. A single PostgreSQL node on the largest cloud VM typically handles 50,000–100,000 transactions per second under favorable conditions. Beyond that, you are sharding (Chapter 11), routing to replicas, or re-evaluating whether relational is the right paradigm for this workload. Knowing this limit is not a reason to avoid relational databases — it is a reason to account for it in your ATAM utility tree.</p>
+</div>
+<h2 id="the-atam-lens-when-relational-databases-win-and-lose">The ATAM Lens: When Relational Databases Win and Lose</h2>
+<p>Applying ATAM thinking to relational databases means asking: for which quality attribute scenarios does the relational model create sensitivity or tradeoff points?</p>
+<p><strong>Where relational databases win:</strong></p>
+<ul>
+<li><strong>Strong consistency:</strong> ACID transactions with serializable isolation are correct for financial systems, inventory management, and any scenario where lost or duplicated writes have business consequences.</li>
+<li><strong>Complex query expressiveness:</strong> Ad-hoc joins, window functions, and aggregations are first-class SQL citizens. Systems requiring flexible reporting without pre-defined access patterns benefit from SQL's generality.</li>
+<li><strong>Schema enforcement:</strong> When data quality and type safety matter — regulated industries, multi-team systems — the enforced schema catches bad data at the database boundary.</li>
+</ul>
+<p><strong>Where relational databases lose:</strong></p>
+<ul>
+<li><strong>Write throughput at scale:</strong> Single-leader architectures have one writable node. Once write volume saturates that node, options are limited.</li>
+<li><strong>Schema rigidity:</strong> Rapidly evolving schemas create friction with migrations and ALTER TABLE locks that can block production traffic.</li>
+<li><strong>Hierarchical or graph-shaped data:</strong> Representing deeply nested object graphs in relational tables requires many joins or denormalization — both hurt readability and performance compared to document or graph databases.</li>
+</ul>
+<h4 id="diagram-relational-database-atam-radar">Diagram: Relational Database ATAM Radar</h4>
+<details markdown="1">
+<summary>Relational Database Quality Attribute Radar Chart</summary>
+Type: MicroSim
+**sim-id:** relational-quality-radar<br/>
+**Library:** p5.js<br/>
+**Status:** Specified
+
+**Learning Objective:** Evaluate relational databases against six quality attributes used throughout ATAM analysis, and identify tradeoffs compared to a reference NoSQL baseline. (Bloom L5: Evaluate)
+
+**Canvas:** 660px wide × 520px tall. CANVAS_HEIGHT: 520.
+
+**Description:**
+A radar (spider) chart with six axes: Write Throughput, Read Throughput, Consistency, Query Flexibility, Schema Flexibility, and Horizontal Scalability. Scale 0–10 per axis.
+
+Two overlaid polygons:
+- "Relational (PostgreSQL)": Consistency=9, Query Flexibility=9, Read Throughput=7, Write Throughput=6, Schema Flexibility=4, Horizontal Scalability=4. Fill: `#1565C0` 40% opacity.
+- "Key-Value (Redis)": Consistency=5, Query Flexibility=2, Read Throughput=10, Write Throughput=10, Schema Flexibility=9, Horizontal Scalability=9. Fill: `#E65100` 30% opacity.
+
+**Interactions:**
+- Hovering any vertex label shows a tooltip explaining the score: "Relational / Consistency: 9 — Full ACID with serializable isolation."
+- A dropdown lets the user swap the comparison paradigm (Key-Value, Column-Family, Document, Graph, Analytical). Each paradigm shows its own scored polygon.
+- Clicking any axis label opens a sidebar with a 2-sentence explanation of what that axis measures.
+
+**Responsive:** Redraws on window resize.
+</details>
+
+<h2 id="key-takeaways">Key Takeaways</h2>
+<p>The relational model's durability over fifty years reflects genuine strengths that few alternatives match. ACID transactions, a declarative query language, enforced referential integrity, and mature tooling make relational databases the correct default for structured data with complex query requirements. The tradeoffs are real but manageable within their design envelope.</p>
+<p>The vocabulary built in this chapter recurs throughout the rest of the book:</p>
+<ul>
+<li><strong>Primary key / Foreign key</strong> — unique identity and referential integrity</li>
+<li><strong>Normalization (1NF, 3NF)</strong> — single source of truth for each fact</li>
+<li><strong>B-Tree index</strong> — O(log n) lookup, range scans, order optimization</li>
+<li><strong>MVCC</strong> — readers never block writers; snapshot isolation</li>
+<li><strong>WAL</strong> — the backbone of crash recovery and replication</li>
+<li><strong>Connection pooling</strong> — amortize connection setup cost across requests</li>
+</ul>
+<div class="admonition mascot-celebration">
+<p class="admonition-title">Chapter 3 Complete!</p>
+<p><img src="../../img/mascot/celebration.png" class="mascot-admonition-img" alt="Dex celebrates">
+You now have a working mental model of the engine room behind every relational database. Normalization keeps data clean; B-Trees keep queries fast; MVCC keeps readers from blocking writers; and the WAL keeps data safe through crashes. The next three chapters examine paradigms that deliberately sacrifice some of these guarantees — and deliver something else in return. Understanding what you're trading away starts here.</p>
+</div>
 
 
 
 
 
 
+
+  
+  
 
 
 

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="DESCRIPTION All content licensed Creative Commons ShareAlike Attribution Noncommercial">
+        <meta name="description" content="Capstone chapter — ATAM-based database selection in practice, scoring matrices, polyglot persistence architectures, migration planning, schema evolution, operational runbooks, and producing an Architectural Decision Record.">
       
       
         <meta name="author" content="Dan McCreary">
@@ -29,7 +29,7 @@
     
     
       
-        <title>16. Database Selection - Selecting the Right Database</title>
+        <title>Chapter 16 - Database Selection and Polyglot Persistence - Selecting the Right Database</title>
       
     
     
@@ -75,20 +75,7 @@
 
     
     
-  
-<meta property="og:type" content="website" />
-<meta property="og:title" content="16. Database Selection - Selecting the Right Database" />
-<meta property="og:description" content="DESCRIPTION All content licensed Creative Commons ShareAlike Attribution Noncommercial" />
-<meta property="og:image" content="https://dmccreary.github.io/right-database/assets/images/social/chapters/16-database-selection/index.png" />
-<meta property="og:image:type" content="image/png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:url" content="https://dmccreary.github.io/right-database/chapters/16-database-selection/" />
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="16. Database Selection - Selecting the Right Database" />
-<meta property="twitter:description" content="DESCRIPTION All content licensed Creative Commons ShareAlike Attribution Noncommercial" />
-<meta property="twitter:image" content="https://dmccreary.github.io/right-database/assets/images/social/chapters/16-database-selection/index.png" />
-</head>
+  </head>
   
   
     
@@ -141,7 +128,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              16. Database Selection
+              Chapter 16 - Database Selection and Polyglot Persistence
             
           </span>
         </div>
@@ -952,6 +939,217 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#the-database-selection-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Database Selection Framework
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-data-access-pattern-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Data Access Pattern Analysis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 1: Data Access Pattern Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-data-access-pattern-analyzer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Data Access Pattern Analyzer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-utility-tree-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Utility Tree Construction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-candidate-identification-and-the-scoring-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Candidate Identification and the Scoring Matrix
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3: Candidate Identification and the Scoring Matrix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-interactive-database-scoring-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Interactive Database Scoring Matrix
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#total-cost-of-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Total Cost of Ownership
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vendor-lock-in-and-database-deprecation-risk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vendor Lock-In and Database Deprecation Risk
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#polyglot-persistence-combining-multiple-database-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polyglot Persistence: Combining Multiple Database Types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Polyglot Persistence: Combining Multiple Database Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-polyglot-persistence-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Polyglot Persistence Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-accidental-vs-essential-complexity-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Accidental vs. Essential Complexity Test
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-migration-planning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Migration Planning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-model-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Model Databases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operational-runbooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operational Runbooks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#producing-an-architectural-decision-record" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Producing an Architectural Decision Record
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Producing an Architectural Decision Record">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-atam-database-selection-decision-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: ATAM Database Selection Decision Tree
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1629,6 +1827,217 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#the-database-selection-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Database Selection Framework
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-data-access-pattern-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Data Access Pattern Analysis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 1: Data Access Pattern Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-data-access-pattern-analyzer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Data Access Pattern Analyzer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-utility-tree-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Utility Tree Construction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-candidate-identification-and-the-scoring-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Candidate Identification and the Scoring Matrix
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3: Candidate Identification and the Scoring Matrix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-interactive-database-scoring-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Interactive Database Scoring Matrix
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#total-cost-of-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Total Cost of Ownership
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vendor-lock-in-and-database-deprecation-risk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vendor Lock-In and Database Deprecation Risk
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#polyglot-persistence-combining-multiple-database-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polyglot Persistence: Combining Multiple Database Types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Polyglot Persistence: Combining Multiple Database Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-polyglot-persistence-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Polyglot Persistence Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-accidental-vs-essential-complexity-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Accidental vs. Essential Complexity Test
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-migration-planning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Migration Planning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-model-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Model Databases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operational-runbooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operational Runbooks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#producing-an-architectural-decision-record" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Producing an Architectural Decision Record
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Producing an Architectural Decision Record">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-atam-database-selection-decision-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: ATAM Database Selection Decision Tree
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1730,13 +2139,413 @@
 <li><a href="../15-llm-embeddings/">Chapter 15: LLM-Generated Embeddings</a></li>
 </ul>
 <hr />
-<p>TODO: Generate Chapter Content</p>
+<div class="admonition mascot-welcome">
+<p class="admonition-title">Welcome to Chapter 16 — the Capstone!</p>
+<p><img src="../../img/mascot/welcome.png" class="mascot-admonition-img" alt="Dex waves hello">
+Every chapter in this book has built toward this one. You now have a working mental model of six database paradigms, the distributed systems theory that governs them, the high-availability engineering that keeps them running, and the vector search and embedding capabilities that extend them. This chapter puts all of it to work in a structured, repeatable database selection process — the kind that produces decisions you can defend in an architecture review, explain to a CTO, and revisit in five years without embarrassment.</p>
+</div>
+<h2 id="the-database-selection-framework">The Database Selection Framework</h2>
+<p>A <strong>database selection framework</strong> is a structured process for choosing among competing database candidates given a set of system requirements. Without such a framework, database selection degenerates into advocacy: the engineer who has the most experience with MongoDB argues for MongoDB; the PostgreSQL expert argues for PostgreSQL; the decision is made by seniority or enthusiasm rather than by evidence.</p>
+<p>The ATAM-based selection framework this book has built toward has five steps:</p>
+<ol>
+<li><strong>Data Access Pattern Analysis</strong> — characterize the workload precisely.</li>
+<li><strong>Utility Tree Construction</strong> — elicit and prioritize quality attribute scenarios.</li>
+<li><strong>Candidate Identification</strong> — identify which paradigms are viable given the patterns and scenarios.</li>
+<li><strong>Scoring Matrix Evaluation</strong> — score each candidate against weighted criteria.</li>
+<li><strong>Risk Assessment and ADR</strong> — identify risks, document the decision.</li>
+</ol>
+<p>Each step is examined in depth below, using a worked example: a <strong>real-time e-commerce platform</strong> that must handle product catalog browsing, order processing, user session management, product recommendations, and fraud detection.</p>
+<h2 id="step-1-data-access-pattern-analysis">Step 1: Data Access Pattern Analysis</h2>
+<p><strong>Data access pattern analysis</strong> is the discipline of characterizing what a system actually does with its data — before choosing how to store it. The analysis produces a workload profile that makes database selection evidence-based rather than opinion-based.</p>
+<p>The key dimensions to characterize:</p>
+<ul>
+<li><strong>Read/write ratio:</strong> What fraction of operations are reads vs. writes? A 95% read, 5% write workload favors read-optimized databases (Redis for caching, replicated PostgreSQL) over write-optimized ones (Cassandra).</li>
+<li><strong>Query patterns:</strong> Are queries point lookups (by primary key), range scans, full-text search, graph traversals, or aggregations? Each favors different index structures and paradigms.</li>
+<li><strong>Data volume and growth rate:</strong> How much data today? In three years? A 10GB relational database and a 50TB relational database have very different architecture implications.</li>
+<li><strong>Latency requirements:</strong> What are the p99 latency budgets for each operation? Sub-millisecond (Redis), single-digit ms (well-indexed PostgreSQL), tens of ms (DynamoDB), hundreds of ms (Cassandra wide scans)?</li>
+<li><strong>Consistency requirements:</strong> Is eventual consistency acceptable, or does the operation require read-your-writes, strong consistency, or serializability?</li>
+</ul>
+<p>For the e-commerce platform, the analysis produces distinct profiles per domain:</p>
+<table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>Read/Write</th>
+<th>Query Pattern</th>
+<th>Latency</th>
+<th>Consistency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product catalog</td>
+<td>99% read</td>
+<td>Point + full-text</td>
+<td>&lt;50ms</td>
+<td>Eventual OK</td>
+</tr>
+<tr>
+<td>Orders</td>
+<td>60% read</td>
+<td>Point lookup, joins</td>
+<td>&lt;100ms</td>
+<td>Serializable</td>
+</tr>
+<tr>
+<td>Sessions</td>
+<td>99% read</td>
+<td>Point lookup by key</td>
+<td>&lt;5ms</td>
+<td>Read-your-writes</td>
+</tr>
+<tr>
+<td>Recommendations</td>
+<td>95% read</td>
+<td>Vector ANN</td>
+<td>&lt;50ms</td>
+<td>Eventual OK</td>
+</tr>
+<tr>
+<td>Fraud detection</td>
+<td>70% read</td>
+<td>Graph traversal</td>
+<td>&lt;200ms</td>
+<td>Strong</td>
+</tr>
+</tbody>
+</table>
+<p>The different profiles immediately signal that no single database paradigm will serve all five domains optimally — a polyglot architecture is indicated.</p>
+<h4 id="diagram-data-access-pattern-analyzer">Diagram: Data Access Pattern Analyzer</h4>
+<details markdown="1">
+<summary>Interactive Data Access Pattern Analyzer</summary>
+Type: MicroSim
+**sim-id:** data-access-pattern-analyzer<br/>
+**Library:** p5.js<br/>
+**Status:** Specified
+
+**Learning Objective:** Analyze a system's data access patterns and identify which database paradigms are viable candidates for each domain. (Bloom L4: Analyze)
+
+**Canvas:** 780px wide × 500px tall. CANVAS_HEIGHT: 500.
+
+**Description:**
+A form-based MicroSim with 5 sliders/dropdowns per domain (user configures the system):
+- Read/Write Ratio slider (0% = all writes to 100% = all reads)
+- Query Pattern dropdown: Point Lookup | Range Scan | Full-Text | Graph Traversal | ANN Similarity | Aggregation
+- Data Volume dropdown: <1GB | 1GB–1TB | 1TB–100TB | >100TB
+- Latency Budget dropdown: <5ms | 5–50ms | 50–500ms | >500ms
+- Consistency Requirement dropdown: Eventual | Read-Your-Writes | Strong | Serializable
+
+After configuring all sliders, clicking "Analyze" produces a ranked list of recommended database paradigms for this profile, with color-coded fit scores (green=strong, yellow=moderate, red=poor):
+- Relational: Strong for Serializable consistency + joins. Poor for >100TB + high write.
+- Key-Value: Strong for <5ms + point lookup + eventual. Poor for graph traversal.
+- Column-Family: Strong for high write + time-series. Poor for complex joins.
+- Document: Strong for flexible schema + moderate consistency. Poor for graph traversal.
+- Graph: Strong for graph traversal. Poor for aggregation at scale.
+- Analytical: Strong for aggregation + large volume. Poor for <5ms latency.
+- Vector (add-on): Strong for ANN similarity. Neutral on others.
+
+**Responsive:** Redraws on window resize.
+</details>
+
+<h2 id="step-2-utility-tree-construction">Step 2: Utility Tree Construction</h2>
+<p>The <strong>utility tree</strong> translates business requirements into precise, measurable quality attribute scenarios that drive the database selection. A full utility tree was covered in Chapter 1; here we apply it specifically to database selection.</p>
+<p>For the e-commerce platform, the utility tree's database-relevant branches produce the following high-priority scenarios (H,H ratings):</p>
+<ul>
+<li><strong>Performance:</strong> "The product catalog search returns results within 50ms at p99 for 10,000 concurrent users during peak shopping events." → Drives: full-text + vector search, read replicas.</li>
+<li><strong>Durability:</strong> "No order data is lost under any single-node failure mode." → Drives: synchronous replication, WAL on durable storage, multi-AZ deployment.</li>
+<li><strong>Availability:</strong> "The order placement flow must remain available during a single availability zone failure." → Drives: active-active or active-passive topology, automated failover.</li>
+<li><strong>Consistency:</strong> "Account balances and inventory counts must reflect the most recent committed transaction." → Drives: serializable isolation, CP system for these domains.</li>
+<li><strong>Scalability:</strong> "The recommendation engine must serve 50,000 vector similarity queries per second during peak." → Drives: ANN index, horizontal sharding, possibly dedicated vector infrastructure.</li>
+</ul>
+<h2 id="step-3-candidate-identification-and-the-scoring-matrix">Step 3: Candidate Identification and the Scoring Matrix</h2>
+<p>A <strong>scoring matrix</strong> is a structured evaluation tool that scores each database candidate against a weighted set of criteria derived from the utility tree. The process:</p>
+<ol>
+<li>List the quality attributes from the utility tree as columns, weighted by their (H/M/L) priority.</li>
+<li>List the candidate databases as rows.</li>
+<li>Score each cell (1–5): how well does this database satisfy this quality attribute?</li>
+<li>Multiply scores by weights and sum to produce a weighted total.</li>
+<li>Examine the results — and then examine your assumptions.</li>
+</ol>
+<p>For the e-commerce platform's Order domain (requiring serializable consistency, joins, multi-AZ HA, &lt; 100ms latency):</p>
+<table>
+<thead>
+<tr>
+<th>Database</th>
+<th>Consistency (30%)</th>
+<th>Join Support (20%)</th>
+<th>Write Throughput (15%)</th>
+<th>HA/Failover (20%)</th>
+<th>Ops Complexity (15%)</th>
+<th>Weighted Score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PostgreSQL (multi-AZ)</td>
+<td>5</td>
+<td>5</td>
+<td>3</td>
+<td>4</td>
+<td>4</td>
+<td><strong>4.25</strong></td>
+</tr>
+<tr>
+<td>CockroachDB</td>
+<td>5</td>
+<td>4</td>
+<td>4</td>
+<td>5</td>
+<td>3</td>
+<td><strong>4.25</strong></td>
+</tr>
+<tr>
+<td>MySQL (InnoDB)</td>
+<td>4</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>5</td>
+<td><strong>4.10</strong></td>
+</tr>
+<tr>
+<td>DynamoDB</td>
+<td>2</td>
+<td>1</td>
+<td>5</td>
+<td>5</td>
+<td>4</td>
+<td><strong>3.05</strong></td>
+</tr>
+<tr>
+<td>MongoDB</td>
+<td>3</td>
+<td>2</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td><strong>3.25</strong></td>
+</tr>
+</tbody>
+</table>
+<p>PostgreSQL and CockroachDB tie on weighted score. The distinguishing factors become operational: team PostgreSQL expertise (favoring PostgreSQL), global distribution requirement (favoring CockroachDB), and cost (PostgreSQL is cheaper to run unless global distribution is needed). These factors must appear in the final ADR as the reasoning behind the tiebreak.</p>
+<h4 id="diagram-interactive-database-scoring-matrix">Diagram: Interactive Database Scoring Matrix</h4>
+<details markdown="1">
+<summary>Interactive Database Selection Scoring Matrix</summary>
+Type: MicroSim
+**sim-id:** database-scoring-matrix<br/>
+**Library:** p5.js<br/>
+**Status:** Specified
+
+**Learning Objective:** Apply a weighted scoring matrix to evaluate database candidates against quality attribute criteria and identify the top candidate for a given workload. (Bloom L3–L5: Apply/Evaluate)
+
+**Canvas:** 780px wide × 520px tall. CANVAS_HEIGHT: 520.
+
+**Description:**
+A spreadsheet-style grid: 5 database rows × 6 criteria columns + a "Weighted Score" column.
+
+**Criteria columns with adjustable weights (shown as sliders 0–40%):**
+Consistency, Query Flexibility, Write Throughput, HA/Failover, Schema Flexibility, Ops Complexity. Weights must sum to 100% (constraint enforced with live feedback).
+
+**Score cells:** Each cell is a clickable stepper (1–5) with a color gradient (red=1, yellow=3, green=5).
+
+**Weighted Score column:** Recomputes live whenever any cell or weight changes. The highest-scoring row is highlighted with a gold border.
+
+**Database rows:** PostgreSQL, CockroachDB, Cassandra, MongoDB, DynamoDB.
+
+**Pre-set scenarios:** Dropdown with 4 pre-configured scenarios: "E-Commerce Orders", "IoT Time-Series", "Social Network", "Analytics Dashboard." Each pre-fills the weights and scores and explains why.
+
+A "Export Decision" button shows a text summary: "Based on this scoring, PostgreSQL is recommended for the E-Commerce Orders domain. Key differentiators: Consistency (5/5), Join Support (5/5). Primary risks: Write throughput at scale — mitigate with read replicas and connection pooling."
+
+**Responsive:** Redraws on window resize.
+</details>
+
+<h2 id="total-cost-of-ownership">Total Cost of Ownership</h2>
+<p><strong>Total cost of ownership (TCO)</strong> is the full cost of a database selection decision over its operational lifetime — not just the licensing fee. Engineers who evaluate databases only on infrastructure cost routinely underestimate the true cost by 3–5×.</p>
+<p>TCO components for a database selection decision:</p>
+<ul>
+<li><strong>Licensing:</strong> Open-source (PostgreSQL, Cassandra) = $0 license. Commercial (Oracle, Snowflake) = significant per-CPU or consumption-based fees.</li>
+<li><strong>Infrastructure:</strong> Compute (CPU, RAM), storage (NVMe SSD vs. HDD vs. object storage), network (replication traffic, cross-AZ data transfer).</li>
+<li><strong>Operations:</strong> DBA hours for backup management, index tuning, upgrade planning, incident response.</li>
+<li><strong>Migration:</strong> One-time cost to migrate from an existing system. Includes development, testing, dual-run period, and rollback planning.</li>
+<li><strong>Training:</strong> Time for the engineering team to learn the new database, its operational idioms, and its failure modes.</li>
+<li><strong>Vendor lock-in risk:</strong> The cost (financial and schedule) of migrating <em>away</em> from the chosen database in the future if requirements change.</li>
+</ul>
+<p><strong>Team expertise factor</strong> is one of the most underweighted TCO components in practice. A team with five years of PostgreSQL production experience choosing Cassandra for a new system is not choosing a free database — it is choosing a database whose operational cost includes months of learning curve, unfamiliar failure modes (compaction storms, SSTable accumulation, tombstone handling), and higher incident resolution times until expertise accumulates.</p>
+<h2 id="vendor-lock-in-and-database-deprecation-risk">Vendor Lock-In and Database Deprecation Risk</h2>
+<p><strong>Vendor lock-in risk</strong> is the risk that choosing a proprietary or closed-source database makes future migration prohibitively expensive. The risk manifests in several ways:</p>
+<ul>
+<li><strong>Proprietary SQL extensions:</strong> A database that uses non-standard SQL syntax (Oracle's <code>ROWNUM</code>, SQL Server's <code>TOP</code>) makes the application code tightly coupled to that vendor.</li>
+<li><strong>Proprietary wire protocol:</strong> An application built against a custom API (DynamoDB's API, Cassandra's CQL over the Cassandra driver) is harder to migrate than one built against an open standard.</li>
+<li><strong>Data format lock-in:</strong> Data stored in a proprietary binary format (some analytical databases) cannot be read without the vendor's tools.</li>
+</ul>
+<p><strong>Database deprecation risk</strong> is the risk that the database vendor discontinues the product, changes pricing dramatically, or is acquired. Open-source databases eliminate deprecation risk (the software can be self-hosted indefinitely), but introduce different risks: the project may lose maintainers, security patches may slow, or the community may fork.</p>
+<p><strong>Mitigation strategies:</strong></p>
+<ul>
+<li>Use databases with open-source cores (PostgreSQL, MySQL, Cassandra) to minimize both vendor lock-in and deprecation risk.</li>
+<li>Design a thin database abstraction layer (repository pattern) so the application is not tightly coupled to a specific database API.</li>
+<li>Maintain data in standard, exportable formats (PostgreSQL's <code>pg_dump</code>, Parquet files in S3) to preserve migration optionality.</li>
+</ul>
+<h2 id="polyglot-persistence-combining-multiple-database-types">Polyglot Persistence: Combining Multiple Database Types</h2>
+<p><strong>Polyglot persistence</strong> is the architectural pattern of using multiple database types within a single system, assigning each data domain to the database paradigm best suited to its access patterns. The term was coined by Martin Fowler and Pramod Sadalage in 2011 and has become the dominant architecture pattern for complex production systems.</p>
+<p>Returning to the e-commerce platform, the polyglot architecture assigns:</p>
+<ul>
+<li><strong>Orders and payments</strong> → PostgreSQL (serializable ACID, joins, complex queries)</li>
+<li><strong>Product catalog</strong> → Elasticsearch + pgvector (full-text + semantic search)</li>
+<li><strong>User sessions</strong> → Redis (sub-millisecond key-value reads, TTL-based expiration)</li>
+<li><strong>Recommendations</strong> → PostgreSQL + pgvector (vector ANN on product embeddings)</li>
+<li><strong>Fraud detection graph</strong> → Neo4j or TigerGraph (graph traversal for relationship patterns)</li>
+<li><strong>Analytics and reporting</strong> → Snowflake or BigQuery (OLAP aggregations over historical orders)</li>
+</ul>
+<p>Each domain uses the database that makes its quality attribute scenarios achievable. No single database is asked to be everything.</p>
+<h4 id="diagram-polyglot-persistence-architecture">Diagram: Polyglot Persistence Architecture</h4>
+<details markdown="1">
+<summary>Interactive Polyglot Persistence Architecture — E-Commerce Platform</summary>
+Type: MicroSim
+**sim-id:** polyglot-persistence-architecture<br/>
+**Library:** vis-network<br/>
+**Status:** Specified
+
+**Learning Objective:** Design a polyglot persistence architecture that assigns each data domain to the most appropriate database paradigm, with documented tradeoff justification. (Bloom L6: Create)
+
+**Canvas:** 780px wide × 540px tall. CANVAS_HEIGHT: 540.
+
+**Description:**
+A vis-network graph showing the e-commerce platform's polyglot architecture. Nodes:
+
+**Service nodes** (rounded rectangles, `#4682B4`): Order Service, Product Service, Session Service, Recommendation Service, Fraud Service, Analytics Service.
+
+**Database nodes** (cylinders, color by paradigm):
+- PostgreSQL: `#336791` (relational blue) — connected to Order Service, Recommendation Service
+- Redis: `#DC382D` (redis red) — connected to Session Service
+- Elasticsearch: `#F04E98` (elastic pink) — connected to Product Service
+- Neo4j: `#018BFF` (graph blue) — connected to Fraud Service
+- Snowflake: `#29B5E8` (snowflake blue) — connected to Analytics Service
+
+**Edges:** Labeled with the access pattern: "ACID writes", "Key lookup <5ms", "Full-text + vector search", "Graph traversal", "OLAP aggregation."
+
+**Interactions:**
+- Clicking any database node shows a tooltip: "PostgreSQL: handles Order and Recommendation data. Provides serializable transactions for order placement. pgvector extension handles product embedding similarity queries."
+- Clicking any service node highlights all databases it connects to and shows the access patterns.
+- A "Show Data Flow" button animates an order placement: data flows from Order Service → PostgreSQL (ACID write) → event published to Analytics Service → Snowflake (async ETL).
+- A "Show Risk" toggle overlays risk badges: "Redis: single point of failure for sessions — mitigate with Redis Cluster." "Neo4j: community edition has limited HA — evaluate TigerGraph for HA requirements."
+
+**Node color conventions:** Relational = `#4682B4`, Key-Value = `#E65100`, Document = `#28a745`, Graph = `#6f42c1`, Analytical = `#6c757d`.
+
+**Responsive:** Redraws on window resize.
+</details>
+
+<h2 id="the-accidental-vs-essential-complexity-test">The Accidental vs. Essential Complexity Test</h2>
+<p>Polyglot persistence introduces genuine operational complexity: more systems to monitor, back up, upgrade, and troubleshoot. Before adding any database to the architecture, apply the <strong>accidental vs. essential complexity test</strong>:</p>
+<ul>
+<li><strong>Essential complexity</strong> is complexity that is inherent to the problem. Fraud detection genuinely requires graph traversal; adding Neo4j addresses an essential requirement.</li>
+<li><strong>Accidental complexity</strong> is complexity that is not inherent to the problem but introduced by the solution. Adding a document database for data that is naturally relational — just to avoid schema migrations — introduces accidental complexity.</li>
+</ul>
+<p>The test: could this requirement be met at acceptable quality by a database already in the architecture, with reasonable effort? If yes, resist the temptation to add a new database. Three databases operating well are better than six databases operating poorly.</p>
+<div class="admonition mascot-thinking">
+<p class="admonition-title">The 'Just Use Postgres' Heuristic</p>
+<p><img src="../../img/mascot/thinking.png" class="mascot-admonition-img" alt="Dex thinks">
+PostgreSQL in 2025 is a remarkably capable polyglot database: it supports JSON documents (JSONB), time-series data (TimescaleDB extension), vector search (pgvector), graph-like queries (recursive CTEs), and full-text search — all with ACID guarantees. For many systems, "just use Postgres" is not intellectual laziness but genuine architectural wisdom. Add a second database type only when you have a quality attribute scenario that PostgreSQL cannot meet at any configuration. That discipline keeps your architecture simple and your operational burden manageable.</p>
+</div>
+<h2 id="database-migration-planning">Database Migration Planning</h2>
+<p>When the correct database for a domain is different from what the system currently uses, a <strong>database migration plan</strong> is required. Database migrations are among the most operationally risky activities in software engineering — more data, more risk. The plan must address:</p>
+<ul>
+<li><strong>Dual-write period:</strong> Both the old and new database receive writes simultaneously. This ensures the new database accumulates current data before cutover without downtime.</li>
+<li><strong>Backfill:</strong> Historical data is migrated from the old to the new database, typically via a batch job.</li>
+<li><strong>Validation:</strong> Before cutover, read the same records from both databases and compare. Discrepancies indicate bugs in the migration logic.</li>
+<li><strong>Cutover:</strong> Switch the application to read from the new database. Keep the old database in read-only mode for a rollback window.</li>
+<li><strong>Rollback plan:</strong> If the new database shows unexpected behavior in production, describe precisely how to revert. (Without a rollback plan, "revert" means "emergency heroics.")</li>
+</ul>
+<p><strong>Schema migration</strong> — evolving a database schema while keeping existing data valid and the system running — is a related challenge. For relational databases, the discipline is <strong>online schema changes</strong> (using tools like <code>pg_repack</code> or <code>pt-online-schema-change</code> for MySQL) that add columns, create indexes, and transform data without locking the table. For document databases, schema evolution is handled at the application layer (schema-on-read), but this creates the inverse problem: old and new document shapes must coexist in code until all documents are migrated.</p>
+<h2 id="multi-model-databases">Multi-Model Databases</h2>
+<p>A <strong>multi-model database</strong> is a single database system that natively supports multiple data models — typically some combination of relational, document, key-value, and graph. ArangoDB supports document + graph + key-value. Cosmos DB supports document, column-family, graph, and key-value interfaces. FaunaDB supports document + relational.</p>
+<p>Multi-model databases are attractive because they reduce the number of distinct systems to operate. The practical tradeoffs:</p>
+<ul>
+<li><strong>Depth vs. breadth:</strong> A multi-model database's graph engine is rarely as capable as a dedicated graph database; its full-text search is rarely as capable as Elasticsearch. You trade best-of-breed depth for operational simplicity.</li>
+<li><strong>Ecosystem maturity:</strong> Purpose-built databases (PostgreSQL, Cassandra, Neo4j) have larger communities, more tooling, and more operational knowledge than multi-model alternatives.</li>
+<li><strong>ATAM fit:</strong> Multi-model makes sense when the system's quality attribute scenarios are satisfied by a good-enough implementation of multiple models, and operational simplicity is itself a high-priority quality attribute.</li>
+</ul>
+<h2 id="operational-runbooks">Operational Runbooks</h2>
+<p>An <strong>operational runbook</strong> is a documented procedure for operating, monitoring, and recovering a database in production. Runbooks are the institutional knowledge that makes a database team's operations reproducible, auditable, and survivable when key engineers are unavailable.</p>
+<p>A complete database runbook includes:</p>
+<ul>
+<li><strong>Health check procedures:</strong> How to verify the database is healthy (connection count, replication lag, WAL disk usage, cache hit rate).</li>
+<li><strong>Common failure modes and remediation:</strong> "If WAL disk is &gt; 90% full: identify long-running transactions holding WAL, notify on-call DBA, escalate to DB restart if disk hits 95%."</li>
+<li><strong>Backup and restore procedures:</strong> Backup schedule, retention policy, restore test frequency, RTO/RPO targets.</li>
+<li><strong>Upgrade procedure:</strong> How to upgrade to a new database version with minimal downtime (rolling upgrade vs. blue/green).</li>
+<li><strong>Escalation matrix:</strong> Who is paged at what severity, and who has root-cause authority.</li>
+</ul>
+<h2 id="producing-an-architectural-decision-record">Producing an Architectural Decision Record</h2>
+<p>An <strong>Architectural Decision Record (ADR)</strong> is the written artifact that documents a significant architectural decision — its context, the options considered, the tradeoffs evaluated, and the decision reached. ADRs are the output of ATAM analysis applied to database selection.</p>
+<p>A database selection ADR has four sections:</p>
+<ol>
+<li><strong>Context:</strong> What problem are we solving? What quality attribute scenarios drive the decision? What is the current state of the system?</li>
+<li><strong>Considered options:</strong> What database candidates were evaluated? What were their key strengths and weaknesses relative to the utility tree scenarios?</li>
+<li><strong>Decision:</strong> What database was selected, and for which domain? What were the deciding factors?</li>
+<li><strong>Consequences:</strong> What risks does this decision introduce? What mitigation strategies are in place? What will this decision make harder or easier in the future? When should this decision be revisited?</li>
+</ol>
+<p>The ADR is not a marketing document for the chosen database. It is an honest account of the tradeoffs, written so that a future engineer can understand why the decision was made and whether the assumptions that drove it still hold.</p>
+<h4 id="diagram-atam-database-selection-decision-tree">Diagram: ATAM Database Selection Decision Tree</h4>
+<details markdown="1">
+<summary>Interactive ATAM Database Selection Decision Tree</summary>
+Type: MicroSim
+**sim-id:** database-selection-decision-tree<br/>
+**Library:** p5.js<br/>
+**Status:** Specified
+
+**Learning Objective:** Apply the ATAM database selection framework to a novel system scenario by working through a structured decision tree of quality attribute questions. (Bloom L6: Create)
+
+**Canvas:** 780px wide × 560px tall. CANVAS_HEIGHT: 560.
+
+**Description:**
+A vertical decision tree MicroSim. The user answers a series of questions by clicking Yes/No buttons. Based on answers, the tree narrows to a database recommendation.
+
+**Question sequence:**
+1. "Does the system require ACID transactions across multiple records?" → Yes: keep relational/NewSQL. No: consider NoSQL.
+2. "Is the primary query pattern point lookup by a single key?" → Yes: consider Key-Value. No: continue.
+3. "Does the data have a natural graph structure (relationships between entities are first-class)?" → Yes: consider Graph DB. No: continue.
+4. "Is the workload primarily analytical (complex aggregations over large datasets)?" → Yes: consider Analytical DB. No: continue.
+5. "Does the schema change frequently or vary significantly across records?" → Yes: consider Document DB. No: consider Relational.
+6. "Is write throughput > 100K writes/second at scale?" → Yes: consider Column-Family. No: relational is likely sufficient.
+
+**Visual:** Each question is a diamond node; edges are labeled Yes/No. Answered questions turn green. The current question pulses. Recommended paradigm appears in a gold badge at the bottom with a one-line justification.
+
+A "Reset" button starts over. An "Export" button shows the full question/answer path as text — useful for documenting the reasoning in an ADR.
+
+**Responsive:** Redraws on window resize.
+</details>
+
+<h2 id="key-takeaways">Key Takeaways</h2>
+<div class="admonition mascot-encourage">
+<p class="admonition-title">You Have Built the Toolkit</p>
+<p><img src="../../img/mascot/encouraging.png" class="mascot-admonition-img" alt="Dex encourages">
+You have covered six database paradigms, the distributed systems theory that governs them, consensus protocols, high availability engineering, vector search, LLM embeddings, and a structured decision framework for choosing among them. That is not a small thing. The field moves fast — new databases appear constantly, and new capabilities (vector search, HTAP, serverless) blur the lines between paradigms. But the analytical framework you have built — characterize access patterns, build a utility tree, score candidates, document the decision — is durable. It works regardless of what the database market looks like next year.</p>
+</div>
+<p>This chapter's core contributions to your toolkit:</p>
+<ul>
+<li><strong>Data access pattern analysis</strong> — characterize read/write ratio, query patterns, volume, latency, and consistency requirements per domain before choosing a database</li>
+<li><strong>Scoring matrix</strong> — weighted, evidence-based comparison of candidates against utility tree quality attributes</li>
+<li><strong>TCO</strong> — full cost including operations, training, migration, and vendor lock-in risk</li>
+<li><strong>Team expertise factor</strong> — the hidden multiplier on every "operationally simple" claim</li>
+<li><strong>Polyglot persistence</strong> — the right architecture when no single database serves all domains; resisted by the accidental-vs-essential complexity test</li>
+<li><strong>Database migration plan</strong> — dual-write, backfill, validate, cutover, rollback — in that order</li>
+<li><strong>Multi-model database</strong> — breadth over depth; use when operational simplicity outweighs best-of-breed depth</li>
+<li><strong>Operational runbook</strong> — the institutional knowledge that makes a database survivable at 2am</li>
+<li><strong>ADR</strong> — the written record that context, options, decision, and consequences are all captured honestly</li>
+</ul>
+<div class="admonition mascot-celebration">
+<p class="admonition-title">Congratulations — You've Completed the Course!</p>
+<p><img src="../../img/mascot/celebration.png" class="mascot-admonition-img" alt="Dex celebrates big">
+From ATAM utility trees to vector ANN indexes, from WAL-based crash recovery to distributed saga compensation, from B-Tree index traversal to consensus protocol leader election — you have built a comprehensive, theoretically grounded, practically applicable understanding of database architecture and selection. The next time a team asks "which database should we use?", you will not answer from habit or intuition. You will answer from evidence, with a documented decision and a clear account of the tradeoffs. That is what this course set out to teach. Go build something with it.</p>
+</div>
 
 
 
 
 
 
+
+  
+  
 
 
 

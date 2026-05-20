@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="DESCRIPTION All content licensed Creative Commons ShareAlike Attribution Noncommercial">
+        <meta name="description" content="How modern NewSQL databases achieve full ACID compliance across distributed clusters using two-phase commit, saga patterns, and Paxos/Raft consensus.">
       
       
         <meta name="author" content="Dan McCreary">
@@ -29,7 +29,7 @@
     
     
       
-        <title>12. Distributed ACID and NewSQL - Selecting the Right Database</title>
+        <title>Chapter 12 - Distributed ACID and NewSQL - Selecting the Right Database</title>
       
     
     
@@ -77,16 +77,16 @@
     
   
 <meta property="og:type" content="website" />
-<meta property="og:title" content="12. Distributed ACID and NewSQL - Selecting the Right Database" />
-<meta property="og:description" content="DESCRIPTION All content licensed Creative Commons ShareAlike Attribution Noncommercial" />
+<meta property="og:title" content="Chapter 12 - Distributed ACID and NewSQL - Selecting the Right Database" />
+<meta property="og:description" content="How modern NewSQL databases achieve full ACID compliance across distributed clusters using two-phase commit, saga patterns, and Paxos/Raft consensus." />
 <meta property="og:image" content="https://dmccreary.github.io/right-database/assets/images/social/chapters/12-distributed-acid-newsql/index.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:url" content="https://dmccreary.github.io/right-database/chapters/12-distributed-acid-newsql/" />
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="12. Distributed ACID and NewSQL - Selecting the Right Database" />
-<meta property="twitter:description" content="DESCRIPTION All content licensed Creative Commons ShareAlike Attribution Noncommercial" />
+<meta property="twitter:title" content="Chapter 12 - Distributed ACID and NewSQL - Selecting the Right Database" />
+<meta property="twitter:description" content="How modern NewSQL databases achieve full ACID compliance across distributed clusters using two-phase commit, saga patterns, and Paxos/Raft consensus." />
 <meta property="twitter:image" content="https://dmccreary.github.io/right-database/assets/images/social/chapters/12-distributed-acid-newsql/index.png" />
 </head>
   
@@ -141,7 +141,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              12. Distributed ACID and NewSQL
+              Chapter 12 - Distributed ACID and NewSQL
             
           </span>
         </div>
@@ -834,6 +834,195 @@
     <span class="md-ellipsis">
       
         Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-core-tension-transactions-vs-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Core Tension: Transactions vs. Distribution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-phase-commit-the-classic-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two-Phase Commit: The Classic Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Two-Phase Commit: The Classic Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-two-phase-commit-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Two-Phase Commit Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-blocking-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Blocking Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#three-phase-commit-adding-a-safety-net" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Three-Phase Commit: Adding a Safety Net
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-saga-pattern-long-running-transactions-without-locking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Saga Pattern: Long-Running Transactions Without Locking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Saga Pattern: Long-Running Transactions Without Locking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-saga-orchestration-vs-choreography" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Saga Orchestration vs Choreography
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#newsql-the-third-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NewSQL: The Third Way
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NewSQL: The Third Way">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#google-spanner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Google Spanner
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Google Spanner">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-truetime-commit-wait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: TrueTime Commit Wait
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cockroachdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CockroachDB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yugabytedb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        YugabyteDB
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-zab-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The ZAB Protocol
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing-a-distributed-transaction-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing a Distributed Transaction Strategy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Takeaways
       
     </span>
   </a>
@@ -1629,6 +1818,195 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#the-core-tension-transactions-vs-distribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Core Tension: Transactions vs. Distribution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-phase-commit-the-classic-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two-Phase Commit: The Classic Protocol
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Two-Phase Commit: The Classic Protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-two-phase-commit-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Two-Phase Commit Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-blocking-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Blocking Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#three-phase-commit-adding-a-safety-net" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Three-Phase Commit: Adding a Safety Net
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-saga-pattern-long-running-transactions-without-locking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Saga Pattern: Long-Running Transactions Without Locking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Saga Pattern: Long-Running Transactions Without Locking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-saga-orchestration-vs-choreography" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Saga Orchestration vs Choreography
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#newsql-the-third-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NewSQL: The Third Way
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NewSQL: The Third Way">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#google-spanner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Google Spanner
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Google Spanner">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-truetime-commit-wait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: TrueTime Commit Wait
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cockroachdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CockroachDB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#yugabytedb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        YugabyteDB
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-zab-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The ZAB Protocol
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing-a-distributed-transaction-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing a Distributed Transaction Strategy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1726,13 +2104,232 @@
 <li><a href="../11-distributed-scaling/">Chapter 11: Distributed Scaling and Replication</a></li>
 </ul>
 <hr />
-<p>TODO: Generate Chapter Content</p>
+<div class="admonition mascot-welcome">
+<p class="admonition-title">The Promise and the Problem</p>
+<p><img src="../../img/mascot/welcome.png" class="mascot-admonition-img" alt="Dex the robot welcoming students">
+For a decade, the NoSQL movement told us a story: if you want scale, you must sacrifice transactions. Give up ACID. Embrace eventual consistency. Stop joining tables. Dex is pleased to report that the story had a sequel. NewSQL databases arrived and said: "Actually, you can have both." This chapter explains how — and why it costs more than the brochure suggests.</p>
+</div>
+<h2 id="the-core-tension-transactions-vs-distribution">The Core Tension: Transactions vs. Distribution</h2>
+<p>ACID transactions (covered in Chapter 10) are elegant and precise in a single-node world. The database engine can lock rows, buffer writes in a journal, and commit or roll back with complete confidence that no other process will observe a partial state.</p>
+<p>Distribute data across multiple nodes and the problem compounds. A <strong>cross-shard transaction</strong> — a transaction that reads or writes data living on more than one shard — requires coordination across machines that communicate over a network. Networks are unreliable. Nodes crash. Clocks drift. How do you guarantee atomicity — either all nodes commit the transaction or none do — when any participant could fail mid-operation?</p>
+<p>This is the problem that <strong>Two-Phase Commit</strong> was designed to solve.</p>
+<h2 id="two-phase-commit-the-classic-protocol">Two-Phase Commit: The Classic Protocol</h2>
+<p><strong>Two-Phase Commit (2PC)</strong> is a distributed algorithm that ensures all participants in a transaction either commit or abort together. It involves a <strong>Distributed Transaction Coordinator</strong> — typically a dedicated node or process that orchestrates the protocol across all participating nodes.</p>
+<p>Phase 1 is the <strong>voting phase</strong> (also called the prepare phase):</p>
+<ol>
+<li>The coordinator sends a <code>PREPARE</code> message to each participant.</li>
+<li>Each participant checks whether it can commit: it acquires locks, writes a prepare record to its write-ahead log, and replies either <code>VOTE-COMMIT</code> or <code>VOTE-ABORT</code>.</li>
+<li>If any participant votes to abort (because of a constraint violation, a lock timeout, or any other reason), the coordinator will abort the transaction.</li>
+</ol>
+<p>Phase 2 is the <strong>commit phase</strong>:</p>
+<ol>
+<li>If all participants voted commit, the coordinator sends <code>COMMIT</code> to all participants. If any participant voted abort, the coordinator sends <code>ABORT</code> to all participants.</li>
+<li>Each participant applies or rolls back the transaction, releases its locks, and acknowledges.</li>
+</ol>
+<p>2PC guarantees atomicity: no node commits unless all nodes agreed. The protocol is used in every major relational database that supports distributed transactions — including Oracle, SQL Server, and PostgreSQL's pg_dist_transaction (via Citus).</p>
+<h4 id="diagram-two-phase-commit-flow">Diagram: Two-Phase Commit Flow</h4>
+<details markdown="1">
+<summary>MicroSim Specification</summary>
+
+**sim-id:** two-phase-commit-flow
+**Library:** p5.js
+**Status:** Specified
+
+Show a vertical swim-lane diagram with 4 columns: Coordinator, Participant A, Participant B, Participant C.
+
+Provide four scenario buttons at the top: "Happy Path," "Participant Crash in Phase 1," "Coordinator Crash After Prepare," "Participant Timeout in Phase 2."
+
+For Happy Path: animate message arrows flowing down (Prepare →), then voting arrows flowing up (Vote Commit ←), then commit arrows flowing down (Commit →), then acknowledgment arrows flowing up (ACK ←). Color each phase distinctly (blue for Phase 1, green for Phase 2).
+
+For "Coordinator Crash After Prepare": show Prepare messages sent, then the Coordinator column goes dark (red X). Show Participants A, B, C stuck in a "waiting" state, displayed as spinning clocks. Show a timer counting up. Label: "Participants are blocked — they cannot commit or abort without the coordinator." Show a "Recovery" button that brings a new coordinator online to complete the commit.
+
+For each scenario, show a timeline at the bottom and a label indicating whether the transaction ultimately committed or aborted.
+</details>
+
+<h3 id="the-blocking-problem">The Blocking Problem</h3>
+<p>2PC has a well-known Achilles' heel: it is a <strong>blocking protocol</strong>. During Phase 2, participants that voted to commit hold their locks while waiting for the coordinator's decision. If the coordinator crashes after sending PREPARE but before sending COMMIT or ABORT, the participants are stuck. They have voted to commit but cannot know whether to proceed. They must hold their locks indefinitely — blocking all concurrent transactions that touch the same rows — until the coordinator recovers.</p>
+<p>In practice, coordinators recover quickly (minutes in most deployments), but the theoretical blocking window is unbounded. This failure mode is why 2PC is called a "blocking" protocol and why engineers with long memories are wary of it.</p>
+<h3 id="three-phase-commit-adding-a-safety-net">Three-Phase Commit: Adding a Safety Net</h3>
+<p><strong>Three-Phase Commit (3PC)</strong> attempts to address the blocking problem by inserting an additional phase between the vote and the final commit:</p>
+<ol>
+<li><strong>Voting phase</strong> — same as 2PC.</li>
+<li><strong>Pre-commit phase</strong> — the coordinator sends a <code>PRE-COMMIT</code> message if all participants voted commit. Participants acknowledge. The coordinator now knows that all participants know a commit is coming.</li>
+<li><strong>Commit phase</strong> — the coordinator sends <code>COMMIT</code>. Participants apply and acknowledge.</li>
+</ol>
+<p>The key insight: after receiving PRE-COMMIT, a participant that cannot reach the coordinator can safely commit on its own (it knows all peers also voted commit). This eliminates the blocking window. The tradeoff is an additional round of network communication and the assumption that network partitions are fail-stop — a property that real networks do not guarantee. For these reasons, 3PC is rarely implemented in practice.</p>
+<h2 id="the-saga-pattern-long-running-transactions-without-locking">The Saga Pattern: Long-Running Transactions Without Locking</h2>
+<p>Two-Phase Commit works well for short transactions (milliseconds to seconds) but is unsuitable for business processes that span multiple services and take minutes or hours. Holding locks across a hotel booking, a payment processing step, and an airline reservation API call for 30 seconds is a non-starter.</p>
+<p>The <strong>saga pattern</strong> decomposes a long-running business transaction into a sequence of local transactions, each with a corresponding <strong>compensating transaction</strong> that semantically undoes it. If step N fails, the saga executes the compensating transaction for step N-1, then N-2, and so on, unwinding the completed work.</p>
+<p>A compensating transaction is not a rollback in the traditional database sense. The individual local transactions have already committed. A compensating transaction is a new write operation that undoes the business effect of a prior step — for example, issuing a refund to cancel a payment, or releasing a held hotel room.</p>
+<p>There are two architectural approaches to saga coordination:</p>
+<p><strong>Saga Orchestration</strong> uses a central orchestrator — a dedicated process or service — that explicitly directs each step of the saga and decides what compensating actions to take on failure. The orchestrator knows the full workflow and tracks its state in a persistent store. This approach is easy to debug (the orchestrator's state log tells you exactly where things went wrong) but creates a centralized dependency.</p>
+<p><strong>Saga Choreography</strong> uses no central orchestrator. Instead, each service listens for events from the previous step and emits events for the next step. If a step fails, the service emits a failure event, and earlier services react by executing their compensating transactions. This is more loosely coupled but harder to debug — the saga's state is distributed across multiple services' event logs.</p>
+<h4 id="diagram-saga-orchestration-vs-choreography">Diagram: Saga Orchestration vs Choreography</h4>
+<details markdown="1">
+<summary>MicroSim Specification</summary>
+
+**sim-id:** saga-orchestration-vs-choreography
+**Library:** p5.js
+**Status:** Specified
+
+Show a toggle switch labeled "Orchestration / Choreography" at the top.
+
+**Orchestration view:** Show a central "Saga Orchestrator" box in gold. Draw three service boxes: Order Service, Payment Service, Inventory Service. Show arrows from Orchestrator → Order Service (Create Order), then → Payment Service (Charge Card), then → Inventory Service (Reserve Items). Include a "Inject Failure" button that fails the Inventory step, triggering animated compensation arrows in red flowing back: Inventory (skipped), then Payment Service ← Orchestrator (Refund Card), then Order Service ← Orchestrator (Cancel Order). Show each step's status: Completed (green), Compensated (orange), Failed (red).
+
+**Choreography view:** Remove the Orchestrator box. Show the same three services connected by an event bus (horizontal line). Events flow rightward as labeled arrows: "OrderCreated" → Payment Service, "PaymentCharged" → Inventory Service. "Inject Failure" emits "InventoryFailed" event flowing leftward; Payment Service receives it and emits "PaymentRefunded" flowing back to Order Service.
+
+Show a summary: "Orchestration: easier to debug, central dependency. Choreography: loosely coupled, harder to trace."
+</details>
+
+<div class="admonition mascot-thinking">
+<p class="admonition-title">When Compensation Is Not Possible</p>
+<p><img src="../../img/mascot/thinking.png" class="mascot-admonition-img" alt="Dex the robot in a thoughtful pose">
+Some business operations cannot be compensated. You cannot un-send an email, un-fire a missile, or un-ring a doorbell. When designing sagas, identify these <strong>pivot transactions</strong> — operations with irreversible real-world effects — and place them as late in the saga as possible. Everything before the pivot can be compensated; everything after it must succeed.</p>
+</div>
+<h2 id="newsql-the-third-way">NewSQL: The Third Way</h2>
+<p>The NoSQL movement of the 2010s traded ACID for scale. The NewSQL movement of the 2010s said: we want both.</p>
+<p>A <strong>NewSQL database</strong> is a relational database that delivers SQL query compatibility and ACID transactions while also providing horizontal scalability across distributed clusters. NewSQL databases achieve this through distributed consensus protocols (Paxos or Raft) that replace the single-node transaction manager of traditional RDBMS systems.</p>
+<p>The three most prominent NewSQL databases are:</p>
+<table>
+<thead>
+<tr>
+<th>Database</th>
+<th>Consensus</th>
+<th>SQL Compatibility</th>
+<th>Open Source</th>
+<th>Notable Feature</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Google Spanner</td>
+<td>Paxos</td>
+<td>ANSI SQL, Google SPQL</td>
+<td>No (GCP only)</td>
+<td>TrueTime global ordering</td>
+</tr>
+<tr>
+<td>CockroachDB</td>
+<td>Raft</td>
+<td>PostgreSQL wire protocol</td>
+<td>Yes (BSL license)</td>
+<td>Geo-partitioning, survivability goals</td>
+</tr>
+<tr>
+<td>YugabyteDB</td>
+<td>Raft</td>
+<td>PostgreSQL + Cassandra APIs</td>
+<td>Yes (Apache 2.0)</td>
+<td>Dual API: YSQL + YCQL</td>
+</tr>
+</tbody>
+</table>
+<h3 id="google-spanner">Google Spanner</h3>
+<p><strong>Google Spanner</strong> is Google's globally distributed relational database, introduced in a landmark 2012 paper and available externally through Google Cloud Spanner. Spanner achieves external consistency — a guarantee stronger than serializable isolation — across data centers on multiple continents.</p>
+<p>The mechanism behind this achievement is the <strong>TrueTime API</strong>, a Google-internal service that exposes the current time not as a single timestamp but as an interval <code>[earliest, latest]</code> bounded by measured clock uncertainty. Spanner's commit protocol waits for the uncertainty interval to pass before considering a transaction committed — a technique called <strong>commit wait</strong>. This ensures that any transaction that commits later in real time will also have a higher timestamp, enabling global serializable ordering even across data centers with no shared clock.</p>
+<p>Each Spanner <strong>spanserver</strong> (shard) runs an independent Paxos group. A <strong>Global Transaction ID</strong> uniquely identifies each transaction across all participating Paxos groups. Cross-shard transactions use a 2PC-like protocol with Paxos groups acting as participants — but unlike traditional 2PC, the coordinator is itself replicated via Paxos, eliminating the single-coordinator failure mode.</p>
+<h4 id="diagram-truetime-commit-wait">Diagram: TrueTime Commit Wait</h4>
+<details markdown="1">
+<summary>MicroSim Specification</summary>
+
+**sim-id:** truetime-commit-wait
+**Library:** p5.js
+**Status:** Specified
+
+Show a horizontal timeline. A transaction T1 arrives, acquires a TrueTime timestamp showing an interval [T-ε, T+ε] (uncertainty window). Show a shaded region on the timeline representing this interval.
+
+Animate a "commit wait" period: the transaction is marked "waiting" until the real-world clock has advanced past T+ε. Then the transaction commits and its commit timestamp is marked as a vertical line on the timeline.
+
+Show a second transaction T2 arriving after T1's commit. Its TrueTime interval starts after T1's commit line. Label: "T2 will always receive a timestamp > T1's commit timestamp."
+
+Show a slider for "Clock Uncertainty (ε): 1ms – 7ms" — as uncertainty increases, the commit-wait period visibly extends. Add a label: "Typical Spanner ε = 1-7ms. Commit wait adds this latency to every transaction write."
+
+Add a counter showing effective write latency = base latency + 2ε.
+</details>
+
+<h3 id="cockroachdb">CockroachDB</h3>
+<p><strong>CockroachDB</strong> is an open-source NewSQL database built by Cockroach Labs, designed to survive data center failures (hence the name — cockroaches are famously difficult to kill). It uses Raft consensus per range (roughly equivalent to a shard), presents a PostgreSQL-compatible wire protocol, and supports serializable isolation by default.</p>
+<p>CockroachDB's approach to global transaction ordering uses hybrid logical clocks (HLCs) rather than TrueTime. HLCs combine a physical timestamp with a logical counter, ensuring that causal relationships between events are preserved even when physical clocks are unsynchronized. Transactions that span multiple Raft ranges go through a coordinator that manages the Raft-based 2PC protocol across the involved ranges.</p>
+<p>A distinctive CockroachDB feature is <strong>survivability goals</strong>: operators can declare that data must survive a node failure, a rack failure, or a data center failure, and CockroachDB will enforce the replication topology accordingly.</p>
+<h3 id="yugabytedb">YugabyteDB</h3>
+<p><strong>YugabyteDB</strong> is an open-source NewSQL database with a distinctive dual-API design: YSQL (PostgreSQL-compatible) and YCQL (Cassandra-compatible). This makes it an attractive migration target for teams moving from either ecosystem. Like CockroachDB, it uses Raft consensus per shard (called "tablets") and supports serializable isolation.</p>
+<p>YugabyteDB separates storage from query processing through its DocDB storage layer, which is based on RocksDB. This architecture allows it to serve both relational and wide-column workloads from the same storage engine, which is how the dual API becomes practical.</p>
+<h2 id="the-zab-protocol">The ZAB Protocol</h2>
+<p>No treatment of distributed coordination would be complete without the <strong>ZAB protocol</strong> (ZooKeeper Atomic Broadcast), the consensus algorithm that powers Apache ZooKeeper. ZAB is a Paxos variant designed specifically for the primary-backup model — it ensures that writes are totally ordered and that all nodes agree on the same history, even after leader failures.</p>
+<p>ZAB operates in two modes:</p>
+<p><strong>Recovery mode</strong> runs at startup or after a leader failure. The new leader broadcasts its complete transaction history to all followers. A follower only begins serving requests after it has received and acknowledged the full history from the new leader. This ensures no committed transaction is ever lost.</p>
+<p><strong>Broadcast mode</strong> is the normal operating mode. The leader receives writes, assigns them monotonically increasing <strong>zxids</strong> (ZooKeeper transaction IDs), and broadcasts them to followers. A write is committed once a quorum of followers have acknowledged it. All reads in ZooKeeper are served locally by the follower without broadcasting — making reads fast but potentially slightly stale.</p>
+<p>The key difference between ZAB and Raft is design intent. Raft was designed for pedagogical clarity and general use. ZAB was designed specifically for the ZooKeeper use case: high-read, low-write, total-order broadcast. Both deliver correct consensus; the implementation details differ.</p>
+<div class="admonition mascot-tip">
+<p class="admonition-title">Cross-Shard Transactions Are Expensive</p>
+<p><img:src="../../img/mascot/tip.png" class="mascot-admonition-img" alt="Dex the robot giving a helpful tip">
+Every cross-shard transaction adds at least one additional network round-trip compared to a single-shard transaction. In practice, design your shard key so that your most common transactions touch only one shard. The 80/20 rule applies: if 80% of your transactions are single-shard, the 20% cross-shard penalty is manageable. If 80% are cross-shard, you have chosen the wrong shard key.</p>
+</div>
+<h2 id="choosing-a-distributed-transaction-strategy">Choosing a Distributed Transaction Strategy</h2>
+<p>The choice between 2PC, sagas, and NewSQL depends on your consistency requirements and operational tolerance:</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Recommended Approach</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Financial ledger requiring strict ACID across 3 services</td>
+<td>NewSQL (CockroachDB/Spanner)</td>
+<td>True distributed ACID without saga complexity</td>
+</tr>
+<tr>
+<td>Long-running booking workflow (hotel + flight + car)</td>
+<td>Saga with Orchestration</td>
+<td>Steps span services; compensation is defined</td>
+</tr>
+<tr>
+<td>Microservices with loose coupling requirements</td>
+<td>Saga with Choreography</td>
+<td>No central coordinator; services stay independent</td>
+</tr>
+<tr>
+<td>Legacy PostgreSQL system needing distributed writes</td>
+<td>Citus + 2PC</td>
+<td>Familiar tooling; manage blocking risk operationally</td>
+</tr>
+<tr>
+<td>Global app requiring &lt; 10ms reads everywhere</td>
+<td>Google Spanner</td>
+<td>TrueTime enables strong consistency at global scale</td>
+</tr>
+</tbody>
+</table>
+<p>The dirty secret of distributed transactions is that the best strategy is often <strong>avoid them</strong>. If you can design your data model so that nearly all transactions are local to a single shard, you eliminate the coordination problem entirely. Domain-driven design's concept of <strong>aggregate boundaries</strong> — where one aggregate owns its data and changes within it are always local — is directly applicable here.</p>
+<h2 id="key-takeaways">Key Takeaways</h2>
+<ul>
+<li><strong>Two-Phase Commit</strong> guarantees atomicity across distributed participants but is a blocking protocol — a coordinator failure can leave participants stuck holding locks.</li>
+<li><strong>Three-Phase Commit</strong> adds a pre-commit phase to reduce blocking but introduces additional network overhead and relies on fail-stop assumptions rarely true in practice.</li>
+<li><strong>Sagas</strong> decompose long-running transactions into local steps with compensating transactions; orchestration provides centralized control, choreography provides loose coupling.</li>
+<li>A <strong>compensating transaction</strong> is not a rollback — it is a new business operation that semantically undoes a prior committed step.</li>
+<li><strong>NewSQL databases</strong> (Spanner, CockroachDB, YugabyteDB) deliver horizontal scalability and distributed ACID through Paxos/Raft consensus, eliminating the need for application-level saga logic in many cases.</li>
+<li><strong>Google Spanner's TrueTime API</strong> uses bounded clock uncertainty and commit wait to achieve external consistency across global data centers.</li>
+<li><strong>CockroachDB</strong> uses Raft and hybrid logical clocks; it is PostgreSQL-compatible and open source.</li>
+<li><strong>ZAB</strong> (ZooKeeper Atomic Broadcast) is a Paxos variant optimized for ZooKeeper's high-read, low-write, total-order-broadcast use case.</li>
+<li>The best distributed transaction strategy is often designing shard keys so that common transactions are single-shard — avoiding the coordination problem entirely.</li>
+</ul>
+<div class="admonition mascot-celebration">
+<p class="admonition-title">Distributed ACID: Achieved</p>
+<p><img src="../../img/mascot/celebration.png" class="mascot-admonition-img" alt="Dex the robot celebrating">
+You have survived two-phase commit, saga compensation, TrueTime, Raft, ZAB, and the subtle art of blaming the coordinator. In Chapter 13, Dex turns from transaction correctness to system survival: high availability, five-nines uptime, and the chaos engineering mindset that keeps production from becoming a horror story.</p>
+</div>
 
 
 
 
 
 
+
+  
+  
 
 
 

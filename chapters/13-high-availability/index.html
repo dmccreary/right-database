@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="DESCRIPTION All content licensed Creative Commons ShareAlike Attribution Noncommercial">
+        <meta name="description" content="Engineering database systems for five-nines uptime through failure domain analysis, active-active topologies, automated failover, and chaos engineering.">
       
       
         <meta name="author" content="Dan McCreary">
@@ -29,7 +29,7 @@
     
     
       
-        <title>13. High Availability - Selecting the Right Database</title>
+        <title>Chapter 13 - High Availability Architecture - Selecting the Right Database</title>
       
     
     
@@ -77,16 +77,16 @@
     
   
 <meta property="og:type" content="website" />
-<meta property="og:title" content="13. High Availability - Selecting the Right Database" />
-<meta property="og:description" content="DESCRIPTION All content licensed Creative Commons ShareAlike Attribution Noncommercial" />
+<meta property="og:title" content="Chapter 13 - High Availability Architecture - Selecting the Right Database" />
+<meta property="og:description" content="Engineering database systems for five-nines uptime through failure domain analysis, active-active topologies, automated failover, and chaos engineering." />
 <meta property="og:image" content="https://dmccreary.github.io/right-database/assets/images/social/chapters/13-high-availability/index.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:url" content="https://dmccreary.github.io/right-database/chapters/13-high-availability/" />
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="13. High Availability - Selecting the Right Database" />
-<meta property="twitter:description" content="DESCRIPTION All content licensed Creative Commons ShareAlike Attribution Noncommercial" />
+<meta property="twitter:title" content="Chapter 13 - High Availability Architecture - Selecting the Right Database" />
+<meta property="twitter:description" content="Engineering database systems for five-nines uptime through failure domain analysis, active-active topologies, automated failover, and chaos engineering." />
 <meta property="twitter:image" content="https://dmccreary.github.io/right-database/assets/images/social/chapters/13-high-availability/index.png" />
 </head>
   
@@ -141,7 +141,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              13. High Availability
+              Chapter 13 - High Availability Architecture
             
           </span>
         </div>
@@ -862,6 +862,178 @@
     <span class="md-ellipsis">
       
         Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-high-availability-actually-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What High Availability Actually Means
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What High Availability Actually Means">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-downtime-budget-calculator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Downtime Budget Calculator
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sla-decomposition-the-math-that-hurts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SLA Decomposition: The Math That Hurts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#failure-domains-thinking-in-blast-radii" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Failure Domains: Thinking in Blast Radii
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#active-active-and-active-passive-clustering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Active-Active and Active-Passive Clustering
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Active-Active and Active-Passive Clustering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-active-active-vs-active-passive-failover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Active-Active vs Active-Passive Failover
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#heartbeat-monitoring-and-failover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heartbeat Monitoring and Failover
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mtbf-mttr-and-the-availability-formula" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MTBF, MTTR, and the Availability Formula
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MTBF, MTTR, and the Availability Formula">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-mtbf-and-mttr-availability-calculator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: MTBF and MTTR Availability Calculator
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chaos-engineering-breaking-things-on-purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chaos Engineering: Breaking Things on Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geographic-redundancy-and-multi-region-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Geographic Redundancy and Multi-Region Deployment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#circuit-breaker-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Circuit Breaker Pattern
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#designing-for-ha-a-practical-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Designing for HA: A Practical Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Takeaways
       
     </span>
   </a>
@@ -1629,6 +1801,178 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#what-high-availability-actually-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What High Availability Actually Means
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What High Availability Actually Means">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-downtime-budget-calculator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Downtime Budget Calculator
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sla-decomposition-the-math-that-hurts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SLA Decomposition: The Math That Hurts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#failure-domains-thinking-in-blast-radii" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Failure Domains: Thinking in Blast Radii
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#active-active-and-active-passive-clustering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Active-Active and Active-Passive Clustering
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Active-Active and Active-Passive Clustering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-active-active-vs-active-passive-failover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Active-Active vs Active-Passive Failover
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#heartbeat-monitoring-and-failover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heartbeat Monitoring and Failover
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mtbf-mttr-and-the-availability-formula" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MTBF, MTTR, and the Availability Formula
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MTBF, MTTR, and the Availability Formula">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-mtbf-and-mttr-availability-calculator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: MTBF and MTTR Availability Calculator
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chaos-engineering-breaking-things-on-purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chaos Engineering: Breaking Things on Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geographic-redundancy-and-multi-region-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Geographic Redundancy and Multi-Region Deployment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#circuit-breaker-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Circuit Breaker Pattern
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#designing-for-ha-a-practical-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Designing for HA: A Practical Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1722,16 +2066,267 @@
 <h2 id="prerequisites">Prerequisites</h2>
 <p>This chapter builds on concepts from:</p>
 <ul>
+<li><a href="../09-cap-theorem-consensus/">Chapter 9: CAP Theorem and Consensus Protocols</a></li>
 <li><a href="../11-distributed-scaling/">Chapter 11: Distributed Scaling and Replication</a></li>
 </ul>
 <hr />
-<p>TODO: Generate Chapter Content</p>
+<div class="admonition mascot-welcome">
+<p class="admonition-title">In Search of Five Nines</p>
+<p><img src="../../img/mascot/welcome.png" class="mascot-admonition-img" alt="Dex the robot welcoming students">
+"Five nines" sounds like a poker hand but it is actually a promise: your database will be unavailable for no more than 5.26 minutes per year. Dex has seen many organizations quote this number in sales decks and then discover, at 3 AM on Black Friday, that they had not actually designed for it. This chapter teaches you how to design for it — not just promise it.</p>
+</div>
+<h2 id="what-high-availability-actually-means">What High Availability Actually Means</h2>
+<p><strong>High availability (HA)</strong> is a system design goal: minimize unplanned downtime, expressed as a percentage of time the system is functioning and reachable. It is important to distinguish <em>unplanned</em> downtime (failures) from <em>planned</em> downtime (maintenance windows). SLAs typically cover only unplanned downtime, though modern practices aim to eliminate even planned downtime through rolling upgrades and blue/green deployments.</p>
+<p>Availability percentages are conventionally stated in terms of "nines":</p>
+<table>
+<thead>
+<tr>
+<th>Availability</th>
+<th>Annual Downtime</th>
+<th>Monthly Downtime</th>
+<th>Typical Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>99% (two nines)</td>
+<td>87.6 hours</td>
+<td>7.3 hours</td>
+<td>Internal tools, batch systems</td>
+</tr>
+<tr>
+<td>99.9% (three nines)</td>
+<td>8.76 hours</td>
+<td>43.8 minutes</td>
+<td>Standard commercial SaaS</td>
+</tr>
+<tr>
+<td>99.99% (four nines)</td>
+<td>52.6 minutes</td>
+<td>4.4 minutes</td>
+<td>Financial applications, e-commerce</td>
+</tr>
+<tr>
+<td>99.999% (five nines)</td>
+<td>5.26 minutes</td>
+<td>26.3 seconds</td>
+<td>Telecommunications, critical infrastructure</td>
+</tr>
+<tr>
+<td>99.9999% (six nines)</td>
+<td>31.5 seconds</td>
+<td>2.6 seconds</td>
+<td>Rarely achieved at system level</td>
+</tr>
+</tbody>
+</table>
+<p>The jump from four nines to five nines is not a small engineering improvement — it is a fundamental architectural shift. Four-nines availability allows roughly one hour of unplanned downtime per year; at that level, a 15-minute database failover is a valid (if painful) option. At five nines, a 15-minute failover is your entire annual downtime budget for 170 years. Five-nines systems must recover in seconds, not minutes.</p>
+<h4 id="diagram-downtime-budget-calculator">Diagram: Downtime Budget Calculator</h4>
+<details markdown="1">
+<summary>MicroSim Specification</summary>
+
+**sim-id:** downtime-budget-calculator
+**Library:** p5.js
+**Status:** Specified
+
+Show a slider from 99.0% to 99.9999% availability (log scale with stops at each "nines" level). As the user moves the slider, update three displays:
+
+- Annual downtime allowed (in hours, minutes, or seconds — automatically select the appropriate unit)
+- Monthly downtime allowed
+- A horizontal bar chart showing the downtime budget visually against a 1-year timeline (the bar representing allowed downtime shrinks dramatically as nines increase)
+
+Below the bar chart, show a "Failover Comparison" section listing three common failover mechanisms and whether they fit in the downtime budget:
+- Manual failover: ~15 minutes — shows green/red depending on budget
+- Automated failover (Raft/Paxos): ~30 seconds — shows green/red
+- Active-active with DNS cutover: ~5 seconds — shows green/red
+
+Add a text label that updates: "At this availability level, you can afford approximately N failover events per year of type X."
+</details>
+
+<h2 id="sla-decomposition-the-math-that-hurts">SLA Decomposition: The Math That Hurts</h2>
+<p>Organizations frequently set a top-level SLA (say, 99.99% for a customer-facing API) without calculating what that implies for each component in the dependency chain. This omission is costly.</p>
+<p><strong>SLA decomposition</strong> is the practice of breaking the top-level SLA into per-component availability budgets. The key mathematical insight is that <strong>serial dependencies multiply downtime</strong>. If service A depends on service B, and both have independent failure probabilities, the combined availability is:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>A_combined = A_a × A_b
+</code></pre></div></td></tr></table></div>
+<p>A system with three serial dependencies, each at 99.99% availability, delivers only:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>0.9999 × 0.9999 × 0.9999 = 0.9997 ≈ 99.97% combined availability
+</code></pre></div></td></tr></table></div>
+<p>That combined 99.97% allows 2.6 hours of downtime per year — even though every individual component met four nines. If you need the system to deliver 99.99%, each component must be at roughly 99.9997%. Every additional dependency in your dependency chain makes achieving your top-level SLA harder.</p>
+<p>This is why architects obsessively minimize critical-path dependencies and use asynchronous communication patterns wherever possible. A dependency that is not in the critical path does not contribute to downtime when it fails.</p>
+<h2 id="failure-domains-thinking-in-blast-radii">Failure Domains: Thinking in Blast Radii</h2>
+<p>A <strong>failure domain</strong> is a set of components that share a common failure cause. Components in the same failure domain fail together when that cause occurs. Common failure domains include:</p>
+<ul>
+<li><strong>Same physical server</strong> — power supply failure, kernel panic, disk failure</li>
+<li><strong>Same rack</strong> — Top-of-rack switch failure, rack power distribution unit (PDU) failure</li>
+<li><strong>Same Availability Zone (AZ)</strong> — cooling failure, power substation failure</li>
+<li><strong>Same cloud region</strong> — regional network outage, natural disaster</li>
+<li><strong>Same cloud provider</strong> — global provider incidents (rare but documented)</li>
+</ul>
+<p>HA architecture is fundamentally about ensuring that no single failure domain contains enough of your critical components to take the system down. A three-node database cluster where all three nodes are in the same rack is not highly available — a single rack failure takes all three nodes offline simultaneously.</p>
+<p>A <strong>single point of failure (SPOF)</strong> is the degenerate case: a component whose failure alone brings down the entire system. Common database SPOFs include:</p>
+<ul>
+<li>A single primary database node with no automatic failover</li>
+<li>A single load balancer with no standby</li>
+<li>A single network switch on the path between application servers and the database</li>
+<li>A shared storage volume (SAN) attached to multiple "redundant" nodes</li>
+</ul>
+<p>Finding and eliminating SPOFs is the foundational exercise of HA design. Walk your architecture diagram and ask: "If this component fails right now, does the system stay up?" For every "no," you have found a SPOF.</p>
+<div class="admonition mascot-warning">
+<p class="admonition-title">The Hidden SPOF</p>
+<p><img src="../../img/mascot/warning.png" class="mascot-admonition-img" alt="Dex the robot raising a warning flag">
+The most dangerous SPOFs are the invisible ones. The load balancer is redundant — but both load balancers share a single configuration management server. The database has two nodes in different AZs — but both use the same Route 53 hosted zone, which has its own availability. SPOFs hide in the gaps between explicitly designed components. Threat model your architecture like an adversary would: what does an attacker need to take down to cause maximum impact?</p>
+</div>
+<h2 id="active-active-and-active-passive-clustering">Active-Active and Active-Passive Clustering</h2>
+<p>Once SPOFs are eliminated, the next architectural decision is how redundant nodes handle traffic.</p>
+<p><strong>Active-passive clustering</strong> maintains one active node serving all traffic and one or more passive (standby) nodes that receive replication but serve no client traffic. On failure of the active node, the passive node is promoted to active — a process called <strong>failover</strong>.</p>
+<p>Active-passive is simpler to implement and easier to reason about because there is always exactly one authoritative source of state. Its weaknesses are: the passive node is wasted capacity during normal operation, and failover introduces a brief period of unavailability while the passive node is promoted.</p>
+<p><strong>Active-active clustering</strong> runs all nodes simultaneously serving traffic. A load balancer distributes requests across all active nodes. Every node can accept reads and writes (in eventually consistent systems) or writes are distributed to any node and replicated (in systems with multi-leader or leaderless replication). Active-active provides both higher capacity and higher availability: the loss of one node immediately reduces capacity but does not cause an outage.</p>
+<p>Active-active is more complex. It requires the application to tolerate serving requests from any node, requires conflict resolution if writes are distributed, and requires session affinity if the application holds server-side state. Database systems that support active-active natively include Cassandra (leaderless), YugabyteDB (multi-leader YCQL), and CockroachDB (all nodes accept reads and writes through Raft).</p>
+<h4 id="diagram-active-active-vs-active-passive-failover">Diagram: Active-Active vs Active-Passive Failover</h4>
+<details markdown="1">
+<summary>MicroSim Specification</summary>
+
+**sim-id:** active-passive-vs-active-active
+**Library:** p5.js
+**Status:** Specified
+
+Show two panels side by side, labeled "Active-Passive" and "Active-Active."
+
+**Active-Passive panel:** Show a load balancer at top feeding into two nodes: Node 1 (green, "Active") and Node 2 (gray, "Passive"). Animate client request arrows flowing only to Node 1. Node 2 shows a replication arrow from Node 1. Provide a "Kill Node 1" button. Animate: Node 1 turns red (failed). A "Failover: 28 seconds" timer counts up. Node 2 turns green and labeled "Active." Client arrows redirect to Node 2. Show a gap in the request flow timeline during failover.
+
+**Active-Active panel:** Show a load balancer feeding into two nodes, both green ("Active"). Animate client arrows splitting between both nodes. Provide a "Kill Node 1" button. Animate: Node 1 turns red. Client arrows instantly route entirely to Node 2 with no gap. Show "Capacity reduced: 50%" label. A "Recovery: Node rejoins" button restores Node 1 and traffic spreads again.
+
+Show scorecard: Capacity utilization (50% vs 100%), Failover time (28 sec vs 0 sec), Complexity (Low vs High).
+</details>
+
+<h2 id="heartbeat-monitoring-and-failover">Heartbeat Monitoring and Failover</h2>
+<p><strong>Heartbeat monitoring</strong> is the mechanism by which nodes in a cluster detect each other's failure. Each node sends periodic "I am alive" signals — heartbeats — to its peers or to a central monitoring agent. When a heartbeat is missed for a configurable number of intervals, the monitoring system declares the node failed and initiates failover.</p>
+<p>The challenge is tuning heartbeat intervals and failure thresholds. Too sensitive (short intervals, low miss threshold), and a transient network hiccup triggers an unnecessary failover — causing brief downtime in an attempt to prevent downtime. Too insensitive (long intervals, high miss threshold), and a genuine failure takes too long to detect.</p>
+<p>A common configuration for a database cluster is a heartbeat interval of 1–2 seconds with a failure threshold of 3 consecutive missed heartbeats — detecting failure in 3–6 seconds. This is fast enough for automated failover to fit within a four-nines budget.</p>
+<p><strong>Failover</strong> is the process of promoting a standby to active after a failure is detected. Key steps in an automated failover sequence:</p>
+<ol>
+<li>Failure detected by heartbeat monitoring</li>
+<li>Leader election determines the new primary (Raft or similar algorithm)</li>
+<li>New primary is promoted; old primary is fenced (STONITH or equivalent) to prevent split-brain</li>
+<li>DNS or load balancer is updated to route traffic to the new primary</li>
+<li>Application connections are re-established (connection pool reconnect logic)</li>
+<li>Replication streams are re-established from the new primary to remaining replicas</li>
+</ol>
+<p>Each step takes time. The sum of all steps determines the actual failover window — what appears in the SLA as Recovery Time Objective (RTO).</p>
+<h2 id="mtbf-mttr-and-the-availability-formula">MTBF, MTTR, and the Availability Formula</h2>
+<p>Two metrics drive availability calculations:</p>
+<p><strong>Mean Time Between Failures (MTBF)</strong> is the average time a system runs before experiencing a failure. A higher MTBF means failures happen less frequently — the system is more reliable.</p>
+<p><strong>Mean Time to Recovery (MTTR)</strong> is the average time to restore service after a failure. A lower MTTR means failures are resolved faster.</p>
+<p>The relationship between these metrics and availability is:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>Availability = MTBF / (MTBF + MTTR)
+</code></pre></div></td></tr></table></div>
+<p>This formula has a critical implication: <strong>MTTR matters more than MTBF for high-availability systems</strong>. Consider two scenarios:</p>
+<ul>
+<li>System A: MTBF = 1000 hours, MTTR = 1 hour → Availability = 99.9%</li>
+<li>System B: MTBF = 100 hours (10x more failures!), MTTR = 0.1 hours → Availability = 99.9%</li>
+</ul>
+<p>System B fails ten times as often but recovers ten times faster — identical availability. Investing in fast recovery (automated failover, runbooks, chaos engineering) often yields better availability ROI than investing in hardware reliability.</p>
+<h4 id="diagram-mtbf-and-mttr-availability-calculator">Diagram: MTBF and MTTR Availability Calculator</h4>
+<details markdown="1">
+<summary>MicroSim Specification</summary>
+
+**sim-id:** mtbf-mttr-availability
+**Library:** p5.js
+**Status:** Specified
+
+Show two sliders: MTBF (1–10,000 hours) and MTTR (0.1–24 hours), both on log scales.
+
+Display:
+- Computed availability: `MTBF / (MTBF + MTTR)` in percentage, updated live
+- Number of "nines" (one decimal place: 99.9% = three nines)
+- Annual downtime in the appropriate unit
+
+Show a 2D heat map plot where the X-axis is MTBF (log scale) and Y-axis is MTTR (log scale). The color encodes availability from red (low) to green (high). Mark the current slider position as a white dot. Show availability contour lines at 99%, 99.9%, 99.99%, 99.999%.
+
+Include two labeled example points: "Average enterprise DB cluster" (MTBF=2000h, MTTR=2h) and "High-HA cluster" (MTBF=1000h, MTTR=0.1h). Show how moving the white dot toward low MTTR is more effective at crossing contour lines than increasing MTBF.
+</details>
+
+<h2 id="chaos-engineering-breaking-things-on-purpose">Chaos Engineering: Breaking Things on Purpose</h2>
+<p><strong>Chaos engineering</strong> is the discipline of deliberately injecting failures into a production (or production-equivalent) system to discover weaknesses before users encounter them. The term was coined by Netflix, which open-sourced the <strong>Chaos Monkey</strong> tool — a service that randomly terminates virtual machine instances in production during business hours.</p>
+<p>The philosophy behind chaos engineering is that complex distributed systems will fail in ways that are impossible to predict from code review or staging environment testing. The only way to know your system handles a failure gracefully is to cause that failure in a controlled way and observe what happens. The alternative — discovering failure modes during an actual incident — is much more expensive.</p>
+<p>A chaos engineering experiment follows a structured process:</p>
+<ol>
+<li><strong>Define steady state</strong> — what does normal behavior look like? (e.g., p99 latency &lt; 200ms, error rate &lt; 0.1%)</li>
+<li><strong>Hypothesize</strong> — "We believe that if a database replica fails, failover will complete in &lt; 30 seconds without a steady-state violation."</li>
+<li><strong>Inject the failure</strong> — terminate the replica process, block network traffic, fill the disk, inject CPU contention.</li>
+<li><strong>Observe</strong> — measure latency, error rates, and failover time against the steady-state baseline.</li>
+<li><strong>Improve</strong> — if the hypothesis was violated, fix the underlying weakness. If not, expand the blast radius.</li>
+</ol>
+<p>Common chaos experiments for database systems include:</p>
+<ul>
+<li>Killing the primary database node and measuring failover time</li>
+<li>Blocking replication between primary and replica to test replication lag alerting</li>
+<li>Filling the primary disk to test disk-full behavior</li>
+<li>Introducing 200ms artificial network latency between application servers and the database</li>
+<li>Killing the connection pool manager and testing reconnection behavior</li>
+</ul>
+<div class="admonition mascot-encourage">
+<p class="admonition-title">Start Small, Go Big</p>
+<p><img src="../../img/mascot/encouraging.png" class="mascot-admonition-img" alt="Dex the robot encouraging the reader">
+Your first chaos experiment should be the simplest possible thing: restart one database replica during off-peak hours and confirm that your monitoring alerts fire and your application does not throw errors. Then try restarting the primary. Then try blocking network traffic. The discipline builds confidence incrementally. Nobody goes straight to "terminate the primary in all three regions simultaneously" — well, nobody who still has a job.</p>
+</div>
+<h2 id="geographic-redundancy-and-multi-region-deployment">Geographic Redundancy and Multi-Region Deployment</h2>
+<p>Single-region deployments are vulnerable to events that affect an entire data center or availability zone — power grid failures, natural disasters, regional network outages, cooling system failures. For systems requiring five-nines availability, geographic redundancy is not optional.</p>
+<p><strong>Geographic redundancy</strong> means replicating data and compute across physically separated facilities — different buildings, cities, or countries. The two levels of geographic redundancy are:</p>
+<p><strong>Multi-AZ deployment</strong>: Active database nodes span two or three availability zones within a single cloud region. AZs are physically separate data centers within a region, typically 10–100 km apart, with independent power and networking. Most managed database services (AWS RDS Multi-AZ, Google Cloud SQL HA) implement multi-AZ as their standard HA offering. Multi-AZ protects against individual data center failures; it does not protect against region-wide outages.</p>
+<p><strong>Multi-region deployment</strong>: Active database nodes span two or more geographically separated cloud regions (e.g., us-east-1 and eu-west-1). This protects against regional outages — historically rare but real events (AWS us-east-1 and ap-southeast-2 have both had significant region-wide incidents). Multi-region introduces latency: writes must be replicated across the geographic distance (typically 40–150ms between US and EU regions), which impacts consistency and write latency.</p>
+<h2 id="circuit-breaker-pattern">Circuit Breaker Pattern</h2>
+<p>No discussion of HA is complete without the <strong>circuit breaker pattern</strong> — a resilience mechanism at the application layer that prevents cascading failures.</p>
+<p>When service A calls service B (e.g., when an application server calls the database), and service B begins returning errors or timing out, service A faces a choice: keep retrying (potentially overwhelming the already-struggling service B) or fail fast. The circuit breaker pattern provides a third option: track the failure rate and, when it exceeds a threshold, "open the circuit" — stop calling service B entirely and return a cached result or fallback error immediately.</p>
+<p>A circuit breaker has three states:</p>
+<ul>
+<li><strong>Closed</strong> (normal): requests pass through. Failures are counted.</li>
+<li><strong>Open</strong> (tripped): a failure threshold has been exceeded. All requests fail immediately without calling the downstream service. A timer runs.</li>
+<li><strong>Half-open</strong> (testing recovery): the timer expires. One probe request is allowed through. If it succeeds, the circuit closes. If it fails, the circuit reopens.</li>
+</ul>
+<p>For database connections, circuit breakers prevent a slow database from causing application threads to pile up waiting for timeouts, eventually exhausting the connection pool and taking down the application layer. Libraries like Netflix Hystrix, Resilience4j (Java), and Polly (.NET) implement circuit breaker patterns with configurable thresholds and fallback strategies.</p>
+<p>The circuit breaker pattern pairs naturally with <strong>read replicas</strong> and <strong>caching</strong>: when the circuit opens on the primary database, the application can fall back to a read replica for read operations or serve cached data rather than failing completely.</p>
+<h2 id="designing-for-ha-a-practical-checklist">Designing for HA: A Practical Checklist</h2>
+<p>Translating the concepts in this chapter into practice means answering the following questions for every database deployment:</p>
+<ul>
+<li>What is the target availability SLA, and what per-component budget does that imply?</li>
+<li>What failure domains exist, and are redundant nodes distributed across different failure domains?</li>
+<li>What are all the single points of failure in the current architecture?</li>
+<li>Is failover automated? What is the measured failover time under the chosen topology?</li>
+<li>What heartbeat interval and failure threshold parameters balance sensitivity against false positives?</li>
+<li>Are MTBF and MTTR measured? Is the team investing in MTTR reduction?</li>
+<li>Is a chaos engineering program in place? When was the last time failover was tested?</li>
+<li>For multi-region deployments: what is the write replication latency, and does it violate consistency requirements?</li>
+<li>Is a circuit breaker implemented on every path from application to database?</li>
+<li>Is the operational runbook documented and tested (not just written)?</li>
+</ul>
+<h2 id="key-takeaways">Key Takeaways</h2>
+<ul>
+<li><strong>Five-nines availability</strong> allows only 5.26 minutes of downtime per year; achieving it requires architecture-level design, not just good hardware.</li>
+<li><strong>SLA decomposition</strong> reveals that serial dependencies multiply downtime probability — every additional dependency makes achieving a top-level SLA harder.</li>
+<li><strong>Failure domains</strong> define blast radii; redundant components must span different failure domains (rack, AZ, region) to be effective.</li>
+<li><strong>SPOFs</strong> must be explicitly identified and eliminated; they frequently hide in the gaps between explicitly designed components.</li>
+<li><strong>Active-active clustering</strong> eliminates failover time at the cost of complexity; <strong>active-passive</strong> is simpler but has a brief failover window.</li>
+<li><strong>Heartbeat monitoring</strong> triggers failover; tuning heartbeat sensitivity requires balancing false positives against detection speed.</li>
+<li><strong>MTTR drives availability more than MTBF</strong> — invest in fast recovery over hardware reliability for better availability ROI.</li>
+<li><strong>Chaos engineering</strong> is the only reliable way to validate HA claims — design what you believe, test what you designed.</li>
+<li><strong>Geographic redundancy</strong> across AZs handles data center failures; <strong>multi-region deployment</strong> protects against regional outages at the cost of cross-region latency.</li>
+<li>The <strong>circuit breaker pattern</strong> prevents cascading failures when the database degrades; it is the application-layer complement to database-level HA.</li>
+</ul>
+<div class="admonition mascot-celebration">
+<p class="admonition-title">Five Nines Earned</p>
+<p><img src="../../img/mascot/celebration.png" class="mascot-admonition-img" alt="Dex the robot celebrating">
+You now know what it takes to keep a database running when hardware fails, networks partition, data centers flood, and developers accidentally run DROP TABLE in production. Chapter 14 shifts gears entirely: away from keeping data alive, toward a radically different way of finding it — through the geometry of meaning, using vector search.</p>
+</div>
 
 
 
 
 
 
+
+  
+  
 
 
 

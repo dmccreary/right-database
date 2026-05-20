@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="DESCRIPTION All content licensed Creative Commons ShareAlike Attribution Noncommercial">
+        <meta name="description" content="The four ACID properties, all four isolation levels, concurrency anomalies each prevents, two-phase locking, MVCC, savepoints, rollback, and distributed sagas for microservices.">
       
       
         <meta name="author" content="Dan McCreary">
@@ -29,7 +29,7 @@
     
     
       
-        <title>10. ACID Transactions - Selecting the Right Database</title>
+        <title>Chapter 10 - ACID Transactions - Selecting the Right Database</title>
       
     
     
@@ -75,20 +75,7 @@
 
     
     
-  
-<meta property="og:type" content="website" />
-<meta property="og:title" content="10. ACID Transactions - Selecting the Right Database" />
-<meta property="og:description" content="DESCRIPTION All content licensed Creative Commons ShareAlike Attribution Noncommercial" />
-<meta property="og:image" content="https://dmccreary.github.io/right-database/assets/images/social/chapters/10-acid-transactions/index.png" />
-<meta property="og:image:type" content="image/png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:url" content="https://dmccreary.github.io/right-database/chapters/10-acid-transactions/" />
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="10. ACID Transactions - Selecting the Right Database" />
-<meta property="twitter:description" content="DESCRIPTION All content licensed Creative Commons ShareAlike Attribution Noncommercial" />
-<meta property="twitter:image" content="https://dmccreary.github.io/right-database/assets/images/social/chapters/10-acid-transactions/index.png" />
-</head>
+  </head>
   
   
     
@@ -141,7 +128,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              10. ACID Transactions
+              Chapter 10 - ACID Transactions
             
           </span>
         </div>
@@ -778,6 +765,212 @@
     <span class="md-ellipsis">
       
         Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-four-acid-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Four ACID Properties
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Four ACID Properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomicity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atomicity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consistency-acid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consistency (ACID)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Isolation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#durability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Durability
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Durability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-acid-bank-transfer-atomicity-visualizer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: ACID Bank Transfer Atomicity Visualizer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transaction-isolation-levels-and-concurrency-anomalies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transaction Isolation Levels and Concurrency Anomalies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transaction Isolation Levels and Concurrency Anomalies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-isolation-level-anomaly-explorer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Isolation Level Anomaly Explorer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-phase-locking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two-Phase Locking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimistic-concurrency-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimistic Concurrency Control
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#savepoints-and-rollback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Savepoints and Rollback
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Savepoints and Rollback">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-savepoint-and-rollback-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Savepoint and Rollback Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distributed-sagas-acid-for-microservices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distributed Sagas: ACID for Microservices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Distributed Sagas: ACID for Microservices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-saga-orchestration-vs-choreography" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Saga Orchestration vs Choreography
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-atam-lens-choosing-the-right-isolation-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The ATAM Lens: Choosing the Right Isolation Level
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Takeaways
       
     </span>
   </a>
@@ -1629,6 +1822,212 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#the-four-acid-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Four ACID Properties
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Four ACID Properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomicity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atomicity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consistency-acid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consistency (ACID)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Isolation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#durability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Durability
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Durability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-acid-bank-transfer-atomicity-visualizer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: ACID Bank Transfer Atomicity Visualizer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transaction-isolation-levels-and-concurrency-anomalies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transaction Isolation Levels and Concurrency Anomalies
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transaction Isolation Levels and Concurrency Anomalies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-isolation-level-anomaly-explorer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Isolation Level Anomaly Explorer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-phase-locking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two-Phase Locking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimistic-concurrency-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimistic Concurrency Control
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#savepoints-and-rollback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Savepoints and Rollback
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Savepoints and Rollback">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-savepoint-and-rollback-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Savepoint and Rollback Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distributed-sagas-acid-for-microservices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distributed Sagas: ACID for Microservices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Distributed Sagas: ACID for Microservices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-saga-orchestration-vs-choreography" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Saga Orchestration vs Choreography
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-atam-lens-choosing-the-right-isolation-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The ATAM Lens: Choosing the Right Isolation Level
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1729,13 +2128,251 @@
 <li><a href="../09-cap-theorem-consensus/">Chapter 9: CAP Theorem and Consensus Protocols</a></li>
 </ul>
 <hr />
-<p>TODO: Generate Chapter Content</p>
+<div class="admonition mascot-welcome">
+<p class="admonition-title">Welcome to Chapter 10!</p>
+<p><img src="../../img/mascot/welcome.png" class="mascot-admonition-img" alt="Dex waves hello">
+ACID is the reason relational databases have powered banking, e-commerce, and healthcare for fifty years. It is also one of the most frequently misunderstood guarantees in software engineering — developers often believe their database is giving them ACID when it is not, or believe they need ACID when a weaker model would suffice. This chapter gives you the precision to know the difference, and to make the right tradeoff in every system you design.</p>
+</div>
+<h2 id="the-four-acid-properties">The Four ACID Properties</h2>
+<p>A <strong>transaction</strong> is a sequence of database operations (reads and writes) that the database treats as a single logical unit of work. The <strong>ACID</strong> properties — Atomicity, Consistency, Isolation, Durability — define what guarantees a transactional database provides for each unit of work.</p>
+<h3 id="atomicity">Atomicity</h3>
+<p><strong>Atomicity</strong> means that all operations within a transaction either all succeed or all fail together. There is no partial commit — no state where half the operations took effect and half did not. If a bank transfer involves two steps — debit account A, credit account B — atomicity guarantees that if the credit fails for any reason (network error, constraint violation, system crash), the debit is automatically rolled back. The database returns to its state before the transaction began.</p>
+<p>Atomicity is enforced through the <strong>Write-Ahead Log</strong> (covered in Chapter 3): the engine writes all changes to the WAL before applying them to data pages, and uses the WAL to undo incomplete transactions on recovery.</p>
+<h3 id="consistency-acid">Consistency (ACID)</h3>
+<p><strong>Consistency</strong> (the ACID sense, distinct from CAP consistency) means that a transaction takes the database from one valid state to another valid state. "Valid" means all declared constraints are satisfied — primary key uniqueness, foreign key referential integrity, check constraints, not-null constraints. A transaction that would violate any constraint is aborted entirely. The database never exposes a state that violates its declared integrity rules.</p>
+<p>Note the responsibility boundary: the database enforces <em>declared</em> constraints. Correctness of business logic (e.g., that a product price is never negative) is the application's responsibility unless explicitly declared as a CHECK constraint.</p>
+<h3 id="isolation">Isolation</h3>
+<p><strong>Isolation</strong> means that concurrent transactions do not interfere with each other. Each transaction sees a consistent view of the database as if it were running alone. In practice, full isolation is expensive — it is relaxed through <strong>isolation levels</strong> that trade isolation guarantees for concurrency and performance. The isolation levels are the most nuanced and operationally consequential part of the ACID model.</p>
+<h3 id="durability">Durability</h3>
+<p><strong>Durability</strong> means that once a transaction is committed, its changes are permanent. They survive crashes, power failures, and restarts. Durability is achieved by forcing the WAL record of a commit to stable storage (disk, SSD, or battery-backed RAM) before acknowledging success to the client. The <code>fsync</code> system call is the mechanism; skipping it for performance is the source of many dramatic data loss incidents.</p>
+<h4 id="diagram-acid-bank-transfer-atomicity-visualizer">Diagram: ACID Bank Transfer Atomicity Visualizer</h4>
+<details markdown="1">
+<summary>ACID Atomicity Visualizer — Bank Transfer Failure Scenario</summary>
+Type: MicroSim
+**sim-id:** acid-atomicity-visualizer<br/>
+**Library:** p5.js<br/>
+**Status:** Specified
+
+**Learning Objective:** Demonstrate atomicity by showing how a partial failure in a multi-step transaction is automatically rolled back, leaving the database in its original state. (Bloom L2: Understand)
+
+**Canvas:** 760px wide × 440px tall. CANVAS_HEIGHT: 440.
+
+**Description:**
+Two bank account panels: Account A (left, balance $1,000) and Account B (right, balance $500). A transaction panel in the center shows two steps: Step 1 "Debit A: -$300" and Step 2 "Credit B: +$300."
+
+**Happy path animation:** "Run Transaction" button. Step 1 executes: Account A balance animates to $700 (green flash). Step 2 executes: Account B balance animates to $800 (green flash). "COMMIT" label appears. Both balances stay updated.
+
+**Failure path animation:** "Inject Failure at Step 2" button. Step 1 executes: Account A animates to $700. Step 2 fails: Account B shows a red X (constraint violation). A "ROLLBACK" label appears. Account A animates back to $1,000 (orange flash). "Transaction rolled back — database returned to consistent state."
+
+**Without ACID toggle:** Shows what happens without atomicity — Account A stays at $700 even after Step 2 fails. "Money disappeared." Red warning banner.
+
+**Responsive:** Redraws on window resize.
+</details>
+
+<h2 id="transaction-isolation-levels-and-concurrency-anomalies">Transaction Isolation Levels and Concurrency Anomalies</h2>
+<p>The SQL standard defines four isolation levels, each preventing a different set of concurrency anomalies. Before examining the levels, define the three anomalies they protect against.</p>
+<p>A <strong>dirty read</strong> occurs when a transaction reads a value written by another transaction that has not yet committed. If the writing transaction later rolls back, the reading transaction has seen data that never officially existed.</p>
+<p>A <strong>non-repeatable read</strong> occurs when a transaction reads the same row twice and gets different values because another transaction modified and committed that row between the two reads. The row exists in both reads — it just changed.</p>
+<p>A <strong>phantom read</strong> occurs when a transaction re-executes a query and finds different rows — not because existing rows changed, but because another transaction inserted or deleted rows that match the query's predicate.</p>
+<p>With those definitions in hand, the four isolation levels are:</p>
+<table>
+<thead>
+<tr>
+<th>Isolation Level</th>
+<th>Dirty Reads</th>
+<th>Non-Repeatable Reads</th>
+<th>Phantom Reads</th>
+<th>Typical Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Read Uncommitted</td>
+<td>Possible</td>
+<td>Possible</td>
+<td>Possible</td>
+<td>Rarely used; analytics where staleness is acceptable</td>
+</tr>
+<tr>
+<td>Read Committed</td>
+<td>Prevented</td>
+<td>Possible</td>
+<td>Possible</td>
+<td>Default in PostgreSQL; most OLTP workloads</td>
+</tr>
+<tr>
+<td>Repeatable Read</td>
+<td>Prevented</td>
+<td>Prevented</td>
+<td>Possible</td>
+<td>Default in MySQL; inventory, financial reporting</td>
+</tr>
+<tr>
+<td>Serializable</td>
+<td>Prevented</td>
+<td>Prevented</td>
+<td>Prevented</td>
+<td>Financial transactions, anything requiring full isolation</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Read Uncommitted</strong> allows transactions to read uncommitted changes from other transactions. This is the weakest level and is almost never correct for transactional workloads.</p>
+<p><strong>Read Committed</strong> ensures a transaction only sees committed data. Each read within a transaction sees the latest committed value at the moment of that read. This is the practical default for most OLTP applications.</p>
+<p><strong>Repeatable Read</strong> adds the guarantee that if you read a row, you will get the same value every time you read it within the same transaction. In PostgreSQL's implementation, this is achieved via MVCC snapshots. In MySQL, it is the default isolation level.</p>
+<p><strong>Serializable Isolation</strong> is the strongest level: transactions behave exactly as if they ran one at a time in some serial order. No concurrency anomalies of any kind are possible. PostgreSQL implements this via Serializable Snapshot Isolation (SSI), a highly concurrent implementation that detects and aborts only conflicting transactions.</p>
+<h4 id="diagram-isolation-level-anomaly-explorer">Diagram: Isolation Level Anomaly Explorer</h4>
+<details markdown="1">
+<summary>Interactive Isolation Level Anomaly Explorer</summary>
+Type: MicroSim
+**sim-id:** isolation-level-explorer<br/>
+**Library:** p5.js<br/>
+**Status:** Specified
+
+**Learning Objective:** Apply isolation level knowledge to predict which concurrency anomalies can occur at each level, and identify the correct isolation level for a given business requirement. (Bloom L3–L4: Apply/Analyze)
+
+**Canvas:** 780px wide × 500px tall. CANVAS_HEIGHT: 500.
+
+**Description:**
+Four tabs across the top: Read Uncommitted | Read Committed | Repeatable Read | Serializable.
+
+Each tab shows a two-transaction timeline diagram (Transaction A on top lane, Transaction B on bottom lane) with time flowing left to right.
+
+**Read Uncommitted tab:** Transaction B writes balance = $200 (uncommitted). Transaction A reads $200. Transaction B rolls back. Transaction A displays stale $200. Red badge: "Dirty Read occurred."
+
+**Read Committed tab:** Transaction B writes $200 (uncommitted). Transaction A attempts to read — blocked until B commits or rolls back. B commits $200. A reads $200. No dirty read. But if A reads again after B makes another change, A gets a different value. Orange badge: "Non-Repeatable Read possible."
+
+**Repeatable Read tab:** Transaction A reads row at t=1 (value $100). Transaction B updates and commits (value $200). Transaction A reads same row at t=3 — still sees $100 (snapshot from t=1). Green badge: "Repeatable reads guaranteed." But a range query can return new rows if B inserts: Orange badge: "Phantom Reads still possible."
+
+**Serializable tab:** All anomalies prevented. Shows SSI detecting and aborting a conflicting transaction rather than allowing anomalies.
+
+Each tab has a "What business scenario requires this?" sidebar.
+
+**Responsive:** Redraws on window resize.
+</details>
+
+<h2 id="two-phase-locking">Two-Phase Locking</h2>
+<p><strong>Two-Phase Locking (2PL)</strong> is the pessimistic concurrency control protocol that achieves serializability through lock acquisition discipline. The protocol has two phases:</p>
+<ol>
+<li><strong>Growing phase:</strong> The transaction acquires all the locks it needs (shared locks for reads, exclusive locks for writes). During this phase it may acquire but not release locks.</li>
+<li><strong>Shrinking phase:</strong> After the transaction reaches its lock point (typically when it commits or aborts), it releases all locks. During this phase it may not acquire new locks.</li>
+</ol>
+<p>The name "two-phase" refers to these two phases — not to two-phase commit (a different protocol covered in Chapter 12).</p>
+<p><strong>Strict 2PL</strong> (the most common variant) holds all locks until the transaction commits or aborts, eliminating cascading aborts (a transaction reading uncommitted data that is later rolled back). Most relational databases implement Strict 2PL.</p>
+<p>The cost of 2PL is contention: long-running transactions hold locks that block other transactions. This is the primary motivation for MVCC, which allows readers to proceed without blocking writers.</p>
+<div class="admonition mascot-tip">
+<p class="admonition-title">When 2PL Meets 2PL: Deadlocks</p>
+<p><img src="../../img/mascot/tip.png" class="mascot-admonition-img" alt="Dex offers a tip">
+Two-phase locking creates deadlock risk whenever two transactions acquire locks in different orders. Transaction A holds lock on row 1 and wants row 2; Transaction B holds row 2 and wants row 1. The database detects this by scanning the wait-for graph and rolls back the victim. Application code must be written to catch deadlock errors (PostgreSQL error code 40P01) and retry. Order your lock acquisitions consistently to minimize deadlock frequency.</p>
+</div>
+<h2 id="optimistic-concurrency-control">Optimistic Concurrency Control</h2>
+<p><strong>Optimistic Concurrency Control (OCC)</strong> takes the opposite philosophy from 2PL: instead of preventing conflicts by acquiring locks upfront, OCC allows transactions to proceed without locks and detects conflicts at commit time.</p>
+<p>An OCC transaction proceeds in three phases:</p>
+<ol>
+<li><strong>Read phase:</strong> The transaction reads data and maintains a private read set and write set (buffered changes not yet applied).</li>
+<li><strong>Validation phase:</strong> At commit time, the engine checks whether any data in the read set was modified by another committed transaction since the current transaction started. If yes, there is a conflict.</li>
+<li><strong>Write phase:</strong> If validation succeeds, the buffered writes are applied and the transaction commits. If validation fails, the transaction is aborted and the application retries.</li>
+</ol>
+<p>OCC performs well when conflicts are rare — most transactions complete without any conflict, and the overhead of locking is avoided entirely. OCC performs poorly when conflicts are frequent, because aborted transactions waste work. PostgreSQL's MVCC implementation borrows OCC ideas for its Serializable Snapshot Isolation mode.</p>
+<h2 id="savepoints-and-rollback">Savepoints and Rollback</h2>
+<p>A <strong>savepoint</strong> is a named checkpoint within a transaction that allows partial rollback without aborting the entire transaction. After establishing a savepoint with <code>SAVEPOINT sp1</code>, subsequent operations can be undone back to <code>sp1</code> with <code>ROLLBACK TO SAVEPOINT sp1</code>, while preserving all work done before <code>sp1</code>.</p>
+<p>Savepoints are implemented via the WAL: the undo log records every change, and rolling back to a savepoint replays the undo log from the current position back to the savepoint marker.</p>
+<p>A <strong>rollback</strong> (without a savepoint target) undoes all changes since the transaction began and returns the database to its state before the <code>BEGIN</code>. Rollbacks are triggered explicitly by the application, automatically on error (depending on database configuration), or by the engine when a deadlock victim is selected.</p>
+<p>The <strong>commit protocol</strong> is the sequence of steps the engine takes to make a transaction permanent: flush the transaction's WAL records to disk (fsync), write the commit record to the WAL, then release locks. Only after the commit record is durably written is the transaction considered committed.</p>
+<h4 id="diagram-savepoint-and-rollback-flow">Diagram: Savepoint and Rollback Flow</h4>
+<details markdown="1">
+<summary>Savepoint and Partial Rollback Visualizer</summary>
+Type: MicroSim
+**sim-id:** savepoint-rollback-flow<br/>
+**Library:** p5.js<br/>
+**Status:** Specified
+
+**Learning Objective:** Demonstrate how savepoints allow partial rollback within a transaction, preserving earlier work while undoing later steps. (Bloom L3: Apply)
+
+**Canvas:** 780px wide × 420px tall. CANVAS_HEIGHT: 420.
+
+**Description:**
+A horizontal timeline of operations within a single transaction: BEGIN → Op1 (INSERT order) → SAVEPOINT sp1 → Op2 (INSERT line_item 1) → Op3 (INSERT line_item 2) → SAVEPOINT sp2 → Op4 (UPDATE inventory, fails) → ROLLBACK TO sp1 → Op5 (retry line_items differently) → COMMIT.
+
+Each operation is a node on the timeline. Savepoints are shown as vertical flags. Rolled-back operations (Op2, Op3, Op4) are grayed out with strikethrough after the ROLLBACK TO sp1. Op1 remains in effect (green). Op5 onwards re-execute on the clean state after sp1.
+
+**Interactions:**
+- Hovering any operation shows what changed: "Op1: Inserted order row id=1001."
+- Clicking ROLLBACK TO sp1 animates the undo: Op2, Op3, Op4 flash red and gray out sequentially.
+- A "Database State" panel on the right updates after each step, showing what rows currently exist.
+
+**Full Rollback button:** Shows what happens with ROLLBACK (no savepoint) — all operations undone, database returns to pre-BEGIN state.
+
+**Responsive:** Redraws on window resize.
+</details>
+
+<h2 id="distributed-sagas-acid-for-microservices">Distributed Sagas: ACID for Microservices</h2>
+<p>Distributed ACID transactions — where a single transaction spans multiple databases or microservices — require a protocol like Two-Phase Commit (covered in Chapter 12). 2PC adds significant latency and coordination overhead. For microservices architectures where services are independently deployed and own their own databases, 2PC is often impractical.</p>
+<p>The <strong>distributed saga</strong> pattern is the primary alternative. A saga is a sequence of local transactions, one per service, where each local transaction updates its own database and publishes an event or message triggering the next step. If any step fails, the saga executes <strong>compensating transactions</strong> — operations that semantically undo the effect of the already-committed local transactions.</p>
+<p>Two coordination styles exist:</p>
+<p><strong>Saga Orchestration</strong> uses a central <strong>saga orchestrator</strong> that sends commands to each service and awaits responses. The orchestrator knows the full sequence and compensation plan. If Step 3 fails, the orchestrator explicitly commands Steps 2 and 1 to compensate.</p>
+<p><strong>Saga Choreography</strong> has no central coordinator. Each service listens for events from the previous step, executes its local transaction, and publishes an event for the next step. Compensation is triggered by failure events. There is no single point of control — and no single point of failure.</p>
+<p>Sagas do NOT provide isolation. Between steps, the intermediate state is visible to other transactions (the order exists but payment has not yet been confirmed). Applications using sagas must be designed to handle this — using techniques like "pending" states, idempotent operations, and careful UI design that does not expose partial saga state to end users.</p>
+<h4 id="diagram-saga-orchestration-vs-choreography">Diagram: Saga Orchestration vs Choreography</h4>
+<details markdown="1">
+<summary>Saga Orchestration vs. Choreography — Interactive Flow Comparison</summary>
+Type: MicroSim
+**sim-id:** saga-pattern-comparison<br/>
+**Library:** p5.js<br/>
+**Status:** Specified
+
+**Learning Objective:** Compare saga orchestration and choreography patterns, identify how compensating transactions restore consistency after partial failure, and select the appropriate coordination style for a given microservices scenario. (Bloom L4–L5: Analyze/Evaluate)
+
+**Canvas:** 780px wide × 520px tall. CANVAS_HEIGHT: 520.
+
+**Description:**
+Two side-by-side panels: "Orchestration" (left) and "Choreography" (right).
+
+**Orchestration panel:** A central Orchestrator node at top. Three service nodes below: Order Service, Payment Service, Inventory Service. Arrows flow from Orchestrator → each service with command labels ("PlaceOrder", "ChargeCard", "ReserveInventory"). Success arrows return to Orchestrator.
+
+**Choreography panel:** No central node. Order Service → publishes "OrderPlaced" → Payment Service listens → publishes "PaymentCharged" → Inventory Service listens → publishes "InventoryReserved". Arrows are event-driven, flowing horizontally.
+
+**Failure injection:** A "Fail Payment" button triggers a failure in the Payment Service in both panels. In the Orchestration panel, the Orchestrator receives a failure, sends "CancelOrder" compensation command back to Order Service (red arrow). In the Choreography panel, Payment Service publishes "PaymentFailed" event, Order Service listens and self-compensates.
+
+**Animation:** Step-by-step playback with 800ms per step. Each step highlights the active service and the message flowing.
+
+**Responsive:** Redraws on window resize.
+</details>
+
+<h2 id="the-atam-lens-choosing-the-right-isolation-level">The ATAM Lens: Choosing the Right Isolation Level</h2>
+<p>Isolation levels are a classic ATAM sensitivity point: the right choice depends entirely on the quality attribute scenarios the system must satisfy.</p>
+<p>A utility tree for a payment processing system should include a scenario like: "When two users attempt to purchase the last unit of inventory simultaneously, exactly one transaction must succeed and the other must receive a stock-out error." This scenario requires Serializable isolation — no weaker level prevents the phantom read that would allow both transactions to see the item as available.</p>
+<p>A utility tree for an analytics dashboard might include: "Reports may reflect data up to 60 seconds old." This scenario permits Read Committed or even eventually consistent reads, dramatically reducing lock contention and improving report query throughput.</p>
+<div class="admonition mascot-warning">
+<p class="admonition-title">The Default Isolation Level Trap</p>
+<p><img src="../../img/mascot/warning.png" class="mascot-admonition-img" alt="Dex warns">
+PostgreSQL's default is Read Committed. MySQL's default is Repeatable Read. Neither default is Serializable. Most applications that believe they have "full ACID" actually have Read Committed, which permits non-repeatable reads and phantom reads. For most OLTP workloads, this is fine — but for inventory management, financial accounting, and any scenario where the same data is read twice within a transaction and acted upon, it is not. Verify the isolation level your application actually uses before shipping.</p>
+</div>
+<h2 id="key-takeaways">Key Takeaways</h2>
+<p>ACID is not a binary property — databases have it or they don't. It is a spectrum of four guarantees, each independently configurable, each with operational costs and benefits.</p>
+<ul>
+<li><strong>Atomicity</strong> — all-or-nothing; no partial commits; enforced via WAL undo</li>
+<li><strong>Consistency (ACID)</strong> — constraint satisfaction on every commit; the database never exposes invalid state</li>
+<li><strong>Isolation</strong> — four levels from Read Uncommitted to Serializable; each prevents a different set of anomalies</li>
+<li><strong>Durability</strong> — committed data survives crashes; requires fsync to stable storage</li>
+<li><strong>Dirty read / Non-repeatable read / Phantom read</strong> — the three anomaly types; know which isolation level prevents each</li>
+<li><strong>Two-Phase Locking</strong> — pessimistic; holds locks until commit; prevents conflicts proactively</li>
+<li><strong>MVCC / Optimistic CC</strong> — no reader-writer blocking; detects conflicts at commit time</li>
+<li><strong>Distributed Saga</strong> — ACID alternative for microservices; compensating transactions replace rollback; no isolation between steps</li>
+</ul>
+<div class="admonition mascot-celebration">
+<p class="admonition-title">Chapter 10 Complete!</p>
+<p><img src="../../img/mascot/celebration.png" class="mascot-admonition-img" alt="Dex celebrates">
+You now have the full ACID toolkit — not as a marketing claim, but as a set of precise, independently configurable guarantees. The next two chapters take these foundations into distributed territory: how do you scale databases horizontally while keeping replication consistent (Chapter 11), and how do you achieve full ACID across a distributed cluster (Chapter 12)? The answers build directly on what you just learned.</p>
+</div>
 
 
 
 
 
 
+
+  
+  
 
 
 

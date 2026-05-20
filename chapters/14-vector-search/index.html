@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="DESCRIPTION All content licensed Creative Commons ShareAlike Attribution Noncommercial">
+        <meta name="description" content="Vector embeddings, similarity metrics, ANN indexes (HNSW, IVF, flat), pgvector, semantic search, hybrid search — and how vector search integrates into any database paradigm.">
       
       
         <meta name="author" content="Dan McCreary">
@@ -29,7 +29,7 @@
     
     
       
-        <title>14. Vector Search - Selecting the Right Database</title>
+        <title>Chapter 14 - Vector Search as a Database Feature - Selecting the Right Database</title>
       
     
     
@@ -75,20 +75,7 @@
 
     
     
-  
-<meta property="og:type" content="website" />
-<meta property="og:title" content="14. Vector Search - Selecting the Right Database" />
-<meta property="og:description" content="DESCRIPTION All content licensed Creative Commons ShareAlike Attribution Noncommercial" />
-<meta property="og:image" content="https://dmccreary.github.io/right-database/assets/images/social/chapters/14-vector-search/index.png" />
-<meta property="og:image:type" content="image/png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta property="og:url" content="https://dmccreary.github.io/right-database/chapters/14-vector-search/" />
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="14. Vector Search - Selecting the Right Database" />
-<meta property="twitter:description" content="DESCRIPTION All content licensed Creative Commons ShareAlike Attribution Noncommercial" />
-<meta property="twitter:image" content="https://dmccreary.github.io/right-database/assets/images/social/chapters/14-vector-search/index.png" />
-</head>
+  </head>
   
   
     
@@ -141,7 +128,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              14. Vector Search
+              Chapter 14 - Vector Search as a Database Feature
             
           </span>
         </div>
@@ -896,6 +883,212 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#what-is-a-vector-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Is a Vector Embedding?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What Is a Vector Embedding?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-2d-embedding-space-visualizer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: 2D Embedding Space Visualizer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vector-similarity-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vector Similarity Metrics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vector Similarity Metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cosine-similarity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cosine Similarity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dot-product-similarity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dot Product Similarity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#euclidean-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Euclidean Distance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Euclidean Distance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-similarity-metric-calculator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Similarity Metric Calculator
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-nearest-neighbor-problem-and-approximate-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Nearest-Neighbor Problem and Approximate Solutions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Nearest-Neighbor Problem and Approximate Solutions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-flat-vector-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Flat Vector Index
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hnsw-hierarchical-navigable-small-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HNSW: Hierarchical Navigable Small World
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ivf-inverted-file-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IVF: Inverted File Index
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IVF: Inverted File Index">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-hnsw-vs-ivf-ann-index-explorer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: HNSW vs IVF ANN Index Explorer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pgvector-vector-search-in-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pgvector: Vector Search in PostgreSQL
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#semantic-search-and-hybrid-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semantic Search and Hybrid Search
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-atam-lens-integrating-vector-search-into-database-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The ATAM Lens: Integrating Vector Search into Database Selection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1629,6 +1822,212 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#what-is-a-vector-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Is a Vector Embedding?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What Is a Vector Embedding?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-2d-embedding-space-visualizer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: 2D Embedding Space Visualizer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vector-similarity-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vector Similarity Metrics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vector Similarity Metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cosine-similarity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cosine Similarity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dot-product-similarity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dot Product Similarity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#euclidean-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Euclidean Distance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Euclidean Distance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-similarity-metric-calculator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: Similarity Metric Calculator
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-nearest-neighbor-problem-and-approximate-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Nearest-Neighbor Problem and Approximate Solutions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Nearest-Neighbor Problem and Approximate Solutions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-flat-vector-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Flat Vector Index
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hnsw-hierarchical-navigable-small-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HNSW: Hierarchical Navigable Small World
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ivf-inverted-file-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IVF: Inverted File Index
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IVF: Inverted File Index">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#diagram-hnsw-vs-ivf-ann-index-explorer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagram: HNSW vs IVF ANN Index Explorer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pgvector-vector-search-in-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pgvector: Vector Search in PostgreSQL
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#semantic-search-and-hybrid-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semantic Search and Hybrid Search
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-atam-lens-integrating-vector-search-into-database-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The ATAM Lens: Integrating Vector Search into Database Selection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1725,13 +2124,255 @@
 <li><a href="../03-relational-databases/">Chapter 3: Relational Databases</a></li>
 </ul>
 <hr />
-<p>TODO: Generate Chapter Content</p>
+<div class="admonition mascot-welcome">
+<p class="admonition-title">Welcome to Chapter 14!</p>
+<p><img src="../../img/mascot/welcome.png" class="mascot-admonition-img" alt="Dex waves hello">
+Vector search is one of the most consequential additions to database technology in the past decade — and it is not a new database paradigm. It is a feature. The insight this chapter delivers is that any database can become a semantic search engine by adding a vector index alongside its existing indexes. The relational database you already operate can find documents similar to a query, products similar to one a user liked, or code similar to a bug report — without migrating to a separate system. That is a powerful architectural option, and this chapter gives you the technical foundation to use it well.</p>
+</div>
+<h2 id="what-is-a-vector-embedding">What Is a Vector Embedding?</h2>
+<p>A <strong>vector embedding</strong> is a dense array of floating-point numbers that represents an item — a document, an image, a product, a piece of code, a user profile — as a point in a high-dimensional geometric space. Items that are semantically similar are placed close together in this space; items that are semantically different are placed far apart.</p>
+<p>The crucial property of embeddings is that geometric proximity corresponds to semantic similarity. Two product descriptions that describe the same kind of item will have embeddings that are close together, even if they share no keywords. A query "comfortable running shoes" will be close to "lightweight athletic footwear" in embedding space, enabling retrieval by meaning rather than by keyword matching.</p>
+<p>Before examining similarity metrics, define two terms: <strong>dimensionality</strong> refers to the number of values in the embedding vector (the number of dimensions in the geometric space); <strong>embedding model</strong> is the machine learning model that converts an item (text, image, etc.) into its embedding vector. Chapter 15 covers embedding models in depth; this chapter focuses on what the database does with the vectors once they exist.</p>
+<p><strong>Embedding dimensionality</strong> ranges from 256 to 3072 dimensions in common embedding models. Higher dimensionality generally captures more semantic nuance at the cost of more storage and slower index operations. A 1536-dimensional embedding requires 6KB of storage per vector (1536 × 4 bytes for float32). At 10 million documents, that is 60GB of vector data — a significant consideration in database design.</p>
+<h4 id="diagram-2d-embedding-space-visualizer">Diagram: 2D Embedding Space Visualizer</h4>
+<details markdown="1">
+<summary>Interactive 2D Embedding Space — Semantic Proximity Explorer</summary>
+Type: MicroSim
+**sim-id:** embedding-space-2d<br/>
+**Library:** p5.js<br/>
+**Status:** Specified
+
+**Learning Objective:** Explain how vector embeddings place semantically similar items close together in geometric space, enabling similarity retrieval. (Bloom L2: Understand)
+
+**Canvas:** 720px wide × 500px tall. CANVAS_HEIGHT: 500.
+
+**Description:**
+A 2D scatter plot (representing a 2D projection of a high-dimensional embedding space). Pre-populated with 30 labeled points grouped in semantic clusters:
+- Cluster 1 (top-left, blue): "running shoes", "athletic footwear", "sneakers", "trail runners"
+- Cluster 2 (top-right, orange): "laptop", "notebook computer", "MacBook", "ultrabook"
+- Cluster 3 (bottom-left, green): "pasta", "spaghetti", "carbonara", "Italian cuisine"
+- Cluster 4 (bottom-right, purple): "jazz music", "trumpet", "Miles Davis", "bebop"
+
+A search input at the top lets the user type a query term. Clicking "Find Similar" animates a gold star at an approximate position in the space (based on semantic category) and draws dashed circles indicating "nearest neighbor" radius. Points within the circle are highlighted with a "Match: 94% similar" badge. Points outside fade slightly.
+
+**Interactions:**
+- Hovering any point shows its label and a fake cosine similarity score to the query.
+- A "Show Distance" toggle draws lines from the query point to all other points, colored by similarity (green = close, red = far).
+- A note at bottom: "This 2D view is a simplified projection. Real embeddings have 768–3072 dimensions."
+
+**Responsive:** Redraws on window resize.
+</details>
+
+<h2 id="vector-similarity-metrics">Vector Similarity Metrics</h2>
+<p>Three similarity metrics are used to measure how close two vectors are. Before examining them, establish the notation: vector <strong>a</strong> and vector <strong>b</strong> are each arrays of n floating-point numbers, where n is the embedding dimensionality.</p>
+<h3 id="cosine-similarity">Cosine Similarity</h3>
+<p><strong>Cosine similarity</strong> measures the angle between two vectors, ignoring their magnitude. It is defined as the dot product of the vectors divided by the product of their magnitudes:</p>
+<p>[ \text{cosine_similarity}(\mathbf{a}, \mathbf{b}) = \frac{\mathbf{a} \cdot \mathbf{b}}{|\mathbf{a}| |\mathbf{b}|} ]</p>
+<p>The result ranges from -1 (opposite directions) to +1 (identical directions), with 0 indicating orthogonality (no similarity). For text embeddings, cosine similarity is the most common choice because it is magnitude-invariant — a short document and a long document about the same topic can have identical cosine similarity to a query, regardless of their different raw magnitudes.</p>
+<h3 id="dot-product-similarity">Dot Product Similarity</h3>
+<p><strong>Dot product similarity</strong> is the raw dot product ( \mathbf{a} \cdot \mathbf{b} = \sum_{i=1}^{n} a_i b_i ) without normalization. It is faster to compute than cosine similarity (no normalization step) and is preferred when embedding vectors are unit-normalized (magnitude = 1), in which case dot product and cosine similarity are equivalent. OpenAI's embedding API returns unit-normalized vectors, making dot product the recommended metric for those embeddings.</p>
+<h3 id="euclidean-distance">Euclidean Distance</h3>
+<p><strong>Euclidean distance</strong> is the straight-line distance between two points in the embedding space:</p>
+<p>[ d(\mathbf{a}, \mathbf{b}) = \sqrt{\sum_{i=1}^{n} (a_i - b_i)^2} ]</p>
+<p>Unlike cosine and dot product (higher = more similar), Euclidean distance produces lower values for more similar vectors. It is magnitude-sensitive — vectors with the same direction but different lengths are not considered identical. Euclidean distance is preferred for embedding models where magnitude encodes meaningful information.</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Range</th>
+<th>Preferred when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cosine Similarity</td>
+<td>-1 to +1</td>
+<td>Text embeddings, magnitude doesn't matter</td>
+</tr>
+<tr>
+<td>Dot Product</td>
+<td>Unbounded</td>
+<td>Unit-normalized vectors (faster computation)</td>
+</tr>
+<tr>
+<td>Euclidean Distance</td>
+<td>0 to ∞</td>
+<td>Magnitude is meaningful; image embeddings</td>
+</tr>
+</tbody>
+</table>
+<h4 id="diagram-similarity-metric-calculator">Diagram: Similarity Metric Calculator</h4>
+<details markdown="1">
+<summary>Interactive Vector Similarity Metric Calculator</summary>
+Type: MicroSim
+**sim-id:** similarity-metric-calculator<br/>
+**Library:** p5.js<br/>
+**Status:** Specified
+
+**Learning Objective:** Calculate cosine similarity, dot product, and Euclidean distance for two vectors and explain which metric is appropriate for different embedding types. (Bloom L3: Apply)
+
+**Canvas:** 760px wide × 460px tall. CANVAS_HEIGHT: 460.
+
+**Description:**
+Two 3-dimensional vectors displayed as editable sliders (3 sliders each, range -2 to +2): Vector A (blue) and Vector B (orange). A geometric visualization on the left shows both vectors as arrows from the origin in 3D (rendered as 2D projection with perspective).
+
+**Computed values panel (right side):**
+- Cosine Similarity: computed live as sliders move. Formula shown.
+- Dot Product: computed live.
+- Euclidean Distance: computed live.
+
+When both vectors point in the same direction (sliders set identically), cosine = 1.0, highlighted green. When vectors are perpendicular, cosine ≈ 0. When opposite, cosine = -1.0.
+
+A "Unit Normalize" button normalizes both vectors to magnitude 1 and shows that dot product now equals cosine similarity.
+
+A "Reset to Text Example" button sets vectors to typical word embedding values (A = [0.8, 0.2, -0.3] representing "king", B = [0.7, 0.3, -0.4] representing "queen") and shows high cosine similarity (≈ 0.99).
+
+**Responsive:** Redraws on window resize.
+</details>
+
+<h2 id="the-nearest-neighbor-problem-and-approximate-solutions">The Nearest-Neighbor Problem and Approximate Solutions</h2>
+<p>Given a query vector, <strong>nearest-neighbor search</strong> finds the k vectors in a dataset that are most similar (closest) to the query. The naive approach — compute the similarity between the query and every vector in the dataset — is called <strong>exact nearest-neighbor</strong> or <strong>flat</strong> search. It guarantees perfect recall (finding the true k nearest neighbors) but is O(n × d) per query, where n is the number of vectors and d is the dimensionality. At 10 million 1536-dimensional vectors, a single flat search requires 15 billion multiply-add operations.</p>
+<p><strong>Approximate Nearest Neighbor (ANN)</strong> algorithms trade a small amount of recall accuracy for dramatically faster query times by searching only a subset of the vector space. The fundamental tradeoff: higher speed means a higher probability of missing a true nearest neighbor. This tradeoff is the central design decision in vector index selection.</p>
+<p><strong>ANN recall</strong> is the fraction of true nearest neighbors returned in the approximate results. An ANN index with recall@10 = 0.95 means that on average, 9.5 of the true 10 nearest neighbors appear in the results. The missing 0.5 are close vectors that the ANN algorithm did not examine.</p>
+<h3 id="the-flat-vector-index">The Flat Vector Index</h3>
+<p>A <strong>flat vector index</strong> performs exact nearest-neighbor search: every vector is compared to the query. Recall is 100% by definition. Flat indexes are appropriate when the dataset is small (&lt; 1 million vectors), when recall must be perfect (medical imaging, legal document retrieval), or as a baseline for measuring ANN accuracy.</p>
+<h3 id="hnsw-hierarchical-navigable-small-world">HNSW: Hierarchical Navigable Small World</h3>
+<p><strong>HNSW (Hierarchical Navigable Small World)</strong> is the most widely deployed ANN algorithm for high-recall, low-latency workloads. It builds a multi-layer graph where each vector is a node and edges connect nearby vectors. The graph is "navigable" in the small-world sense: any two nodes are reachable via a short path, like the six-degrees-of-separation phenomenon in social networks.</p>
+<p>To answer a query, HNSW starts at a random entry point in the top (coarsest) layer and greedily navigates toward the query vector — at each step moving to the neighbor most similar to the query. It descends through layers, using coarser layers for long-distance navigation and finer layers for local refinement. The search terminates when no neighbor is closer than the current node.</p>
+<p>HNSW's key parameters:</p>
+<ul>
+<li><strong>M</strong> — maximum number of edges per node. Higher M = better recall, more memory, slower index build.</li>
+<li><strong>ef_construction</strong> — the size of the candidate list during index build. Higher = better graph quality, slower build.</li>
+<li><strong>ef</strong> (search-time parameter) — the size of the candidate list during search. Higher ef = higher recall, higher latency.</li>
+</ul>
+<p>HNSW achieves excellent recall (95–99%) with query latencies in the 1–10ms range at million-scale datasets.</p>
+<h3 id="ivf-inverted-file-index">IVF: Inverted File Index</h3>
+<p><strong>IVF (Inverted File Index)</strong> clusters vectors into k groups (centroids) using k-means. The index stores vectors by their centroid assignment. To answer a query, IVF:</p>
+<ol>
+<li>Computes similarity between the query and all k centroids.</li>
+<li>Selects the <code>nprobe</code> most similar centroids.</li>
+<li>Performs flat search within only those <code>nprobe</code> clusters.</li>
+</ol>
+<p>The key parameter is <code>nprobe</code>: higher nprobe searches more clusters (higher recall, higher latency); lower nprobe is faster but misses vectors in unexamined clusters.</p>
+<p>IVF is more memory-efficient than HNSW (no graph structure) and faster to build, but typically achieves lower recall at the same query latency. It is commonly combined with quantization (IVF-PQ) to compress vectors and reduce memory further.</p>
+<h4 id="diagram-hnsw-vs-ivf-ann-index-explorer">Diagram: HNSW vs IVF ANN Index Explorer</h4>
+<details markdown="1">
+<summary>Interactive HNSW vs IVF Index — Recall vs Speed Tradeoff</summary>
+Type: MicroSim
+**sim-id:** ann-index-comparison<br/>
+**Library:** p5.js<br/>
+**Status:** Specified
+
+**Learning Objective:** Evaluate the recall-speed tradeoff for HNSW and IVF ANN indexes and select the appropriate index type for a given accuracy and latency requirement. (Bloom L5: Evaluate)
+
+**Canvas:** 780px wide × 480px tall. CANVAS_HEIGHT: 480.
+
+**Description:**
+A 2D scatter plot with axes: X = Query Latency (ms, log scale: 1–1000ms), Y = Recall@10 (0%–100%).
+
+Pre-plotted points representing different configurations:
+- Flat (exact): Recall=100%, Latency=500ms (far right, top)
+- HNSW ef=16: Recall=92%, Latency=2ms (far left, upper)
+- HNSW ef=64: Recall=97%, Latency=5ms
+- HNSW ef=200: Recall=99%, Latency=12ms
+- IVF nprobe=4: Recall=85%, Latency=1ms
+- IVF nprobe=32: Recall=94%, Latency=8ms
+- IVF nprobe=128: Recall=98%, Latency=30ms
+
+Two separate curves are drawn through the HNSW points (blue) and IVF points (orange), showing the recall-latency Pareto frontier for each algorithm.
+
+**Interactions:**
+- Hovering any point shows: "HNSW ef=64: 97% recall, 5ms p50 latency. At 1M vectors, 1536 dimensions."
+- Two draggable sliders (ef for HNSW, nprobe for IVF) animate the highlighted point along each curve.
+- A "My Requirement" crosshair can be dragged onto the chart: "I need ≥95% recall and ≤10ms latency." It highlights all configurations that satisfy both constraints (green zone).
+
+**Responsive:** Redraws on window resize.
+</details>
+
+<h2 id="pgvector-vector-search-in-postgresql">pgvector: Vector Search in PostgreSQL</h2>
+<p><strong>pgvector</strong> is an open-source PostgreSQL extension that adds a native vector data type and ANN index support to PostgreSQL. It is the clearest example of <strong>native vector search feature</strong> integration: rather than routing similarity queries to a separate vector database, the application sends them to the same PostgreSQL instance it already uses.</p>
+<p>After installing pgvector, a table with a vector column looks like this:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">products</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id</span><span class="w">         </span><span class="nb">SERIAL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">name</span><span class="w">       </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">category</span><span class="w">   </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">embedding</span><span class="w">  </span><span class="n">VECTOR</span><span class="p">(</span><span class="mi">1536</span><span class="p">)</span><span class="w">  </span><span class="c1">-- 1536-dimensional embedding</span>
+<span class="p">);</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">products</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="n">hnsw</span><span class="w"> </span><span class="p">(</span><span class="n">embedding</span><span class="w"> </span><span class="n">vector_cosine_ops</span><span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+<p>A nearest-neighbor query that finds the 5 products most similar to a query embedding — combined with a traditional SQL filter:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">embedding</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="err">$</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">similarity</span>
+<span class="k">FROM</span><span class="w">   </span><span class="n">products</span>
+<span class="k">WHERE</span><span class="w">  </span><span class="n">category</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Electronics&#39;</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">embedding</span><span class="w"> </span><span class="o">&lt;=&gt;</span><span class="w"> </span><span class="err">$</span><span class="mi">1</span>
+<span class="k">LIMIT</span><span class="w">  </span><span class="mi">5</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+<p>The <code>&lt;=&gt;</code> operator computes cosine distance (1 - cosine similarity). pgvector supports three index types: HNSW (recommended for production), IVF (ivfflat), and flat (no index, exact search).</p>
+<p>The key architectural implication: by adding pgvector to an existing PostgreSQL database, engineers gain vector search without adding a new system to operate, monitor, back up, and replicate. The tradeoff is that pgvector's HNSW implementation has lower recall at very large scales (100M+ vectors) compared to purpose-built vector databases — a sensitivity point that belongs in any ATAM analysis where vector search is required at massive scale.</p>
+<h2 id="semantic-search-and-hybrid-search">Semantic Search and Hybrid Search</h2>
+<p><strong>Semantic search</strong> finds results by meaning rather than by keyword matching. A keyword search for "comfortable shoes" finds only documents containing those exact words. A semantic search using vector embeddings finds documents semantically related to the query — "supportive footwear," "cushioned sneakers," "podiatrist-recommended" — even if they share no keywords with the query.</p>
+<p>Semantic search alone has a limitation: it ranks by embedding similarity, which can miss exact matches that are highly relevant but not close in embedding space (proper nouns, product codes, exact phrases).</p>
+<p><strong>Hybrid search</strong> combines vector similarity search with traditional keyword or filter search to get the benefits of both:</p>
+<ol>
+<li>Run a vector similarity search for the top-k similar documents.</li>
+<li>Run a keyword/BM25 search for the top-k relevant documents.</li>
+<li>Merge and re-rank the two result lists using <strong>Reciprocal Rank Fusion (RRF)</strong> or a learned re-ranker.</li>
+</ol>
+<p>Hybrid search consistently outperforms either approach alone on benchmark retrieval tasks. Most production retrieval systems (e-commerce search, RAG pipelines, document retrieval) use hybrid search.</p>
+<div class="admonition mascot-tip">
+<p class="admonition-title">pgvector vs. Standalone Vector DB</p>
+<p><img src="../../img/mascot/tip.png" class="mascot-admonition-img" alt="Dex offers a tip">
+For datasets under 5–10 million vectors with modest query rates, pgvector in PostgreSQL is operationally simpler and often sufficient. For datasets over 50 million vectors or query rates requiring sub-millisecond p99 latency, purpose-built vector databases (Pinecone, Weaviate, Qdrant) offer better throughput and more index tuning options. The decision belongs in your ATAM utility tree under a "vector search latency" quality attribute scenario — not in the database vendor's marketing material.</p>
+</div>
+<h2 id="the-atam-lens-integrating-vector-search-into-database-selection">The ATAM Lens: Integrating Vector Search into Database Selection</h2>
+<p>Vector search creates a new quality attribute dimension in database selection: <strong>semantic similarity retrieval</strong>. When a system needs to find items similar to a query based on meaning rather than exact match, the ATAM analysis must include a scenario like: "The system must return the 10 most semantically similar products to a user's browsing history within 50ms at p99, across a catalog of 20 million products."</p>
+<p><strong>Sensitivity points:</strong></p>
+<ul>
+<li><strong>Index type vs. recall vs. latency:</strong> HNSW provides the best recall-per-millisecond but requires significant memory (approximately 1.5× the raw vector storage). IVF is more memory-efficient but requires careful nprobe tuning. The sensitivity is that recall accuracy directly affects search quality — users notice when the top results are irrelevant.</li>
+<li><strong>Native vs. standalone:</strong> Adding pgvector to PostgreSQL avoids operational complexity (one fewer system) but limits maximum scale. A standalone vector database adds operational complexity but handles billion-scale with specialized hardware optimizations. The tradeoff point is scale — and the threshold moves as pgvector matures.</li>
+</ul>
+<p><strong>Tradeoff point — hybrid search complexity vs. retrieval quality:</strong> Building and operating a hybrid search system (dual indexes, result fusion, optional re-ranker) is significantly more complex than pure keyword or pure vector search. The quality improvement is measurable but adds a new operational surface area. The architectural decision of whether that complexity is warranted belongs in the utility tree, not in engineering intuition.</p>
+<h2 id="key-takeaways">Key Takeaways</h2>
+<p>Vector search is not a new database paradigm — it is a feature that any database can expose alongside its existing indexes. The decision of where to implement it (natively in your primary database vs. a dedicated vector database) is an architectural tradeoff that belongs in your ATAM utility tree.</p>
+<ul>
+<li><strong>Vector embedding</strong> — a dense float array representing an item; semantic proximity = geometric proximity</li>
+<li><strong>Embedding dimensionality</strong> — 256–3072 dimensions; higher = more nuance, more storage, slower index</li>
+<li><strong>Cosine similarity</strong> — the angle between vectors; magnitude-invariant; preferred for text</li>
+<li><strong>Dot product</strong> — faster than cosine for unit-normalized vectors</li>
+<li><strong>Euclidean distance</strong> — straight-line distance; magnitude-sensitive</li>
+<li><strong>ANN (approximate nearest neighbor)</strong> — trades recall for speed; enables million-scale vector search in milliseconds</li>
+<li><strong>HNSW</strong> — graph-based ANN; best recall-per-millisecond; high memory usage</li>
+<li><strong>IVF</strong> — cluster-based ANN; memory-efficient; requires careful nprobe tuning</li>
+<li><strong>Flat</strong> — exact search; perfect recall; too slow for large datasets</li>
+<li><strong>pgvector</strong> — adds HNSW/IVF to PostgreSQL; the path of least operational resistance for moderate scale</li>
+<li><strong>Hybrid search</strong> — combines vector and keyword retrieval; outperforms either alone</li>
+</ul>
+<div class="admonition mascot-celebration">
+<p class="admonition-title">Chapter 14 Complete!</p>
+<p><img src="../../img/mascot/celebration.png" class="mascot-admonition-img" alt="Dex celebrates">
+You now understand why vector search is reshaping how engineers think about database features. The next chapter goes one level deeper: where do those embedding vectors come from? Chapter 15 opens the transformer architecture and shows you how large language models convert raw text into the dense float arrays that vector search depends on — and what the operational costs look like when you do that at production scale.</p>
+</div>
 
 
 
 
 
 
+
+  
+  
 
 
 

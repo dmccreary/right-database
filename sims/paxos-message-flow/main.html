@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paxos Phase Message Flow</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Paxos Phase Message Flow</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> paxos-message-flow</p>
+            <p><strong>Library:</strong> p5.js</p>
+            <p><strong>Bloom Level:</strong> TBD</p>
+            <p><strong>Learning Objective:</strong> Identify the Prepare/Promise and Accept/Accepted message flows of Paxos and explain what a majority quorum guarantees. (Bloom L2: Understand)</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: MicroSim
+    **sim-id:** paxos-message-flow<br/>
+    **Library:** p5.js<br/>
+    **Status:** Specified
+    
+    **Learning Objective:** Identify the Prepare/Promise and Accept/Accepted message flows of Paxos and explain what a majority quorum guarantees. (Bloom L2: Understand)
+    
+    **Canvas:** 780px wide × 460px tall. CANVAS_HEIGHT: 460.
+    
+    **Description:**
+    Three horizontal swim lanes: Proposer (top), Acceptors (middle — three nodes A1, A2, A3), and a "Consensus Reached" indicator (bottom).
+    
+    A "Run Paxos" button animates the full protocol:
+    - Phase 1: Proposer sends Prepare(n=1) arrows to A1, A2, A3. A1 and A2 reply Promise(1, null). A3 is slow (arrow grayed out / delayed).
+    - Phase 2: Proposer sends Accept(1, "value=42") to A1, A2. Both reply Accepted(1, 42). Majority reached. Consensus indicator turns green: "Value 42 chosen."
+    
+    A "Competing Proposer" button introduces a second proposer with a higher ballot number (n=2), showing how it invalidates the first proposer's promises and starts fresh.
+    
+    Each message arrow is labeled and shows timing. A sidebar explains what each phase accomplishes.
+    
+    **Responsive:** Redraws on window resize.
+    -->
+</body>
+</html>

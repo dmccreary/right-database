@@ -1,0 +1,14 @@
+{
+  "sim_id": "hash-table-lookup",
+  "diagram_name": "Hash Table Lookup Animation",
+  "chapter_number": 5,
+  "chapter_title": "Chapter 5 - Key-Value Stores",
+  "chapter_dir": "05-key-value-stores",
+  "library": "p5.js",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": "Demonstrate how a hash function maps a key to a bucket index, enabling O(1) average-case lookup. (Bloom L2: Understand)",
+  "completion_status": "specified",
+  "extracted_date": "2026-05-20",
+  "specification": "Type: MicroSim\n**sim-id:** hash-table-lookup<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n\n**Learning Objective:** Demonstrate how a hash function maps a key to a bucket index, enabling O(1) average-case lookup. (Bloom L2: Understand)\n\n**Canvas:** 760px wide × 440px tall. CANVAS_HEIGHT: 440.\n\n**Description:**\nLeft: A text input labeled \"Enter key\" (default: \"user:42\"). A \"Hash\" button. Center: An animated hash function box showing: `hash(\"user:42\") mod 8 = 3`. Right: An array of 8 buckets (vertical stack, labeled 0–7). Bucket 3 is highlighted gold with a value label.\n\n**Animation flow when \"Hash\" is clicked:**\n1. Key text animates into hash function box (0.3s).\n2. Hash function shows computation step-by-step (0.5s per step).\n3. Arrow shoots from hash box to computed bucket (0.4s).\n4. Bucket glows green and shows stored value (0.3s).\n\n**Collision demonstration:** \"Show Collision\" button inserts a second key hashing to the same bucket. Bucket expands to show a linked list of two entries. Tooltip: \"Collision: two keys map to the same bucket — chaining stores both.\"\n\n**Resize slider:** \"Table size\" slider (4–16 buckets) re-computes bucket assignments, showing how larger tables reduce collision probability.\n\n**Responsive:** Redraws on window resize."
+}

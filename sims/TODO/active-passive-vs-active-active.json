@@ -1,0 +1,14 @@
+{
+  "sim_id": "active-passive-vs-active-active",
+  "diagram_name": "Active-Active vs Active-Passive Failover",
+  "chapter_number": 13,
+  "chapter_title": "Chapter 13 - High Availability Architecture",
+  "chapter_dir": "13-high-availability",
+  "library": "p5.js",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": null,
+  "completion_status": "specified",
+  "extracted_date": "2026-05-20",
+  "specification": "**sim-id:** active-passive-vs-active-active\n**Library:** p5.js\n**Status:** Specified\n\nShow two panels side by side, labeled \"Active-Passive\" and \"Active-Active.\"\n\n**Active-Passive panel:** Show a load balancer at top feeding into two nodes: Node 1 (green, \"Active\") and Node 2 (gray, \"Passive\"). Animate client request arrows flowing only to Node 1. Node 2 shows a replication arrow from Node 1. Provide a \"Kill Node 1\" button. Animate: Node 1 turns red (failed). A \"Failover: 28 seconds\" timer counts up. Node 2 turns green and labeled \"Active.\" Client arrows redirect to Node 2. Show a gap in the request flow timeline during failover.\n\n**Active-Active panel:** Show a load balancer feeding into two nodes, both green (\"Active\"). Animate client arrows splitting between both nodes. Provide a \"Kill Node 1\" button. Animate: Node 1 turns red. Client arrows instantly route entirely to Node 2 with no gap. Show \"Capacity reduced: 50%\" label. A \"Recovery: Node rejoins\" button restores Node 1 and traffic spreads again.\n\nShow scorecard: Capacity utilization (50% vs 100%), Failover time (28 sec vs 0 sec), Complexity (Low vs High)."
+}

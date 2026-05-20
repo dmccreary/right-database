@@ -1,0 +1,14 @@
+{
+  "sim_id": "consistent-hash-ring",
+  "diagram_name": "Consistent Hash Ring",
+  "chapter_number": 11,
+  "chapter_title": "Chapter 11 - Distributed Scaling and Replication",
+  "chapter_dir": "11-distributed-scaling",
+  "library": "p5.js",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": null,
+  "completion_status": "specified",
+  "extracted_date": "2026-05-20",
+  "specification": "**sim-id:** consistent-hash-ring\n**Library:** p5.js\n**Status:** Specified\n\nRender a circular ring representing the 0–360 degree hash space. Place 4–8 labeled nodes around the ring. Show 8–12 labeled keys distributed around the ring, each assigned to the nearest clockwise node (colored to match). Provide:\n\n- A \"Add Node\" button that places a new node at a random ring position. Animate keys that must migrate — highlight them in orange, then move them to the new node. Show a counter: \"Keys migrated: N / Total keys: M.\"\n- A \"Remove Node\" button that removes a random non-fixed node. Animate its keys migrating clockwise to the next node.\n- A slider controlling the number of virtual nodes per physical node (1–50). As virtual nodes increase, show key distribution becoming more uniform across physical nodes.\n\nAnnotate with a small histogram below the ring showing how many keys each physical node currently owns."
+}

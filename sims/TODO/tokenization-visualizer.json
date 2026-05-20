@@ -1,0 +1,14 @@
+{
+  "sim_id": "tokenization-visualizer",
+  "diagram_name": "Tokenization Visualizer",
+  "chapter_number": 15,
+  "chapter_title": "Chapter 15 - LLM-Generated Embeddings",
+  "chapter_dir": "15-llm-embeddings",
+  "library": "p5.js",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": "Identify how a tokenizer splits text into subword tokens and explain why token count (not character count) determines what fits in a model's context window. (Bloom L2: Understand)",
+  "completion_status": "specified",
+  "extracted_date": "2026-05-20",
+  "specification": "Type: MicroSim\n**sim-id:** tokenization-visualizer<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n\n**Learning Objective:** Identify how a tokenizer splits text into subword tokens and explain why token count (not character count) determines what fits in a model's context window. (Bloom L2: Understand)\n\n**Canvas:** 760px wide × 400px tall. CANVAS_HEIGHT: 400.\n\n**Description:**\nA large text input area (default text: \"The quick brown fox jumped over the lazy database administrator\"). A \"Tokenize\" button triggers the visualization.\n\n**Output:** Each token appears as a colored chip below the input, with the token text inside and its integer ID below. Tokens from the same word are adjacent but may have different background colors indicating subword splits (e.g., \"admin\" and \"istrator\" as two chips).\n\n**Token count display:** \"17 tokens | Context window: 8,192 tokens | 0.2% used\"\n\n**Context window fill bar:** A horizontal progress bar showing what fraction of the 8,192-token window is consumed.\n\n**Long document demo:** A \"Load Long Document\" button fills the input with a 600-word article. The tokenizer shows ~750 tokens and a warning: \"This document would need to be chunked for a 512-token model.\"\n\n**Chunking visualization:** A \"Show Chunks\" toggle splits the token chips into groups of 128 with 20-token overlaps, each chunk shown in a different background shade.\n\n**Responsive:** Redraws on window resize."
+}

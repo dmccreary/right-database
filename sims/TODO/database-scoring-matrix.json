@@ -1,0 +1,14 @@
+{
+  "sim_id": "database-scoring-matrix",
+  "diagram_name": "Interactive Database Scoring Matrix",
+  "chapter_number": 16,
+  "chapter_title": "Chapter 16 - Database Selection and Polyglot Persistence",
+  "chapter_dir": "16-database-selection",
+  "library": "p5.js",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": "Apply a weighted scoring matrix to evaluate database candidates against quality attribute criteria and identify the top candidate for a given workload. (Bloom L3–L5: Apply/Evaluate)",
+  "completion_status": "specified",
+  "extracted_date": "2026-05-20",
+  "specification": "Type: MicroSim\n**sim-id:** database-scoring-matrix<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n\n**Learning Objective:** Apply a weighted scoring matrix to evaluate database candidates against quality attribute criteria and identify the top candidate for a given workload. (Bloom L3–L5: Apply/Evaluate)\n\n**Canvas:** 780px wide × 520px tall. CANVAS_HEIGHT: 520.\n\n**Description:**\nA spreadsheet-style grid: 5 database rows × 6 criteria columns + a \"Weighted Score\" column.\n\n**Criteria columns with adjustable weights (shown as sliders 0–40%):**\nConsistency, Query Flexibility, Write Throughput, HA/Failover, Schema Flexibility, Ops Complexity. Weights must sum to 100% (constraint enforced with live feedback).\n\n**Score cells:** Each cell is a clickable stepper (1–5) with a color gradient (red=1, yellow=3, green=5).\n\n**Weighted Score column:** Recomputes live whenever any cell or weight changes. The highest-scoring row is highlighted with a gold border.\n\n**Database rows:** PostgreSQL, CockroachDB, Cassandra, MongoDB, DynamoDB.\n\n**Pre-set scenarios:** Dropdown with 4 pre-configured scenarios: \"E-Commerce Orders\", \"IoT Time-Series\", \"Social Network\", \"Analytics Dashboard.\" Each pre-fills the weights and scores and explains why.\n\nA \"Export Decision\" button shows a text summary: \"Based on this scoring, PostgreSQL is recommended for the E-Commerce Orders domain. Key differentiators: Consistency (5/5), Join Support (5/5). Primary risks: Write throughput at scale — mitigate with read replicas and connection pooling.\"\n\n**Responsive:** Redraws on window resize."
+}

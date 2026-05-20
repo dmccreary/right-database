@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Graph Explorer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Property Graph Explorer</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> property-graph-explorer</p>
+            <p><strong>Library:</strong> vis-network</p>
+            <p><strong>Bloom Level:</strong> TBD</p>
+            <p><strong>Learning Objective:</strong> Understanding (Bloom's) — students explore the structure of a property graph by clicking through nodes and edges, internalizing what properties-on-edges enables compared to a simple adjacency list.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    **sim-id:** property-graph-explorer
+    **Library:** vis-network
+    **Status:** Specified
+    
+    A vis-network canvas (900×500 px) displaying a small social/professional graph with 8 nodes and 12 edges.
+    
+    **Node types and colors:**
+    - Person nodes: `#4682B4` (steel blue), label = person name
+    - Company nodes: `#E65100` (burnt orange), label = company name
+    - City nodes: `#28a745` (green), label = city name
+    
+    **Sample graph:**
+    - Alice (Person) — KNOWS → Bob (Person), since=2019
+    - Alice (Person) — WORKS_AT → Acme Corp (Company), since=2021, role="Architect"
+    - Alice (Person) — LIVES_IN → Seattle (City)
+    - Bob (Person) — WORKS_AT → Globex (Company), since=2020, role="Engineer"
+    - Bob (Person) — LIVES_IN → Portland (City)
+    - Carol (Person) — KNOWS → Alice (Person), since=2018
+    - Carol (Person) — LIVES_IN → Seattle (City)
+    - Dave (Person) — KNOWS → Bob (Person), since=2022
+    - Dave (Person) — WORKS_AT → Acme Corp (Company), since=2022, role="Manager"
+    - Acme Corp — LOCATED_IN → Seattle (City)
+    - Globex — LOCATED_IN → Portland (City)
+    
+    **Interaction:**
+    - Clicking any node opens a properties panel on the right: node label(s), all properties as a key-value list, count of connected edges
+    - Clicking any edge opens a properties panel: edge type, direction arrow, all edge properties
+    - Hovering a node highlights its direct neighbors in yellow
+    - A "Highlight Path" button: clicking two nodes highlights the shortest path between them in gold
+    
+    **Learning objective:** Understanding (Bloom's) — students explore the structure of a property graph by clicking through nodes and edges, internalizing what properties-on-edges enables compared to a simple adjacency list.
+    
+    Responsive: canvas resizes on window resize event via vis-network's `fit()` method.
+    -->
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "sim_id": "saga-orchestration-vs-choreography",
+  "diagram_name": "Saga Orchestration vs Choreography",
+  "chapter_number": 12,
+  "chapter_title": "Chapter 12 - Distributed ACID and NewSQL",
+  "chapter_dir": "12-distributed-acid-newsql",
+  "library": "p5.js",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": null,
+  "completion_status": "specified",
+  "extracted_date": "2026-05-20",
+  "specification": "**sim-id:** saga-orchestration-vs-choreography\n**Library:** p5.js\n**Status:** Specified\n\nShow a toggle switch labeled \"Orchestration / Choreography\" at the top.\n\n**Orchestration view:** Show a central \"Saga Orchestrator\" box in gold. Draw three service boxes: Order Service, Payment Service, Inventory Service. Show arrows from Orchestrator → Order Service (Create Order), then → Payment Service (Charge Card), then → Inventory Service (Reserve Items). Include a \"Inject Failure\" button that fails the Inventory step, triggering animated compensation arrows in red flowing back: Inventory (skipped), then Payment Service ← Orchestrator (Refund Card), then Order Service ← Orchestrator (Cancel Order). Show each step's status: Completed (green), Compensated (orange), Failed (red).\n\n**Choreography view:** Remove the Orchestrator box. Show the same three services connected by an event bus (horizontal line). Events flow rightward as labeled arrows: \"OrderCreated\" → Payment Service, \"PaymentCharged\" → Inventory Service. \"Inject Failure\" emits \"InventoryFailed\" event flowing leftward; Payment Service receives it and emits \"PaymentRefunded\" flowing back to Order Service.\n\nShow a summary: \"Orchestration: easier to debug, central dependency. Choreography: loosely coupled, harder to trace.\""
+}

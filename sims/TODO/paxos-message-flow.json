@@ -1,0 +1,14 @@
+{
+  "sim_id": "paxos-message-flow",
+  "diagram_name": "Paxos Phase Message Flow",
+  "chapter_number": 9,
+  "chapter_title": "Chapter 9 - CAP Theorem and Consensus Protocols",
+  "chapter_dir": "09-cap-theorem-consensus",
+  "library": "p5.js",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": "Identify the Prepare/Promise and Accept/Accepted message flows of Paxos and explain what a majority quorum guarantees. (Bloom L2: Understand)",
+  "completion_status": "specified",
+  "extracted_date": "2026-05-20",
+  "specification": "Type: MicroSim\n**sim-id:** paxos-message-flow<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n\n**Learning Objective:** Identify the Prepare/Promise and Accept/Accepted message flows of Paxos and explain what a majority quorum guarantees. (Bloom L2: Understand)\n\n**Canvas:** 780px wide × 460px tall. CANVAS_HEIGHT: 460.\n\n**Description:**\nThree horizontal swim lanes: Proposer (top), Acceptors (middle — three nodes A1, A2, A3), and a \"Consensus Reached\" indicator (bottom).\n\nA \"Run Paxos\" button animates the full protocol:\n- Phase 1: Proposer sends Prepare(n=1) arrows to A1, A2, A3. A1 and A2 reply Promise(1, null). A3 is slow (arrow grayed out / delayed).\n- Phase 2: Proposer sends Accept(1, \"value=42\") to A1, A2. Both reply Accepted(1, 42). Majority reached. Consensus indicator turns green: \"Value 42 chosen.\"\n\nA \"Competing Proposer\" button introduces a second proposer with a higher ballot number (n=2), showing how it invalidates the first proposer's promises and starts fresh.\n\nEach message arrow is labeled and shows timing. A sidebar explains what each phase accomplishes.\n\n**Responsive:** Redraws on window resize."
+}

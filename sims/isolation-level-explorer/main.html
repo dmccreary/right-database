@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isolation Level Anomaly Explorer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Isolation Level Anomaly Explorer</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> isolation-level-explorer</p>
+            <p><strong>Library:</strong> p5.js</p>
+            <p><strong>Bloom Level:</strong> TBD</p>
+            <p><strong>Learning Objective:</strong> Apply isolation level knowledge to predict which concurrency anomalies can occur at each level, and identify the correct isolation level for a given business requirement. (Bloom L3–L4: Apply/Analyze)</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: MicroSim
+    **sim-id:** isolation-level-explorer<br/>
+    **Library:** p5.js<br/>
+    **Status:** Specified
+    
+    **Learning Objective:** Apply isolation level knowledge to predict which concurrency anomalies can occur at each level, and identify the correct isolation level for a given business requirement. (Bloom L3–L4: Apply/Analyze)
+    
+    **Canvas:** 780px wide × 500px tall. CANVAS_HEIGHT: 500.
+    
+    **Description:**
+    Four tabs across the top: Read Uncommitted | Read Committed | Repeatable Read | Serializable.
+    
+    Each tab shows a two-transaction timeline diagram (Transaction A on top lane, Transaction B on bottom lane) with time flowing left to right.
+    
+    **Read Uncommitted tab:** Transaction B writes balance = $200 (uncommitted). Transaction A reads $200. Transaction B rolls back. Transaction A displays stale $200. Red badge: "Dirty Read occurred."
+    
+    **Read Committed tab:** Transaction B writes $200 (uncommitted). Transaction A attempts to read — blocked until B commits or rolls back. B commits $200. A reads $200. No dirty read. But if A reads again after B makes another change, A gets a different value. Orange badge: "Non-Repeatable Read possible."
+    
+    **Repeatable Read tab:** Transaction A reads row at t=1 (value $100). Transaction B updates and commits (value $200). Transaction A reads same row at t=3 — still sees $100 (snapshot from t=1). Green badge: "Repeatable reads guaranteed." But a range query can return new rows if B inserts: Orange badge: "Phantom Reads still possible."
+    
+    **Serializable tab:** All anomalies prevented. Shows SSI detecting and aborting a conflicting transaction rather than allowing anomalies.
+    
+    Each tab has a "What business scenario requires this?" sidebar.
+    
+    **Responsive:** Redraws on window resize.
+    -->
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2D Embedding Space Visualizer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>2D Embedding Space Visualizer</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> embedding-space-2d</p>
+            <p><strong>Library:</strong> p5.js</p>
+            <p><strong>Bloom Level:</strong> TBD</p>
+            <p><strong>Learning Objective:</strong> Explain how vector embeddings place semantically similar items close together in geometric space, enabling similarity retrieval. (Bloom L2: Understand)</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: MicroSim
+    **sim-id:** embedding-space-2d<br/>
+    **Library:** p5.js<br/>
+    **Status:** Specified
+    
+    **Learning Objective:** Explain how vector embeddings place semantically similar items close together in geometric space, enabling similarity retrieval. (Bloom L2: Understand)
+    
+    **Canvas:** 720px wide × 500px tall. CANVAS_HEIGHT: 500.
+    
+    **Description:**
+    A 2D scatter plot (representing a 2D projection of a high-dimensional embedding space). Pre-populated with 30 labeled points grouped in semantic clusters:
+    - Cluster 1 (top-left, blue): "running shoes", "athletic footwear", "sneakers", "trail runners"
+    - Cluster 2 (top-right, orange): "laptop", "notebook computer", "MacBook", "ultrabook"
+    - Cluster 3 (bottom-left, green): "pasta", "spaghetti", "carbonara", "Italian cuisine"
+    - Cluster 4 (bottom-right, purple): "jazz music", "trumpet", "Miles Davis", "bebop"
+    
+    A search input at the top lets the user type a query term. Clicking "Find Similar" animates a gold star at an approximate position in the space (based on semantic category) and draws dashed circles indicating "nearest neighbor" radius. Points within the circle are highlighted with a "Match: 94% similar" badge. Points outside fade slightly.
+    
+    **Interactions:**
+    - Hovering any point shows its label and a fake cosine similarity score to the query.
+    - A "Show Distance" toggle draws lines from the query point to all other points, colored by similarity (green = close, red = far).
+    - A note at bottom: "This 2D view is a simplified projection. Real embeddings have 768–3072 dimensions."
+    
+    **Responsive:** Redraws on window resize.
+    -->
+</body>
+</html>

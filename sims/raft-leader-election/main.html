@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raft Leader Election Animation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Raft Leader Election Animation</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> raft-leader-election</p>
+            <p><strong>Library:</strong> p5.js</p>
+            <p><strong>Bloom Level:</strong> TBD</p>
+            <p><strong>Learning Objective:</strong> Demonstrate the Raft leader election process — election timeout, candidate vote request, majority vote, and new leader establishment. (Bloom L2–L3: Understand/Apply)</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: MicroSim
+    **sim-id:** raft-leader-election<br/>
+    **Library:** p5.js<br/>
+    **Status:** Specified
+    
+    **Learning Objective:** Demonstrate the Raft leader election process — election timeout, candidate vote request, majority vote, and new leader establishment. (Bloom L2–L3: Understand/Apply)
+    
+    **Canvas:** 780px wide × 500px tall. CANVAS_HEIGHT: 500.
+    
+    **Description:**
+    Five circular nodes arranged in a pentagon. Each node displays its role (Follower/Candidate/Leader) and current term number. One node is highlighted as Leader (gold border). A heartbeat timer countdown is visible on each follower (resets when heartbeat arrives).
+    
+    **Normal operation:** The leader pulses a heartbeat to all followers every 150ms. Follower timers reset on receipt. All nodes labeled "Follower" except the leader.
+    
+    **Leader failure:** A "Kill Leader" button removes the leader (node grays out). Remaining followers' timers count down. The first to time out transitions to Candidate (blue border), increments its term, and sends "RequestVote" arrows to all other nodes. Nodes that haven't voted this term send "VoteGranted" back. Once the candidate has votes from 2 of 4 remaining nodes (majority of 5), it becomes the new Leader (gold border). Heartbeats resume.
+    
+    **Split vote scenario:** A "Slow Network" toggle adds 50% chance of vote messages being dropped, causing split votes and multiple election rounds.
+    
+    **Term counter:** A global term counter at the top increments each election.
+    
+    **Responsive:** Redraws on window resize.
+    -->
+</body>
+</html>

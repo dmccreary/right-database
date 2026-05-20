@@ -1,0 +1,14 @@
+{
+  "sim_id": "raft-leader-election",
+  "diagram_name": "Raft Leader Election Animation",
+  "chapter_number": 9,
+  "chapter_title": "Chapter 9 - CAP Theorem and Consensus Protocols",
+  "chapter_dir": "09-cap-theorem-consensus",
+  "library": "p5.js",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": "Demonstrate the Raft leader election process — election timeout, candidate vote request, majority vote, and new leader establishment. (Bloom L2–L3: Understand/Apply)",
+  "completion_status": "specified",
+  "extracted_date": "2026-05-20",
+  "specification": "Type: MicroSim\n**sim-id:** raft-leader-election<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n\n**Learning Objective:** Demonstrate the Raft leader election process — election timeout, candidate vote request, majority vote, and new leader establishment. (Bloom L2–L3: Understand/Apply)\n\n**Canvas:** 780px wide × 500px tall. CANVAS_HEIGHT: 500.\n\n**Description:**\nFive circular nodes arranged in a pentagon. Each node displays its role (Follower/Candidate/Leader) and current term number. One node is highlighted as Leader (gold border). A heartbeat timer countdown is visible on each follower (resets when heartbeat arrives).\n\n**Normal operation:** The leader pulses a heartbeat to all followers every 150ms. Follower timers reset on receipt. All nodes labeled \"Follower\" except the leader.\n\n**Leader failure:** A \"Kill Leader\" button removes the leader (node grays out). Remaining followers' timers count down. The first to time out transitions to Candidate (blue border), increments its term, and sends \"RequestVote\" arrows to all other nodes. Nodes that haven't voted this term send \"VoteGranted\" back. Once the candidate has votes from 2 of 4 remaining nodes (majority of 5), it becomes the new Leader (gold border). Heartbeats resume.\n\n**Split vote scenario:** A \"Slow Network\" toggle adds 50% chance of vote messages being dropped, causing split votes and multiple election rounds.\n\n**Term counter:** A global term counter at the top increments each election.\n\n**Responsive:** Redraws on window resize."
+}

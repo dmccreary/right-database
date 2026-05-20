@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cassandra Ring with Partition Key Hashing</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Cassandra Ring with Partition Key Hashing</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> cassandra-ring-explorer</p>
+            <p><strong>Library:</strong> p5.js</p>
+            <p><strong>Bloom Level:</strong> TBD</p>
+            <p><strong>Learning Objective:</strong> Applying (Bloom's) — students experiment with partition key hashing to see how data distributes across nodes, and observe how replica factor and consistency level interact.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    **sim-id:** cassandra-ring-explorer
+    **Library:** p5.js
+    **Status:** Specified
+    
+    A p5.js canvas (800×600 px) with a circular ring in the center.
+    
+    **Ring visualization:**
+    - Six nodes arranged evenly around a circle, labeled N1–N6
+    - Each node shows its token range (e.g., "0–167" for a 1000-token ring divided among 6 nodes)
+    - Each node is colored by its replica role: primary (#4682B4 blue), replica-1 (#28a745 green), replica-2 (#E65100 orange), uninvolved (#ccc gray)
+    
+    **Controls:**
+    - Text input "Partition Key:" with a "Hash It" button
+    - Replication Factor selector (1, 2, 3) — controls how many nodes are colored
+    - Consistency Level selector (ONE, QUORUM, ALL) — highlights which nodes must respond
+    
+    **Interactive behavior:**
+    - Entering a partition key and clicking "Hash It" animates a small token value appearing, the ring spinning to show which node owns it, and the replica nodes lighting up
+    - Clicking any node shows a tooltip: node ID, token range, current write load (simulated %), estimated latency
+    - A "Simulate Node Failure" checkbox grays out N4 and re-routes traffic to the next node in the ring
+    
+    **Learning objective:** Applying (Bloom's) — students experiment with partition key hashing to see how data distributes across nodes, and observe how replica factor and consistency level interact.
+    
+    Responsive: canvas scales to container width on resize.
+    -->
+</body>
+</html>

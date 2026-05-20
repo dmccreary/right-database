@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATAM Nine-Step Process Navigator</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>ATAM Nine-Step Process Navigator</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> atam-nine-step-navigator</p>
+            <p><strong>Library:</strong> p5.js</p>
+            <p><strong>Bloom Level:</strong> TBD</p>
+            <p><strong>Learning Objective:</strong> Remembering and Understanding (Bloom's levels 1–2) — students recall all nine ATAM steps in order and understand the purpose, participants, and outputs of each step.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: MicroSim
+    **sim-id:** atam-nine-step-navigator<br/>
+    **Library:** p5.js<br/>
+    **Status:** Specified
+    
+    **Learning objective:** Remembering and Understanding (Bloom's levels 1–2) — students recall all nine ATAM steps in order and understand the purpose, participants, and outputs of each step.
+    
+    **Canvas:** 900 × 580px, responsive. The left panel (280px wide) shows a vertical numbered list of all nine steps. The right panel (580px wide) shows the detail card for the selected step.
+    
+    **Step data:**
+    
+    Step 1: Present ATAM
+    - Phase: Presentation
+    - Participants: ATAM team lead, all stakeholders
+    - Activity: The evaluation team presents the ATAM method to stakeholders — its purpose, vocabulary, activities, and expected outputs. This establishes shared understanding before analysis begins.
+    - Artifacts produced: None (informational only)
+    - Color: #4a90d9 (blue, presentation phase)
+    
+    Step 2: Present Business Drivers
+    - Phase: Presentation
+    - Participants: Project decision makers, product owners
+    - Activity: Key stakeholders present the system's business context — why the system exists, what goals it must support, market and regulatory constraints, and what success looks like from a business perspective.
+    - Artifacts produced: Documented business driver list
+    - Color: #4a90d9
+    
+    Step 3: Present Architecture
+    - Phase: Presentation
+    - Participants: Lead architect(s), evaluation team
+    - Activity: The architecture team presents the current or proposed architecture using multiple views (component, deployment, data flow). Architectural constraints and design decisions made to date are surfaced.
+    - Artifacts produced: Architecture views, initial constraint list
+    - Color: #4a90d9
+    
+    Step 4: Identify Architectural Approaches
+    - Phase: Analysis
+    - Participants: Architects, evaluation team
+    - Activity: The evaluation team elicits the architectural patterns and strategies present in the architecture (caching strategies, replication topologies, consistency models, partitioning schemes, etc.).
+    - Artifacts produced: Catalog of architectural approaches
+    - Color: #f0a500 (gold, analysis phase)
+    
+    Step 5: Generate Utility Tree
+    - Phase: Analysis
+    - Participants: All stakeholders, evaluation team
+    - Activity: The team collaboratively builds the utility tree — identifying quality attributes, refining them into sub-characteristics, and eliciting specific quality attribute scenarios. Scenarios are prioritized with (H/M/L, H/M/L) ratings.
+    - Artifacts produced: Prioritized utility tree with (H,H)/(H,M)/(M,H) scenarios identified
+    - Color: #f0a500
+    
+    Step 6: Analyze Architectural Approaches
+    - Phase: Analysis
+    - Participants: Architects, evaluation team
+    - Activity: The evaluation team probes the architectural approaches against the (H,H) utility tree scenarios. Sensitivity points and tradeoff points are identified. Risks and non-risks are documented as they are discovered.
+    - Artifacts produced: Initial risk list, non-risk list, sensitivity points, tradeoff points
+    - Color: #f0a500
+    
+    Step 7: Brainstorm and Prioritize Scenarios
+    - Phase: Analysis
+    - Participants: All stakeholders
+    - Activity: A broader set of stakeholders brainstorm additional scenarios not yet in the utility tree. The full scenario list is re-prioritized. This step surfaces requirements that may not have been visible to the architect or project team.
+    - Artifacts produced: Expanded, re-prioritized scenario list
+    - Color: #f0a500
+    
+    Step 8: Analyze Architectural Approaches (continued)
+    - Phase: Analysis
+    - Participants: Architects, evaluation team
+    - Activity: The highest-priority scenarios from Step 7 that are not yet covered are analyzed against the architectural approaches. Additional risks, non-risks, sensitivity points, and tradeoff points are documented.
+    - Artifacts produced: Final risk list, non-risk list, sensitivity points, tradeoff points
+    - Color: #f0a500
+    
+    Step 9: Present Results
+    - Phase: Reporting
+    - Participants: All stakeholders
+    - Activity: The evaluation team presents a consolidated summary: the utility tree, identified risks (with themes), non-risks, sensitivity points, tradeoff points, and architectural decision records. Stakeholders validate findings and identify next actions.
+    - Artifacts produced: Final ATAM report, risk themes, architectural decision records (ADRs)
+    - Color: #4aaa4a (green, reporting phase)
+    
+    **UI layout:**
+    Left panel: vertical list of 9 numbered step cards. Selected step is highlighted with a gold left border and bold text. Each card shows step number and short name.
+    Right panel: detail card for the selected step, containing: Step title (h2), Phase badge (Presentation / Analysis / Reporting), Participants section, Activity description (2-3 sentences), and "Artifacts Produced" bulleted list.
+    
+    **Interaction:**
+    - Clicking any step card in the left panel loads its detail in the right panel.
+    - Default selected step on load: Step 1.
+    - A "← Prev" and "Next →" button at the bottom of the right panel allow sequential navigation.
+    - The phase badge color matches the step's phase color (blue/gold/green).
+    
+    **Responsive behavior:** Below 700px width, the left panel collapses to a horizontal tab strip above the detail card. The detail card remains full-width below.
+    -->
+</body>
+</html>

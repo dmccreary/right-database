@@ -1,0 +1,14 @@
+{
+  "sim_id": "mtbf-mttr-availability",
+  "diagram_name": "MTBF and MTTR Availability Calculator",
+  "chapter_number": 13,
+  "chapter_title": "Chapter 13 - High Availability Architecture",
+  "chapter_dir": "13-high-availability",
+  "library": "p5.js",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": null,
+  "completion_status": "specified",
+  "extracted_date": "2026-05-20",
+  "specification": "**sim-id:** mtbf-mttr-availability\n**Library:** p5.js\n**Status:** Specified\n\nShow two sliders: MTBF (1–10,000 hours) and MTTR (0.1–24 hours), both on log scales.\n\nDisplay:\n- Computed availability: `MTBF / (MTBF + MTTR)` in percentage, updated live\n- Number of \"nines\" (one decimal place: 99.9% = three nines)\n- Annual downtime in the appropriate unit\n\nShow a 2D heat map plot where the X-axis is MTBF (log scale) and Y-axis is MTTR (log scale). The color encodes availability from red (low) to green (high). Mark the current slider position as a white dot. Show availability contour lines at 99%, 99.9%, 99.99%, 99.999%.\n\nInclude two labeled example points: \"Average enterprise DB cluster\" (MTBF=2000h, MTTR=2h) and \"High-HA cluster\" (MTBF=1000h, MTTR=0.1h). Show how moving the white dot toward low MTTR is more effective at crossing contour lines than increasing MTBF."
+}

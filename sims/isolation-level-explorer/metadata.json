@@ -1,0 +1,21 @@
+{
+  "title": "Isolation Level Anomaly Explorer",
+  "description": "Apply isolation level knowledge to predict which concurrency anomalies can occur at each level, and identify the correct isolation level for a given business requirement. (Bloom L3–L4: Apply/Analyze)",
+  "creator": "Dementia Education Project",
+  "date": "2026-05-20",
+  "subject": [
+    "dementia"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY 4.0",
+  "identifier": "isolation-level-explorer",
+  "library": "p5.js",
+  "bloomLevel": "TBD",
+  "bloomVerb": "TBD",
+  "completion_status": "scaffold",
+  "chapter_number": 10,
+  "chapter_title": "Chapter 10 - ACID Transactions",
+  "chapter_dir": "10-acid-transactions"
+}

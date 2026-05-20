@@ -1,0 +1,21 @@
+{
+  "title": "Embedding Model Comparison Matrix",
+  "description": "Select an appropriate embedding model for a given use case by comparing dimensionality, context length, cost, latency, and multilingual support. (Bloom L5: Evaluate)",
+  "creator": "Dementia Education Project",
+  "date": "2026-05-20",
+  "subject": [
+    "dementia"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY 4.0",
+  "identifier": "embedding-model-comparison",
+  "library": "p5.js",
+  "bloomLevel": "TBD",
+  "bloomVerb": "TBD",
+  "completion_status": "scaffold",
+  "chapter_number": 15,
+  "chapter_title": "Chapter 15 - LLM-Generated Embeddings",
+  "chapter_dir": "15-llm-embeddings"
+}

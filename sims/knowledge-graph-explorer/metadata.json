@@ -1,0 +1,21 @@
+{
+  "title": "Enterprise Knowledge Graph Explorer",
+  "description": "Evaluating (Bloom's) — students see how a knowledge graph enables multi-domain queries that would require complex cross-system coordination in a siloed data architecture.",
+  "creator": "Dementia Education Project",
+  "date": "2026-05-20",
+  "subject": [
+    "dementia"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY 4.0",
+  "identifier": "knowledge-graph-explorer",
+  "library": "vis-network",
+  "bloomLevel": "TBD",
+  "bloomVerb": "TBD",
+  "completion_status": "scaffold",
+  "chapter_number": 8,
+  "chapter_title": "Chapter 8 - Graph Databases",
+  "chapter_dir": "08-graph-databases"
+}

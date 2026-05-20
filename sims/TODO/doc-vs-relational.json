@@ -1,0 +1,14 @@
+{
+  "sim_id": "doc-vs-relational",
+  "diagram_name": "Document Model vs. Relational Model Side-by-Side",
+  "chapter_number": 7,
+  "chapter_title": "Chapter 7 - Document Databases",
+  "chapter_dir": "07-document-databases",
+  "library": "p5.js",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": "Analyzing (Bloom's) — students compare operational characteristics of both models, building intuition for when each is the right choice.",
+  "completion_status": "specified",
+  "extracted_date": "2026-05-20",
+  "specification": "**sim-id:** doc-vs-relational\n**Library:** p5.js\n**Status:** Specified\n\nA p5.js canvas (900×600 px) split vertically into two equal panels.\n\n**Left panel — \"Document Model (MongoDB)\":**\n- Shows a single nested customer document with embedded `address` object and embedded array of `recent_orders` (2 items)\n- Clickable expand/collapse arrows on nested objects\n- Clicking any field highlights it in blue and shows a tooltip: field name, BSON type, example value\n\n**Right panel — \"Relational Model (SQL)\":**\n- Shows three separate table visualizations: `customers`, `addresses`, `orders`\n- Rows are small rectangles with field names abbreviated\n- Dashed connecting lines show the JOIN relationships between tables\n\n**Controls:**\n- \"Simulate Read\" button: in the document panel, highlights the entire document with a single green flash (\"1 query\"); in the relational panel, highlights each table in sequence with a connecting arrow animation (\"3 queries + 2 JOINs\")\n- \"Simulate Update Address\" button: in the document panel, highlights just the address sub-object (\"1 update\"); in the relational panel, highlights just the `addresses` table row (\"1 update\")\n- \"Simulate Add New Field\" button: in the document panel, adds a new `loyalty_tier` field with a green animation (\"0 migrations\"); in the relational panel, shows an `ALTER TABLE` alert overlay (\"1 migration + downtime risk\")\n\n**Learning objective:** Analyzing (Bloom's) — students compare operational characteristics of both models, building intuition for when each is the right choice.\n\nResponsive: scales to container width on resize."
+}

@@ -1,0 +1,14 @@
+{
+  "sim_id": "schema-flexibility-visualizer",
+  "diagram_name": "Schema Flexibility Visualizer",
+  "chapter_number": 7,
+  "chapter_title": "Chapter 7 - Document Databases",
+  "chapter_dir": "07-document-databases",
+  "library": "p5.js",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": "Understanding (Bloom's) — students see directly why a polymorphic entity (Product with many subtypes) fits naturally in a document model but is awkward in a relational one.",
+  "completion_status": "specified",
+  "extracted_date": "2026-05-20",
+  "specification": "**sim-id:** schema-flexibility-visualizer\n**Library:** p5.js\n**Status:** Specified\n\nA p5.js canvas (900×500 px) showing a \"Products\" collection with five document cards in a horizontal scroll view.\n\n**Each document card** (180×380 px) shows:\n- A document title at the top (e.g., \"Shirt — SKU-1001\")\n- A vertical list of field rows: field name in gray on the left, value in dark blue on the right\n- Fields that exist in all 5 documents are highlighted with a light blue background\n- Fields that exist in only some documents are highlighted with an amber background\n- Fields completely absent in this document show as a dashed gray placeholder row labeled \"(absent)\"\n\n**The five document types:**\n1. T-Shirt: `name`, `price`, `color`, `size` (S/M/L/XL), `material`\n2. Digital Download: `name`, `price`, `file_url`, `format` (PDF/MP3), `file_size_mb`\n3. Subscription: `name`, `price`, `billing_cycle` (monthly/annual), `trial_days`, `seats`\n4. Physical Book: `name`, `price`, `isbn`, `author`, `pages`, `weight_kg`\n5. Service: `name`, `price`, `duration_hours`, `provider`, `location_required` (boolean)\n\n**Controls:**\n- \"Highlight Common Fields\" toggle: shows only the fields shared by all five documents, revealing how sparse a single-table design would have to be\n- \"Show Relational Equivalent\" toggle: slides a panel in from the right showing what a normalized relational schema would look like (5 type tables + 1 base table + 4 JOINs)\n\n**Clicking any field row** shows a tooltip: \"Present in N of 5 documents (X%)\"\n\n**Learning objective:** Understanding (Bloom's) — students see directly why a polymorphic entity (Product with many subtypes) fits naturally in a document model but is awkward in a relational one.\n\nResponsive: canvas scales to container width on window resize."
+}

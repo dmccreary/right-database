@@ -1,0 +1,21 @@
+{
+  "title": "Consistency Model Spectrum",
+  "description": "Explain the consistency spectrum from eventual to linearizable, identify which anomalies each level prevents, and recognize which databases operate at each level. (Bloom L2–L4: Understand/Analyze)",
+  "creator": "Dementia Education Project",
+  "date": "2026-05-20",
+  "subject": [
+    "dementia"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY 4.0",
+  "identifier": "consistency-spectrum",
+  "library": "p5.js",
+  "bloomLevel": "TBD",
+  "bloomVerb": "TBD",
+  "completion_status": "scaffold",
+  "chapter_number": 9,
+  "chapter_title": "Chapter 9 - CAP Theorem and Consensus Protocols",
+  "chapter_dir": "09-cap-theorem-consensus"
+}

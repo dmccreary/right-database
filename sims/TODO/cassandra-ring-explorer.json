@@ -1,0 +1,14 @@
+{
+  "sim_id": "cassandra-ring-explorer",
+  "diagram_name": "Cassandra Ring with Partition Key Hashing",
+  "chapter_number": 6,
+  "chapter_title": "Chapter 6 - Column-Family Databases",
+  "chapter_dir": "06-column-family-databases",
+  "library": "p5.js",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": "Applying (Bloom's) — students experiment with partition key hashing to see how data distributes across nodes, and observe how replica factor and consistency level interact.",
+  "completion_status": "specified",
+  "extracted_date": "2026-05-20",
+  "specification": "**sim-id:** cassandra-ring-explorer\n**Library:** p5.js\n**Status:** Specified\n\nA p5.js canvas (800×600 px) with a circular ring in the center.\n\n**Ring visualization:**\n- Six nodes arranged evenly around a circle, labeled N1–N6\n- Each node shows its token range (e.g., \"0–167\" for a 1000-token ring divided among 6 nodes)\n- Each node is colored by its replica role: primary (#4682B4 blue), replica-1 (#28a745 green), replica-2 (#E65100 orange), uninvolved (#ccc gray)\n\n**Controls:**\n- Text input \"Partition Key:\" with a \"Hash It\" button\n- Replication Factor selector (1, 2, 3) — controls how many nodes are colored\n- Consistency Level selector (ONE, QUORUM, ALL) — highlights which nodes must respond\n\n**Interactive behavior:**\n- Entering a partition key and clicking \"Hash It\" animates a small token value appearing, the ring spinning to show which node owns it, and the replica nodes lighting up\n- Clicking any node shows a tooltip: node ID, token range, current write load (simulated %), estimated latency\n- A \"Simulate Node Failure\" checkbox grays out N4 and re-routes traffic to the next node in the ring\n\n**Learning objective:** Applying (Bloom's) — students experiment with partition key hashing to see how data distributes across nodes, and observe how replica factor and consistency level interact.\n\nResponsive: canvas scales to container width on resize."
+}

@@ -1,0 +1,14 @@
+{
+  "sim_id": "embedding-model-comparison",
+  "diagram_name": "Embedding Model Comparison Matrix",
+  "chapter_number": 15,
+  "chapter_title": "Chapter 15 - LLM-Generated Embeddings",
+  "chapter_dir": "15-llm-embeddings",
+  "library": "p5.js",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": "Select an appropriate embedding model for a given use case by comparing dimensionality, context length, cost, latency, and multilingual support. (Bloom L5: Evaluate)",
+  "completion_status": "specified",
+  "extracted_date": "2026-05-20",
+  "specification": "Type: MicroSim\n**sim-id:** embedding-model-comparison<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n\n**Learning Objective:** Select an appropriate embedding model for a given use case by comparing dimensionality, context length, cost, latency, and multilingual support. (Bloom L5: Evaluate)\n\n**Canvas:** 780px wide × 500px tall. CANVAS_HEIGHT: 500.\n\n**Description:**\nA sortable, interactive comparison table with 6 rows (embedding models) and 6 columns:\n- Model: text-embedding-3-small, text-embedding-3-large, all-MiniLM-L6, all-mpnet-base-v2, cohere-embed-v3, jina-embeddings-v2\n- Dimensions: 1536, 3072, 384, 768, 1024, 768\n- Max Tokens: 8192, 8192, 256, 514, 512, 8192\n- Cost ($/1M tokens): $0.02, $0.13, Free, Free, $0.10, Free\n- Hosting: API, API, Self/API, Self/API, API, Self/API\n- Multilingual: No, No, No, No, Yes, Yes\n\n**Interactions:**\n- Clicking a column header sorts the table by that column.\n- Hovering a row highlights it and shows a sidebar: \"Best for: English-only text at moderate scale, cost-sensitive, < 8K tokens per document.\"\n- A \"My Requirements\" panel: sliders for \"Max cost per 1M tokens\", \"Min dimensions\", \"Need multilingual\". Models that don't meet requirements fade out.\n- A \"Compare Two Models\" mode lets user select any two rows to see a side-by-side quality tradeoff chart (MTEB score vs cost).\n\n**Responsive:** Redraws on window resize."
+}

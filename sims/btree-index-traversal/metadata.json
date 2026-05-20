@@ -1,0 +1,21 @@
+{
+  "title": "B-Tree Index Traversal",
+  "description": "Demonstrate how a B-Tree index traverses from root to leaf to locate a specific key, and explain the O(log n) performance characteristic. (Bloom L2–L3: Understand/Apply)",
+  "creator": "Dementia Education Project",
+  "date": "2026-05-20",
+  "subject": [
+    "dementia"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY 4.0",
+  "identifier": "btree-index-traversal",
+  "library": "p5.js",
+  "bloomLevel": "TBD",
+  "bloomVerb": "TBD",
+  "completion_status": "scaffold",
+  "chapter_number": 3,
+  "chapter_title": "Chapter 3 - Relational Databases",
+  "chapter_dir": "03-relational-databases"
+}

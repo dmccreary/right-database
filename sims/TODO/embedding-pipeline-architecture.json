@@ -1,0 +1,14 @@
+{
+  "sim_id": "embedding-pipeline-architecture",
+  "diagram_name": "Embedding Pipeline Architecture",
+  "chapter_number": 15,
+  "chapter_title": "Chapter 15 - LLM-Generated Embeddings",
+  "chapter_dir": "15-llm-embeddings",
+  "library": "p5.js",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": "Design an embedding pipeline architecture for a given source system, selecting appropriate batch vs. real-time processing, chunking strategy, and storage approach. (Bloom L6: Create)",
+  "completion_status": "specified",
+  "extracted_date": "2026-05-20",
+  "specification": "Type: MicroSim\n**sim-id:** embedding-pipeline-architecture<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n\n**Learning Objective:** Design an embedding pipeline architecture for a given source system, selecting appropriate batch vs. real-time processing, chunking strategy, and storage approach. (Bloom L6: Create)\n\n**Canvas:** 780px wide × 460px tall. CANVAS_HEIGHT: 460.\n\n**Description:**\nA horizontal pipeline flow with 5 stages (rounded rectangles): Source → Preprocess → Embed → Store → Index. Two toggle modes at top: \"Batch Mode\" and \"Real-Time Mode.\"\n\n**Batch Mode:** Animated arrows show bulk documents flowing from Source (a database cylinder). Preprocess stage shows a counter \"Chunking: 12 docs → 47 chunks (512 tokens each).\" Embed stage shows batches of 32 going to an API icon; a throughput meter shows \"~200 docs/sec.\" Store shows bulk INSERT to database. Index shows \"HNSW index auto-updated on write.\"\n\n**Real-Time Mode:** A single document flows in from a Kafka icon. Preprocess: \"1 doc → 3 chunks.\" Embed: single API call, ~80ms latency. Store: single INSERT. A \"Searchable after: ~100ms\" badge.\n\n**Hovering any stage** opens a configuration panel: \"Embed stage: Batch size = 32. API: text-embedding-3-small. Rate limit: 3000 req/min. Retry on 429: exponential backoff.\"\n\n**Cost calculator panel:** Enter document count and avg tokens per doc → shows estimated API cost at text-embedding-3-small pricing.\n\n**Responsive:** Redraws on window resize."
+}

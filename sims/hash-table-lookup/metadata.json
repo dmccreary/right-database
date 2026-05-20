@@ -1,0 +1,21 @@
+{
+  "title": "Hash Table Lookup Animation",
+  "description": "Demonstrate how a hash function maps a key to a bucket index, enabling O(1) average-case lookup. (Bloom L2: Understand)",
+  "creator": "Dementia Education Project",
+  "date": "2026-05-20",
+  "subject": [
+    "dementia"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY 4.0",
+  "identifier": "hash-table-lookup",
+  "library": "p5.js",
+  "bloomLevel": "TBD",
+  "bloomVerb": "TBD",
+  "completion_status": "scaffold",
+  "chapter_number": 5,
+  "chapter_title": "Chapter 5 - Key-Value Stores",
+  "chapter_dir": "05-key-value-stores"
+}

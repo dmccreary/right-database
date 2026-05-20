@@ -1,0 +1,14 @@
+{
+  "sim_id": "quorum-calculator",
+  "diagram_name": "Quorum Calculator",
+  "chapter_number": 11,
+  "chapter_title": "Chapter 11 - Distributed Scaling and Replication",
+  "chapter_dir": "11-distributed-scaling",
+  "library": "p5.js",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": null,
+  "completion_status": "specified",
+  "extracted_date": "2026-05-20",
+  "specification": "**sim-id:** quorum-calculator\n**Library:** p5.js\n**Status:** Specified\n\nDisplay three sliders: N (total replicas, 3–7), W (write quorum, 1–N), R (read quorum, 1–N).\n\nShow a row of N node icons. When a write is simulated, W of them glow orange (write acknowledged). When a read is simulated, R of them glow blue (read consulted). Highlight in green the nodes that appear in both sets — these are the nodes that guarantee fresh data.\n\nBelow the node display, show:\n\n- \"W + R = X\" — colored red if X ≤ N (no consistency guarantee), green if X > N\n- \"Write fault tolerance: can lose (N-W) nodes\"\n- \"Read fault tolerance: can lose (N-R) nodes\"\n- \"Consistency guaranteed: YES / NO\"\n\nAdd a \"Simulate Stale Read\" button that only activates when W+R ≤ N, animating a scenario where the read set misses the written node and returns old data."
+}

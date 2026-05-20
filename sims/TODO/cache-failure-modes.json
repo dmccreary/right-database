@@ -1,0 +1,14 @@
+{
+  "sim_id": "cache-failure-modes",
+  "diagram_name": "Cache Failure Mode Simulator",
+  "chapter_number": 5,
+  "chapter_title": "Chapter 5 - Key-Value Stores",
+  "chapter_dir": "05-key-value-stores",
+  "library": "p5.js",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": "Identify cache stampede and hot key failure modes and select appropriate mitigation strategies. (Bloom L4–L5: Analyze/Evaluate)",
+  "completion_status": "specified",
+  "extracted_date": "2026-05-20",
+  "specification": "Type: MicroSim\n**sim-id:** cache-failure-modes<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n\n**Learning Objective:** Identify cache stampede and hot key failure modes and select appropriate mitigation strategies. (Bloom L4–L5: Analyze/Evaluate)\n\n**Canvas:** 780px wide × 500px tall. CANVAS_HEIGHT: 500.\n\n**Description:**\nTwo side-by-side panels: \"Cache Stampede\" (left) and \"Hot Key\" (right).\n\n**Cache Stampede panel:** Timeline with Cache (top bar, TTL countdown), 10 Application Server circles (middle), and Primary DB (bottom bar). When TTL hits 0, all 10 servers simultaneously fire red arrows at the DB. DB bar turns red: \"DB Overload.\" Load spike bar chart shows 10x spike.\n\n\"Mitigate: Jitter TTL\" button re-runs: 10 servers fire at staggered times; DB load spreads out; DB bar stays green.\n\n**Hot Key panel:** 3 shards as columns. Each second, request dots fall from top: 80% land on Shard 1 (turns red: \"OVERLOADED\"). Shards 2–3 are nearly idle (green).\n\n\"Mitigate: Key Replicas\" button re-runs: request dots split across popular_key:1, :2, :3 — all shards stay green.\n\n**Responsive:** Redraws on window resize."
+}

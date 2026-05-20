@@ -1,0 +1,14 @@
+{
+  "sim_id": "embed-vs-reference",
+  "diagram_name": "Embed vs. Reference Decision Model",
+  "chapter_number": 7,
+  "chapter_title": "Chapter 7 - Document Databases",
+  "chapter_dir": "07-document-databases",
+  "library": "p5.js",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": "Applying (Bloom's) — students work through real modeling scenarios and develop intuition for the embed/reference decision.",
+  "completion_status": "specified",
+  "extracted_date": "2026-05-20",
+  "specification": "**sim-id:** embed-vs-reference\n**Library:** p5.js\n**Status:** Specified\n\nA p5.js canvas (900×550 px) split into three panels.\n\n**Left panel — \"Scenario Selector\":**\n- A vertical list of six scenario buttons: \"Order → Line Items\", \"Post → Author\", \"Customer → Addresses\", \"Product → Reviews\", \"Employee → Department\", \"Invoice → Payment History\"\n\n**Center panel — \"Model Visualization\":**\n- When \"Embed\" is recommended: shows a single document card with nested sub-objects highlighted in blue\n- When \"Reference\" is recommended: shows two separate document cards connected by a dashed arrow labeled with the reference field name (e.g., `author_id`)\n- The current recommendation (\"EMBED\" or \"REFERENCE\") is displayed in a large badge\n\n**Right panel — \"Decision Factors\":**\n- A checklist with four criteria, each showing a green check or red X for the selected scenario:\n  1. \"Data read together?\" \n  2. \"Data owned by one parent?\"\n  3. \"Subdoc size stays bounded?\"\n  4. \"Data shared across many parents?\"\n- A summary sentence explaining the recommendation\n\n**Clicking any scenario** updates all three panels simultaneously with an animation.\n\n**Learning objective:** Applying (Bloom's) — students work through real modeling scenarios and develop intuition for the embed/reference decision.\n\nResponsive: canvas resizes on window resize."
+}

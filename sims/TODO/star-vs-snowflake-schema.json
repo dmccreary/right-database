@@ -1,0 +1,14 @@
+{
+  "sim_id": "star-vs-snowflake-schema",
+  "diagram_name": "Star vs. Snowflake Schema Explorer",
+  "chapter_number": 4,
+  "chapter_title": "Chapter 4 - Analytical Databases",
+  "chapter_dir": "04-analytical-databases",
+  "library": "vis-network",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": "Distinguish between star and snowflake schema structures and explain the tradeoff between query simplicity and storage efficiency. (Bloom L4: Analyze)",
+  "completion_status": "specified",
+  "extracted_date": "2026-05-20",
+  "specification": "Type: MicroSim\n**sim-id:** star-vs-snowflake-schema<br/>\n**Library:** vis-network<br/>\n**Status:** Specified\n\n**Learning Objective:** Distinguish between star and snowflake schema structures and explain the tradeoff between query simplicity and storage efficiency. (Bloom L4: Analyze)\n\n**Canvas:** 780px wide × 500px tall. CANVAS_HEIGHT: 500.\n\n**Description:**\nTwo toggle-able views: \"Star Schema\" and \"Snowflake Schema\" (controlled by a button or tab).\n\n**Star Schema view:** Central fact node (`sales_fact`) colored `#4682B4` (blue). Four dimension nodes radiating outward: `dim_date`, `dim_customer`, `dim_product`, `dim_store` — all colored `#E65100` (orange). Edges labeled with the FK relationship. Each dimension node is large (denormalized, showing 6–8 attribute labels inside the node or as a tooltip).\n\n**Snowflake Schema view:** The same fact node, but `dim_customer` now branches to `dim_city` (which branches to `dim_region`), and `dim_product` branches to `dim_category`. New nodes colored `#28a745` (green) to indicate normalized child dimensions.\n\n**Interactions:**\n- Hovering a node shows a tooltip listing its columns (e.g., \"dim_customer: customer_id, name, email, city, region, country\").\n- Clicking any dimension node opens a sidebar: \"This dimension has 8 attributes. In the snowflake schema, city and region are split out, saving storage but requiring 2 additional joins.\"\n- Clicking the fact node shows: \"sales_fact grain: one row per line item. 50M rows. FK columns: date_key, customer_key, product_key, store_key. Measures: quantity, unit_price, discount, net_amount.\"\n- A \"Run Sample Query\" button highlights the path traversed to answer \"Total revenue by product category by quarter\" — highlighting which nodes and edges are joined.\n\n**Node conventions:** Fact = `#4682B4`, Dimension = `#E65100`, Normalized sub-dimension = `#28a745`.\n\n**Responsive:** Redraws on window resize."
+}

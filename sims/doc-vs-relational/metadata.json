@@ -1,0 +1,21 @@
+{
+  "title": "Document Model vs. Relational Model Side-by-Side",
+  "description": "Analyzing (Bloom's) — students compare operational characteristics of both models, building intuition for when each is the right choice.",
+  "creator": "Dementia Education Project",
+  "date": "2026-05-20",
+  "subject": [
+    "dementia"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY 4.0",
+  "identifier": "doc-vs-relational",
+  "library": "p5.js",
+  "bloomLevel": "TBD",
+  "bloomVerb": "TBD",
+  "completion_status": "scaffold",
+  "chapter_number": 7,
+  "chapter_title": "Chapter 7 - Document Databases",
+  "chapter_dir": "07-document-databases"
+}

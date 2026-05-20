@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schema Flexibility Visualizer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Schema Flexibility Visualizer</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> schema-flexibility-visualizer</p>
+            <p><strong>Library:</strong> p5.js</p>
+            <p><strong>Bloom Level:</strong> TBD</p>
+            <p><strong>Learning Objective:</strong> Understanding (Bloom's) — students see directly why a polymorphic entity (Product with many subtypes) fits naturally in a document model but is awkward in a relational one.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    **sim-id:** schema-flexibility-visualizer
+    **Library:** p5.js
+    **Status:** Specified
+    
+    A p5.js canvas (900×500 px) showing a "Products" collection with five document cards in a horizontal scroll view.
+    
+    **Each document card** (180×380 px) shows:
+    - A document title at the top (e.g., "Shirt — SKU-1001")
+    - A vertical list of field rows: field name in gray on the left, value in dark blue on the right
+    - Fields that exist in all 5 documents are highlighted with a light blue background
+    - Fields that exist in only some documents are highlighted with an amber background
+    - Fields completely absent in this document show as a dashed gray placeholder row labeled "(absent)"
+    
+    **The five document types:**
+    1. T-Shirt: `name`, `price`, `color`, `size` (S/M/L/XL), `material`
+    2. Digital Download: `name`, `price`, `file_url`, `format` (PDF/MP3), `file_size_mb`
+    3. Subscription: `name`, `price`, `billing_cycle` (monthly/annual), `trial_days`, `seats`
+    4. Physical Book: `name`, `price`, `isbn`, `author`, `pages`, `weight_kg`
+    5. Service: `name`, `price`, `duration_hours`, `provider`, `location_required` (boolean)
+    
+    **Controls:**
+    - "Highlight Common Fields" toggle: shows only the fields shared by all five documents, revealing how sparse a single-table design would have to be
+    - "Show Relational Equivalent" toggle: slides a panel in from the right showing what a normalized relational schema would look like (5 type tables + 1 base table + 4 JOINs)
+    
+    **Clicking any field row** shows a tooltip: "Present in N of 5 documents (X%)"
+    
+    **Learning objective:** Understanding (Bloom's) — students see directly why a polymorphic entity (Product with many subtypes) fits naturally in a document model but is awkward in a relational one.
+    
+    Responsive: canvas scales to container width on window resize.
+    -->
+</body>
+</html>

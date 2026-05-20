@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETL Pipeline Architecture</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>ETL Pipeline Architecture</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> etl-pipeline-explorer</p>
+            <p><strong>Library:</strong> p5.js</p>
+            <p><strong>Bloom Level:</strong> TBD</p>
+            <p><strong>Learning Objective:</strong> Identify the stages of an ETL/ELT pipeline and explain what happens to data at each stage. (Bloom L2–L3: Understand/Apply)</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    Type: MicroSim
+    **sim-id:** etl-pipeline-explorer<br/>
+    **Library:** p5.js<br/>
+    **Status:** Specified
+    
+    **Learning Objective:** Identify the stages of an ETL/ELT pipeline and explain what happens to data at each stage. (Bloom L2–L3: Understand/Apply)
+    
+    **Canvas:** 780px wide × 400px tall. CANVAS_HEIGHT: 400.
+    
+    **Description:**
+    A horizontal pipeline flow diagram with 5 stages: Source Systems → Extract → Transform → Load → Data Warehouse. Each stage is a rounded rectangle with an icon and label.
+    
+    **Source Systems:** Three source icons (PostgreSQL logo, Salesforce icon, Kafka logo) stacked vertically. Clicking any source shows a tooltip: "Orders DB: 50K rows/day. Salesforce CRM: 5K records/day. Kafka event stream: 2M events/day."
+    
+    **Extract:** Shows an animated data-flow arrow (dashed, scrolling) pulling data from sources. Tooltip: "Raw data extracted without transformation. May include duplicates, nulls, type mismatches."
+    
+    **Transform:** Shows a gear icon with three sub-steps: Cleanse → Map → Aggregate. Hovering Cleanse: "Remove nulls, fix encoding errors, deduplicate." Hovering Map: "Convert source column names and types to warehouse schema." Hovering Aggregate: "Pre-compute daily totals, join to dimension keys."
+    
+    **Load:** Shows data flowing into Parquet files (cloud object storage icon). Tooltip: "Parquet files written to S3/GCS with Snappy compression. Row group size: 128 MB. Predicate pushdown enabled."
+    
+    **Data Warehouse:** Final destination icon (Snowflake or BigQuery logo, generic). Tooltip: "External tables or native table load. Query-ready."
+    
+    An "ELT Mode" toggle swaps the Transform and Load stages, with a note: "In ELT, raw data lands in the warehouse first; SQL transforms run inside the warehouse engine."
+    
+    **Responsive:** Redraws on window resize.
+    -->
+</body>
+</html>

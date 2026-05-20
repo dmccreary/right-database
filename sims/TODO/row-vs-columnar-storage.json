@@ -1,0 +1,14 @@
+{
+  "sim_id": "row-vs-columnar-storage",
+  "diagram_name": "Row vs. Columnar Storage I/O Comparison",
+  "chapter_number": 4,
+  "chapter_title": "Chapter 4 - Analytical Databases",
+  "chapter_dir": "04-analytical-databases",
+  "library": "p5.js",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": "Explain how columnar storage reduces I/O for analytical queries by reading only the columns a query needs. (Bloom L2: Understand)",
+  "completion_status": "specified",
+  "extracted_date": "2026-05-20",
+  "specification": "Type: MicroSim\n**sim-id:** row-vs-columnar-storage<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n\n**Learning Objective:** Explain how columnar storage reduces I/O for analytical queries by reading only the columns a query needs. (Bloom L2: Understand)\n\n**Canvas:** 780px wide × 480px tall. CANVAS_HEIGHT: 480.\n\n**Description:**\nTwo side-by-side panels: \"Row Storage\" (left) and \"Columnar Storage\" (right). Each panel shows a grid representing 6 rows and 6 columns (order_id, customer_id, product, amount, category, date).\n\nThe user selects which columns to query via checkboxes at the top (default: amount, category, date — 3 of 6 checked). Clicking \"Run Query\" animates a scan highlight across both panels:\n\n- **Row Storage panel:** Highlight sweeps across all columns of every row (orange). A counter shows \"Bytes read: 6 × 6 = 36 cells.\"\n- **Columnar Storage panel:** Highlight touches only the checked columns (green). Counter shows \"Bytes read: 3 × 6 = 18 cells.\"\n\nA \"Savings\" indicator at the bottom shows the percentage reduction: \"50% I/O saved.\"\n\nWhen fewer columns are checked, the savings increase. With 1 column checked: \"83% I/O saved.\"\n\nEach cell is color-coded by column: order_id = gray, customer_id = blue, product = teal, amount = gold, category = orange, date = purple.\n\n**Responsive:** Redraws on window resize."
+}

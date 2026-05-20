@@ -1,0 +1,14 @@
+{
+  "sim_id": "consistency-spectrum",
+  "diagram_name": "Consistency Model Spectrum",
+  "chapter_number": 9,
+  "chapter_title": "Chapter 9 - CAP Theorem and Consensus Protocols",
+  "chapter_dir": "09-cap-theorem-consensus",
+  "library": "p5.js",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": "Explain the consistency spectrum from eventual to linearizable, identify which anomalies each level prevents, and recognize which databases operate at each level. (Bloom L2–L4: Understand/Analyze)",
+  "completion_status": "specified",
+  "extracted_date": "2026-05-20",
+  "specification": "Type: MicroSim\n**sim-id:** consistency-spectrum<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n\n**Learning Objective:** Explain the consistency spectrum from eventual to linearizable, identify which anomalies each level prevents, and recognize which databases operate at each level. (Bloom L2–L4: Understand/Analyze)\n\n**Canvas:** 780px wide × 480px tall. CANVAS_HEIGHT: 480.\n\n**Description:**\nA horizontal spectrum bar from left (\"Weakest / Fastest\") to right (\"Strongest / Slowest\"). Seven labeled markers on the spectrum: Eventual → Read-Your-Writes → Monotonic Read → Causal → Session → Strong → Linearizable.\n\nA draggable slider lets the user position themselves on the spectrum. When the slider moves to a position:\n\n- The \"Anomalies Prevented\" panel below lists which anomalies are ruled out at this level and above (e.g., at Monotonic Read: \"Stale re-reads eliminated. Dirty reads still possible at this level.\")\n- The \"Example Databases\" panel lists databases operating at this level: Eventual → Cassandra/DynamoDB defaults. Linearizable → Google Spanner, FoundationDB.\n- The \"Coordination Required\" panel shows a simple diagram of how many nodes must acknowledge before a write completes (1 node at eventual; all replicas + global timestamp at linearizable).\n\nA \"Show Anomaly\" button animates a concrete scenario illustrating the anomaly that the current level does NOT prevent (e.g., at Eventual: two clients read different values of the same key from different replicas simultaneously).\n\n**Responsive:** Redraws on window resize."
+}

@@ -1,0 +1,21 @@
+{
+  "title": "HNSW vs IVF ANN Index Explorer",
+  "description": "Evaluate the recall-speed tradeoff for HNSW and IVF ANN indexes and select the appropriate index type for a given accuracy and latency requirement. (Bloom L5: Evaluate)",
+  "creator": "Dementia Education Project",
+  "date": "2026-05-20",
+  "subject": [
+    "dementia"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY 4.0",
+  "identifier": "ann-index-comparison",
+  "library": "p5.js",
+  "bloomLevel": "TBD",
+  "bloomVerb": "TBD",
+  "completion_status": "scaffold",
+  "chapter_number": 14,
+  "chapter_title": "Chapter 14 - Vector Search as a Database Feature",
+  "chapter_dir": "14-vector-search"
+}

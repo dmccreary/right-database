@@ -1,0 +1,21 @@
+{
+  "title": "Relational Database ATAM Radar",
+  "description": "Evaluate relational databases against six quality attributes used throughout ATAM analysis, and identify tradeoffs compared to a reference NoSQL baseline. (Bloom L5: Evaluate)",
+  "creator": "Dementia Education Project",
+  "date": "2026-05-20",
+  "subject": [
+    "dementia"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY 4.0",
+  "identifier": "relational-quality-radar",
+  "library": "p5.js",
+  "bloomLevel": "TBD",
+  "bloomVerb": "TBD",
+  "completion_status": "scaffold",
+  "chapter_number": 3,
+  "chapter_title": "Chapter 3 - Relational Databases",
+  "chapter_dir": "03-relational-databases"
+}

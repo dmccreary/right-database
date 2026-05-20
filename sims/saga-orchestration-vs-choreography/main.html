@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saga Orchestration vs Choreography</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Saga Orchestration vs Choreography</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> saga-orchestration-vs-choreography</p>
+            <p><strong>Library:</strong> p5.js</p>
+            <p><strong>Bloom Level:</strong> TBD</p>
+            <p><strong>Learning Objective:</strong> TBD</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    **sim-id:** saga-orchestration-vs-choreography
+    **Library:** p5.js
+    **Status:** Specified
+    
+    Show a toggle switch labeled "Orchestration / Choreography" at the top.
+    
+    **Orchestration view:** Show a central "Saga Orchestrator" box in gold. Draw three service boxes: Order Service, Payment Service, Inventory Service. Show arrows from Orchestrator → Order Service (Create Order), then → Payment Service (Charge Card), then → Inventory Service (Reserve Items). Include a "Inject Failure" button that fails the Inventory step, triggering animated compensation arrows in red flowing back: Inventory (skipped), then Payment Service ← Orchestrator (Refund Card), then Order Service ← Orchestrator (Cancel Order). Show each step's status: Completed (green), Compensated (orange), Failed (red).
+    
+    **Choreography view:** Remove the Orchestrator box. Show the same three services connected by an event bus (horizontal line). Events flow rightward as labeled arrows: "OrderCreated" → Payment Service, "PaymentCharged" → Inventory Service. "Inject Failure" emits "InventoryFailed" event flowing leftward; Payment Service receives it and emits "PaymentRefunded" flowing back to Order Service.
+    
+    Show a summary: "Orchestration: easier to debug, central dependency. Choreography: loosely coupled, harder to trace."
+    -->
+</body>
+</html>

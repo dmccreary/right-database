@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Partitioning Challenge Visualizer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        #container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #1a3a6c;
+        }
+        .placeholder {
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            color: #6c757d;
+            margin: 20px 0;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .placeholder .badge {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .placeholder h2 {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+        .placeholder p {
+            font-size: 14px;
+            max-width: 480px;
+        }
+        .meta {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 12px;
+        }
+        .meta strong { color: #495057; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Graph Partitioning Challenge Visualizer</h1>
+        <div class="placeholder">
+            <span class="badge">SCAFFOLD</span>
+            <h2>MicroSim Not Yet Implemented</h2>
+            <p>This MicroSim has been scaffolded from its specification but the
+            interactive content has not been built yet. See the chapter source
+            and the <code>index.md</code> in this directory for the full spec.</p>
+        </div>
+        <div class="meta">
+            <p><strong>Sim ID:</strong> graph-partitioning-viz</p>
+            <p><strong>Library:</strong> vis-network</p>
+            <p><strong>Bloom Level:</strong> TBD</p>
+            <p><strong>Learning Objective:</strong> Analyzing (Bloom's) — students observe how partitioning strategy directly affects multi-hop traversal latency, and understand why community-aware partitioning matters for graph workloads.</p>
+        </div>
+    </div>
+
+    <!--
+    SPECIFICATION (from chapter index.md):
+
+    **sim-id:** graph-partitioning-viz
+    **Library:** vis-network
+    **Status:** Specified
+    
+    A vis-network canvas (900×520 px) with the graph divided into three visually distinct partition zones.
+    
+    **Visual layout:**
+    - Three colored background regions (light blue, light orange, light green) labeled "Machine 1", "Machine 2", "Machine 3"
+    - ~20 nodes distributed across the three machines, each node colored by its machine assignment
+    - Edges within a machine: solid thin lines, colored to match the machine
+    - Edges crossing machines: bold red dashed lines labeled with a simulated latency badge ("~10 ms network hop")
+    
+    **Controls:**
+    - "Hash Partitioning" button: re-distributes nodes by random hash, typically producing many red cross-partition edges
+    - "Community-Aware" button: re-distributes nodes by community (dense subgraphs co-located), dramatically reducing red edges
+    - "Simulate 3-hop Traversal" button: starting from a selected node, animates 3 hops and accumulates a total latency counter (each cross-partition hop adds 10 ms, within-partition hop adds 0.1 ms)
+    
+    **Clicking any edge** shows: "Type: within-partition (0.1 ms)" or "Type: cross-partition (~10 ms)"
+    
+    **Learning objective:** Analyzing (Bloom's) — students observe how partitioning strategy directly affects multi-hop traversal latency, and understand why community-aware partitioning matters for graph workloads.
+    
+    Responsive: canvas resizes on window resize.
+    -->
+</body>
+</html>

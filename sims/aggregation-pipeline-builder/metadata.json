@@ -1,0 +1,21 @@
+{
+  "title": "Aggregation Pipeline Stage Builder",
+  "description": "Creating (Bloom's) — students assemble pipelines by composing stages, observing how each stage transforms the document stream.",
+  "creator": "Dementia Education Project",
+  "date": "2026-05-20",
+  "subject": [
+    "dementia"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY 4.0",
+  "identifier": "aggregation-pipeline-builder",
+  "library": "p5.js",
+  "bloomLevel": "TBD",
+  "bloomVerb": "TBD",
+  "completion_status": "scaffold",
+  "chapter_number": 7,
+  "chapter_title": "Chapter 7 - Document Databases",
+  "chapter_dir": "07-document-databases"
+}

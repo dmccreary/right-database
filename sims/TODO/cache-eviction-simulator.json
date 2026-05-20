@@ -1,0 +1,14 @@
+{
+  "sim_id": "cache-eviction-simulator",
+  "diagram_name": "Cache Eviction Policy Simulator",
+  "chapter_number": 5,
+  "chapter_title": "Chapter 5 - Key-Value Stores",
+  "chapter_dir": "05-key-value-stores",
+  "library": "p5.js",
+  "bloom_level": null,
+  "bloom_verb": null,
+  "learning_objective": "Apply LRU and LFU eviction policies to a sequence of cache operations and predict which key will be evicted when memory is full. (Bloom L3: Apply)",
+  "completion_status": "specified",
+  "extracted_date": "2026-05-20",
+  "specification": "Type: MicroSim\n**sim-id:** cache-eviction-simulator<br/>\n**Library:** p5.js<br/>\n**Status:** Specified\n\n**Learning Objective:** Apply LRU and LFU eviction policies to a sequence of cache operations and predict which key will be evicted when memory is full. (Bloom L3: Apply)\n\n**Canvas:** 780px wide × 480px tall. CANVAS_HEIGHT: 480.\n\n**Description:**\nA fixed-size cache display (6 slots as horizontal bars) with a \"Cache Access Log\" on the right.\n\n**Controls:**\n- Policy dropdown: LRU | LFU | Random | TTL-based\n- \"Next Access\" button simulates the next operation from a pre-defined 20-step sequence\n- \"Full Sequence\" runs all 20 steps at 500ms intervals\n\nEach cache slot shows: key name, value preview, access count (LFU), last-accessed time (LRU), TTL countdown (TTL-based). The slot at the bottom is the next evicted (red border). When eviction occurs, the slot flashes red and disappears; the new key animates in from the top.\n\n**Statistics panel:** Hit rate (%), evictions so far, current memory usage.\n\n**Access pattern:** Key \"A\" is accessed frequently early then not at all — highlighting how LFU protects it while LRU eventually evicts it.\n\n**Responsive:** Redraws on window resize."
+}

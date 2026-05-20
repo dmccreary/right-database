@@ -1,0 +1,21 @@
+{
+  "title": "Workload Characterization Explorer",
+  "description": "Analyzing (Bloom's level 4) — students compare the architectural signatures of OLTP, OLAP, and HTAP workloads across seven dimensions and identify which database design choices each workload drives.",
+  "creator": "Dementia Education Project",
+  "date": "2026-05-20",
+  "subject": [
+    "dementia"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY 4.0",
+  "identifier": "workload-characterization-explorer",
+  "library": "p5.js",
+  "bloomLevel": "TBD",
+  "bloomVerb": "TBD",
+  "completion_status": "scaffold",
+  "chapter_number": 2,
+  "chapter_title": "Chapter 2 - Database Foundations",
+  "chapter_dir": "02-database-foundations"
+}

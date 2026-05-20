@@ -137,8 +137,7 @@ extra:
   textbook_version: "1.0"
   generator: false
 
-#  G-C8YG80XNGY
-extra:
- analytics:
-   provider: google
-   property: G-C8YG80XNGY
+#  Google Analytics G-C8YG80XNGY
+  analytics:
+    provider: google
+    property: G-C8YG80XNGY

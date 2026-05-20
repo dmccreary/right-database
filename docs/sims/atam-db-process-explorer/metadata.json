@@ -1,0 +1,21 @@
+{
+  "title": "ATAM Database Selection Process Explorer",
+  "description": "Understanding (Bloom's level 2) — students explain the role of each element in the ATAM database selection process and describe how requirements and architectural approaches flow through the process to produce analysis outputs.",
+  "creator": "Dementia Education Project",
+  "date": "2026-05-20",
+  "subject": [
+    "dementia"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY 4.0",
+  "identifier": "atam-db-process-explorer",
+  "library": "p5.js",
+  "bloomLevel": "TBD",
+  "bloomVerb": "TBD",
+  "completion_status": "scaffold",
+  "chapter_number": 1,
+  "chapter_title": "Chapter 1 - The ATAM Method",
+  "chapter_dir": "01-atam-method"
+}

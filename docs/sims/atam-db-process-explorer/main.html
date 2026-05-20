@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>ATAM Database Selection Process Explorer</title>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.10/lib/p5.js"></script>
+    <style>
+        body { margin: 0; padding: 0; font-family: Arial, sans-serif; }
+        #sim-wrapper { position: relative; width: 100%; }
+        #info-panel {
+            position: absolute;
+            top: 0; right: 0;
+            width: 260px;
+            height: 520px;
+            background: #fff;
+            border-left: 2px solid #1a3a6c;
+            box-shadow: -3px 0 12px rgba(0,0,0,0.15);
+            padding: 14px;
+            box-sizing: border-box;
+            display: none;
+            overflow-y: auto;
+            z-index: 10;
+            transition: opacity 0.2s;
+        }
+        #info-panel h3 { color: #1a3a6c; margin: 0 0 10px; font-size: 15px; border-bottom: 1px solid #dde; padding-bottom: 6px; }
+        #info-panel p { font-size: 13px; line-height: 1.6; color: #333; margin: 0; }
+        #info-close { float: right; cursor: pointer; font-size: 20px; color: #999; line-height: 1; margin-top: -2px; }
+        #info-close:hover { color: #cc0000; }
+    </style>
+</head>
+<body>
+<div id="sim-wrapper">
+  <main></main>
+  <div id="info-panel">
+    <span id="info-close" onclick="closePanel()">×</span>
+    <h3 id="info-title"></h3>
+    <p id="info-desc"></p>
+  </div>
+</div>
+<br/>
+<a href=".">Back to ATAM Database Selection Process Explorer</a>
+
+<script>
+// ATAM Database Selection Process Explorer — p5.js
+// CANVAS_HEIGHT: 560
+
+const INFO = {
+  A:  { title: 'Business Drivers',
+        desc: 'Business drivers are the organizational goals and constraints that determine what quality attributes matter most for this system. They translate strategic intent into architectural requirements. Examples: regulatory compliance, time-to-market pressure, scale requirements, cost constraints.' },
+  B:  { title: 'Quality Attributes',
+        desc: "Quality attributes (or 'ilities') are the non-functional characteristics by which architectural fitness is measured: availability, consistency, scalability, performance, operability, security. Each business driver maps to one or more quality attributes that the architecture must satisfy." },
+  C:  { title: 'User Stories',
+        desc: 'In the ATAM context, user stories represent quality attribute scenarios — concrete, testable expressions of what the system must do under specified conditions. Each leaf of the utility tree is a quality attribute scenario with a measurable response criterion.' },
+  AN: { title: 'Analysis',
+        desc: 'Analysis is the core ATAM activity: probing each architectural approach against each prioritized quality attribute scenario to identify sensitivity points, tradeoff points, risks, and non-risks. It is structured, evidence-based, and produces documented findings.' },
+  D:  { title: 'Architecture Plan',
+        desc: 'The architecture plan documents the existing or proposed system architecture using multiple views: component diagram, deployment topology, data flow, and sequence views for key scenarios. This is what the evaluation team analyzes.' },
+  E:  { title: 'Architectural Approaches',
+        desc: 'For database selection, the architectural approaches are the candidate database paradigms: Relational (PostgreSQL, MySQL), Analytical (Snowflake, BigQuery), Key-Value (Redis, DynamoDB), Column-Family (Cassandra, HBase), Graph (Neo4j, TigerGraph), and Document (MongoDB, Firestore). Each is evaluated against the prioritized utility tree scenarios.' },
+  F:  { title: 'Architectural Decisions',
+        desc: 'Architectural decisions are the specific choices made about how to implement the architecture — which database type, which replication topology, which consistency model, which sharding strategy. ATAM analysis produces documented justification for each significant decision.' },
+  T:  { title: 'Tradeoffs',
+        desc: 'Tradeoff points are properties of the architecture that are sensitivity points for multiple quality attributes simultaneously — satisfying one quality attribute necessarily degrades another. Example: increasing replication factor improves availability but increases write latency.' },
+  S:  { title: 'Sensitivity Points',
+        desc: 'Sensitivity points are properties of one or more components that are critical to achieving a specific quality attribute. A small change in the property produces a large change in the quality attribute. Example: the quorum size parameter is a sensitivity point for both consistency and availability.' },
+  NR: { title: 'Non-Risks',
+        desc: "Non-risks are architectural decisions confirmed to positively contribute to the system's quality attribute scenarios. Documenting non-risks is as important as documenting risks — they justify parts of the architecture that are correct and prevent unnecessary second-guessing." },
+  R:  { title: 'Risks',
+        desc: 'Architectural risks are potentially unsatisfied quality attribute scenarios. They identify places where the architecture may fail to meet requirements, not certain failures. Each risk should include a description, the affected scenario, the likelihood assessment, and the recommended mitigation.' },
+  RT: { title: 'Risk Themes',
+        desc: 'Risk themes are patterns of risks that share a common root cause or collectively point to a systemic architectural weakness. Identifying risk themes allows teams to address root causes rather than symptoms. Risk themes feed back to inform business driver prioritization.' },
+};
+
+const ARROWS = [
+  { from: 'A',  to: 'B',  label: '' },
+  { from: 'B',  to: 'C',  label: '' },
+  { from: 'C',  to: 'AN', label: '' },
+  { from: 'D',  to: 'E',  label: '' },
+  { from: 'E',  to: 'F',  label: '' },
+  { from: 'F',  to: 'AN', label: '' },
+  { from: 'AN', to: 'T',  label: '' },
+  { from: 'AN', to: 'S',  label: '' },
+  { from: 'AN', to: 'NR', label: '' },
+  { from: 'AN', to: 'R',  label: '' },
+  { from: 'R',  to: 'RT', label: 'Distilled info' },
+  { from: 'RT', to: 'A',  label: 'Impacts' },
+];
+
+let containerWidth, canvasWidth;
+const drawHeight = 520;
+const controlHeight = 40;
+const canvasHeight = drawHeight + controlHeight;
+
+let selectedId = null;
+let hoveredId  = null;
+let nodeList   = [];
+
+const NW_FRAC = 0.145;
+const NH = 46;
+
+function closePanel() {
+  document.getElementById('info-panel').style.display = 'none';
+  selectedId = null;
+  redraw();
+}
+
+function showPanel(id) {
+  selectedId = id;
+  const info = INFO[id];
+  document.getElementById('info-title').textContent = info.title;
+  document.getElementById('info-desc').textContent  = info.desc;
+  document.getElementById('info-panel').style.display = 'block';
+  redraw();
+}
+
+function buildNodes() {
+  const w = canvasWidth, h = drawHeight;
+  return [
+    { id:'A',  lines:['Business','Drivers'],       x:w*0.11, y:h*0.22, shape:'rect',   fill:'#f0a500', sc:'#1a3a6c', tc:'#000' },
+    { id:'B',  lines:['Quality','Attributes'],     x:w*0.36, y:h*0.22, shape:'rect',   fill:'#f0a500', sc:'#1a3a6c', tc:'#000' },
+    { id:'C',  lines:['User','Stories'],           x:w*0.61, y:h*0.22, shape:'rect',   fill:'#f0a500', sc:'#1a3a6c', tc:'#000' },
+    { id:'AN', lines:['Analysis'],                 x:w*0.84, y:h*0.34, shape:'ellipse',fill:'#b0c8e8', sc:'#1a3a6c', tc:'#000' },
+    { id:'D',  lines:['Architecture','Plan'],      x:w*0.11, y:h*0.50, shape:'rect',   fill:'#ffff99', sc:'#1a3a6c', tc:'#000' },
+    { id:'E',  lines:['Architectural','Approaches'],x:w*0.36, y:h*0.50, shape:'rect',  fill:'#ffff99', sc:'#1a3a6c', tc:'#000' },
+    { id:'F',  lines:['Architectural','Decisions'],x:w*0.61, y:h*0.50, shape:'rect',   fill:'#ffff99', sc:'#1a3a6c', tc:'#000' },
+    { id:'T',  lines:['Tradeoffs'],                x:w*0.84, y:h*0.56, shape:'rect',   fill:'#aaaaaa', sc:'#555',    tc:'#000' },
+    { id:'S',  lines:['Sensitivity','Points'],     x:w*0.84, y:h*0.68, shape:'rect',   fill:'#aaaaaa', sc:'#555',    tc:'#000' },
+    { id:'NR', lines:['Non-Risks'],                x:w*0.84, y:h*0.80, shape:'rect',   fill:'#88cc88', sc:'#2a6a2a', tc:'#000' },
+    { id:'R',  lines:['Risks'],                    x:w*0.84, y:h*0.92, shape:'rect',   fill:'#e8a0a0', sc:'#aa3333', tc:'#000' },
+    { id:'RT', lines:['Risk','Themes'],            x:w*0.11, y:h*0.80, shape:'rect',   fill:'#cc0000', sc:'#880000', tc:'#fff' },
+  ];
+}
+
+function edgePt(n, tx, ty) {
+  const nw = canvasWidth * NW_FRAC;
+  const dx = tx - n.x, dy = ty - n.y;
+  const angle = Math.atan2(dy, dx);
+  if (n.shape === 'ellipse') {
+    return { x: n.x + (nw/2+3)*Math.cos(angle), y: n.y + (NH/2+3)*Math.sin(angle) };
+  }
+  const hw = nw/2+2, hh = NH/2+2;
+  if (Math.abs(dx)*hh > Math.abs(dy)*hw) {
+    const sx = dx > 0 ? 1 : -1;
+    return { x: n.x + sx*hw, y: n.y + dy*(hw/Math.abs(dx)) };
+  }
+  const sy = dy > 0 ? 1 : -1;
+  return { x: n.x + dx*(hh/Math.abs(dy)), y: n.y + sy*hh };
+}
+
+function arrowHead(x, y, angle) {
+  const s = 8;
+  push();
+  translate(x, y);
+  rotate(angle);
+  fill(this.col || 0);
+  noStroke();
+  triangle(0, 0, -s, -s/2, -s, s/2);
+  pop();
+}
+
+function drawArrows(ns) {
+  const nw = canvasWidth * NW_FRAC;
+  for (const arr of ARROWS) {
+    const fromN = ns.find(n => n.id === arr.from);
+    const toN   = ns.find(n => n.id === arr.to);
+    if (!fromN || !toN) continue;
+
+    const highlighted = selectedId && (arr.from === selectedId || arr.to === selectedId);
+    const col = highlighted ? color('#0066ff') : color('#777');
+    const sw  = highlighted ? 2.5 : 1.5;
+    stroke(col); strokeWeight(sw); fill(col);
+
+    if (arr.from === 'RT' && arr.to === 'A') {
+      // Feedback dogleg: left side
+      const lx = min(fromN.x, toN.x) - nw*0.55;
+      noFill(); stroke(col); strokeWeight(sw);
+      line(fromN.x - nw/2, fromN.y, lx, fromN.y);
+      line(lx, fromN.y, lx, toN.y);
+      line(lx, toN.y, toN.x - nw/2, toN.y);
+      // Arrowhead pointing right at A
+      fill(col); noStroke();
+      const s = 8;
+      push(); translate(toN.x - nw/2, toN.y); rotate(0);
+      triangle(0,0,-s,-s/2,-s,s/2); pop();
+      // Label
+      noStroke(); fill(80); textSize(10); textAlign(RIGHT, CENTER);
+      text('Impacts', lx - 3, (fromN.y + toN.y)/2);
+    } else {
+      const fp = edgePt(fromN, toN.x, toN.y);
+      const tp = edgePt(toN,   fromN.x, fromN.y);
+      stroke(col); strokeWeight(sw);
+      line(fp.x, fp.y, tp.x, tp.y);
+      // Arrowhead
+      fill(col); noStroke();
+      const angle = Math.atan2(tp.y - fp.y, tp.x - fp.x);
+      const s = 8;
+      push(); translate(tp.x, tp.y); rotate(angle);
+      triangle(0,0,-s,-s/2,-s,s/2); pop();
+      // Label
+      if (arr.label) {
+        noStroke(); fill(80); textSize(10); textAlign(CENTER, CENTER);
+        text(arr.label, (fp.x+tp.x)/2, (fp.y+tp.y)/2 - 8);
+      }
+    }
+  }
+}
+
+function drawNode(n) {
+  const nw = canvasWidth * NW_FRAC;
+  const isSel  = selectedId  === n.id;
+  const isHov  = hoveredId   === n.id;
+  const sw     = (isSel || isHov) ? 3 : 1.5;
+  const sc     = isSel ? '#0066ff' : n.sc;
+
+  stroke(sc); strokeWeight(sw); fill(n.fill);
+  if (n.shape === 'ellipse') ellipse(n.x, n.y, nw, NH);
+  else rect(n.x - nw/2, n.y - NH/2, nw, NH, 5);
+
+  noStroke(); fill(n.tc);
+  textAlign(CENTER, CENTER); textSize(12);
+  const lh = 15;
+  if (n.lines.length === 1) {
+    text(n.lines[0], n.x, n.y);
+  } else {
+    text(n.lines[0], n.x, n.y - lh/2);
+    text(n.lines[1], n.x, n.y + lh/2);
+  }
+}
+
+function drawLegend() {
+  const lx = 8, ly = drawHeight - 58;
+  textSize(11); strokeWeight(1);
+
+  fill('#f0a500'); stroke('#1a3a6c'); rect(lx, ly,    14, 11, 2);
+  noStroke(); fill(60); textAlign(LEFT, CENTER); text('Requirements path', lx+18, ly+5);
+
+  fill('#ffff99'); stroke('#1a3a6c'); rect(lx, ly+16, 14, 11, 2);
+  noStroke(); fill(60); text('Design path', lx+18, ly+21);
+
+  fill('#b0c8e8'); stroke('#1a3a6c'); ellipse(lx+7, ly+38, 14, 11);
+  noStroke(); fill(60); text('Analysis', lx+18, ly+38);
+
+  const lx2 = 170;
+  fill('#aaaaaa'); stroke('#555');    rect(lx2, ly,    14, 11, 2);
+  noStroke(); fill(60); text('Tradeoffs / Sensitivity', lx2+18, ly+5);
+
+  fill('#88cc88'); stroke('#2a6a2a'); rect(lx2, ly+16, 14, 11, 2);
+  noStroke(); fill(60); text('Non-Risks', lx2+18, ly+21);
+
+  fill('#e8a0a0'); stroke('#aa3333'); rect(lx2, ly+32, 14, 11, 2);
+  noStroke(); fill(60); text('Risks', lx2+18, ly+37);
+
+  fill('#cc0000'); stroke('#880000'); rect(lx2+90, ly, 14, 11, 2);
+  fill('#fff'); noStroke(); text('Risk Themes', lx2+108, ly+5);
+}
+
+function hitTest(n) {
+  const nw = canvasWidth * NW_FRAC;
+  if (n.shape === 'ellipse') {
+    return Math.pow((mouseX - n.x)/(nw/2), 2) + Math.pow((mouseY - n.y)/(NH/2), 2) <= 1;
+  }
+  return mouseX >= n.x - nw/2 && mouseX <= n.x + nw/2 &&
+         mouseY >= n.y - NH/2 && mouseY <= n.y + NH/2;
+}
+
+function setup() {
+  updateCanvasSize();
+  const canvas = createCanvas(containerWidth, canvasHeight);
+  canvas.parent(document.querySelector('main'));
+  noLoop();
+  textFont('Arial');
+  describe('ATAM Database Selection Process Explorer — click any node to learn its role', LABEL);
+}
+
+function draw() {
+  updateCanvasSize();
+  resizeCanvas(containerWidth, canvasHeight);
+
+  // Control region
+  fill(255); stroke(220); strokeWeight(1);
+  rect(0, drawHeight, canvasWidth, controlHeight);
+  noStroke(); fill(80); textAlign(CENTER, CENTER); textSize(13);
+  text('Click any node to learn its role in the ATAM process', canvasWidth/2, drawHeight + controlHeight/2);
+
+  // Diagram background
+  fill(248, 249, 250); stroke(220); strokeWeight(1);
+  rect(0, 0, canvasWidth, drawHeight);
+
+  // Title
+  noStroke(); fill('#1a3a6c'); textAlign(CENTER, TOP); textSize(17);
+  text('ATAM Database Selection Process', canvasWidth/2, 10);
+
+  // Row labels
+  noStroke(); fill('#b06800'); textAlign(LEFT, CENTER); textSize(11);
+  text('Requirements Path', 6, drawHeight*0.22);
+  fill('#888800');
+  text('Design Path', 6, drawHeight*0.50);
+
+  nodeList = buildNodes();
+  drawArrows(nodeList);
+  for (const n of nodeList) drawNode(n);
+  drawLegend();
+}
+
+function mousePressed() {
+  if (mouseY > drawHeight) return;
+  const hit = nodeList.find(n => hitTest(n));
+  if (hit) {
+    if (selectedId === hit.id) closePanel();
+    else showPanel(hit.id);
+  } else {
+    closePanel();
+  }
+}
+
+function mouseMoved() {
+  const prev = hoveredId;
+  hoveredId = null;
+  for (const n of nodeList) {
+    if (hitTest(n)) { hoveredId = n.id; break; }
+  }
+  if (prev !== hoveredId) {
+    cursor(hoveredId ? HAND : ARROW);
+    redraw();
+  }
+}
+
+function windowResized() {
+  updateCanvasSize();
+  resizeCanvas(containerWidth, canvasHeight);
+  redraw();
+}
+
+function updateCanvasSize() {
+  const c = document.querySelector('main').getBoundingClientRect();
+  containerWidth = Math.floor(c.width);
+  canvasWidth = containerWidth;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="schema" content="https://dmccreary.github.io/intelligent-textbooks/ns/microsim/v1">
+    <title>DBMS Architecture Explorer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.9/vis-network.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.9/dist/vis-network.min.css"/>
+    <style>
+        /* CANVAS_HEIGHT: 640 */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background: #f8f9fa; }
+        #outer { display: flex; flex-direction: column; width: 100%; }
+        #title-bar { background: #1a3a6c; color: white; padding: 8px 14px; font-size: 15px; font-weight: bold; }
+        #main-row { display: flex; height: 540px; }
+        #net-wrap { position: relative; flex: 1; background: #fff; }
+        #network { width: 100%; height: 100%; }
+        #reset-btn {
+            position: absolute; top: 6px; left: 6px; z-index: 5;
+            padding: 5px 12px; background: #1a3a6c; color: white;
+            border: none; border-radius: 4px; cursor: pointer; font-size: 12px;
+        }
+        #reset-btn:hover { background: #2255a0; }
+        #info-panel {
+            width: 290px; min-width: 290px;
+            padding: 14px; overflow-y: auto;
+            background: #f7f9fc; border-left: 2px solid #1a3a6c;
+        }
+        #info-placeholder { color: #aaa; font-size: 13px; margin-top: 60px; text-align: center; }
+        #info-content { display: none; }
+        #info-content h3 { font-size: 15px; color: #1a3a6c; margin-bottom: 10px; border-bottom: 1px solid #dde; padding-bottom: 6px; }
+        #info-content p { font-size: 13px; color: #333; line-height: 1.6; }
+        .layer-badge {
+            display: inline-block; padding: 2px 10px; border-radius: 10px;
+            font-size: 11px; font-weight: bold; color: white; margin-bottom: 8px;
+        }
+        #legend {
+            padding: 8px 14px; background: #f0f4f8;
+            border-top: 1px solid #dde;
+            display: flex; gap: 16px; flex-wrap: wrap; align-items: center; font-size: 12px; color: #555;
+        }
+        .leg-item { display: flex; align-items: center; gap: 5px; }
+        .leg-box { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; }
+        #instr { padding: 6px 14px; background: #fff; border-top: 1px solid #dee2e6; font-size: 12px; color: #888; text-align: center; }
+    </style>
+</head>
+<body>
+<div id="outer">
+  <div id="title-bar">DBMS Architecture Explorer</div>
+  <div id="main-row">
+    <div id="net-wrap">
+      <button id="reset-btn" onclick="resetView()">Reset View</button>
+      <div id="network"></div>
+    </div>
+    <div id="info-panel">
+      <div id="info-placeholder">↑ Click any component to learn its role</div>
+      <div id="info-content">
+        <span class="layer-badge" id="i-layer-badge"></span>
+        <h3 id="i-name"></h3>
+        <p id="i-desc"></p>
+      </div>
+    </div>
+  </div>
+  <div id="legend">
+    <strong>Layers (top → bottom):</strong>
+    <div class="leg-item"><div class="leg-box" style="background:#4682B4"></div> Application Interface</div>
+    <div class="leg-item"><div class="leg-box" style="background:#E65100"></div> Query Interface</div>
+    <div class="leg-item"><div class="leg-box" style="background:#6f42c1"></div> Execution</div>
+    <div class="leg-item"><div class="leg-box" style="background:#28a745"></div> Data Management</div>
+    <div class="leg-item"><div class="leg-box" style="background:#6c757d"></div> Storage</div>
+  </div>
+  <div id="instr">Click any component node to see a detailed explanation of its role in the DBMS stack.</div>
+</div>
+<br/>
+<a href=".">Back to DBMS Architecture Explorer</a>
+
+<script>
+// DBMS Architecture Explorer — vis-network
+// CANVAS_HEIGHT: 640
+
+const INFO = {
+  1: { layer:'Application Interface', color:'#4682B4',
+       desc:'The application issues queries or commands using the database\'s query language or API. Every request enters through this boundary — it is the only interface the application should use, because it ensures all DBMS guarantees apply.' },
+  2: { layer:'Query Interface', color:'#E65100',
+       desc:'The parser tokenizes and validates the query text, then produces a structured representation (parse tree or AST) the optimizer can reason about. This is where syntax errors are caught. The query language abstracts the application from storage details — the same SQL can be executed against very different storage layouts.' },
+  3: { layer:'Query Interface', color:'#E65100',
+       desc:'The optimizer transforms the parse tree into a physical execution plan by selecting join algorithms, access paths (index scan vs. full table scan), and operation ordering. A good optimizer can make a naive query run 1000× faster than the obvious execution path. A poor optimizer — or one operating without statistics — can make it 1000× slower.' },
+  4: { layer:'Execution', color:'#6f42c1',
+       desc:'The executor runs the physical plan produced by the optimizer, pulling data from the buffer pool and passing it through operator pipelines (scan, filter, join, aggregate). Execution performance is heavily influenced by whether intermediate results fit in memory and whether sequential I/O patterns allow hardware prefetch.' },
+  5: { layer:'Data Management', color:'#28a745',
+       desc:'The concurrency controller ensures concurrent reads and writes produce results consistent with the defined isolation level. It implements either lock-based control (two-phase locking) or MVCC. The choice of isolation level is a sensitivity point: stronger isolation prevents more anomalies but reduces throughput.' },
+  6: { layer:'Data Management', color:'#28a745',
+       desc:'The buffer pool is a memory cache of disk pages. It decides which pages to keep in RAM and which to evict when memory is full. Hit rate is the dominant factor in read performance. Buffer pool management is a critical sensitivity point: too small, every read goes to disk; too large, the OS is memory-starved.' },
+  7: { layer:'Data Management', color:'#28a745',
+       desc:'The index manager maintains secondary data structures (B-trees, hash tables, inverted indexes, ANN indexes) that allow the query executor to find records without scanning every row. Indexes dramatically accelerate selective queries but consume storage and slow down writes, since every write must update all relevant indexes.' },
+  8: { layer:'Storage', color:'#6c757d',
+       desc:'The storage engine implements how data is physically organized on disk. B-tree engines (InnoDB, PostgreSQL heap) optimize for read performance and range queries. LSM-tree engines (RocksDB, Cassandra) optimize for write throughput. The choice of storage engine is a fundamental tradeoff point between write performance and read amplification.' },
+  9: { layer:'Storage', color:'#6c757d',
+       desc:'The WAL is an append-only log of every change made to the database, written before the change is applied to the data files. It enables crash recovery (replay the log from the last checkpoint) and replication (ship the log to replicas). WAL sync frequency is a critical sensitivity point for the durability-vs-write-throughput tradeoff.' },
+};
+
+const nodes = new vis.DataSet([
+  { id:1, label:'Client / Application', color:{background:'#4682B4',border:'#2a5a9a'}, font:{color:'#fff',size:13}, level:0 },
+  { id:2, label:'Query Language\nParser',  color:{background:'#E65100',border:'#b04000'}, font:{color:'#fff',size:13}, level:1 },
+  { id:3, label:'Query Optimizer',        color:{background:'#E65100',border:'#b04000'}, font:{color:'#fff',size:13}, level:1 },
+  { id:4, label:'Query Executor',         color:{background:'#6f42c1',border:'#5030a0'}, font:{color:'#fff',size:13}, level:2 },
+  { id:5, label:'Concurrency\nController',color:{background:'#28a745',border:'#1a7a30'}, font:{color:'#fff',size:13}, level:3 },
+  { id:6, label:'Buffer Pool\nManager',   color:{background:'#28a745',border:'#1a7a30'}, font:{color:'#fff',size:13}, level:3 },
+  { id:7, label:'Index Manager',          color:{background:'#28a745',border:'#1a7a30'}, font:{color:'#fff',size:13}, level:3 },
+  { id:8, label:'Storage Engine\n(B-tree / LSM)', color:{background:'#6c757d',border:'#4a5560'}, font:{color:'#fff',size:13}, level:4 },
+  { id:9, label:'Write-Ahead Log\n(WAL)', color:{background:'#6c757d',border:'#4a5560'}, font:{color:'#fff',size:13}, level:4 },
+]);
+
+const edges = new vis.DataSet([
+  { from:1, to:2,  label:'SQL / query text', font:{size:11,color:'#555'} },
+  { from:2, to:3,  label:'parse tree',        font:{size:11,color:'#555'} },
+  { from:3, to:4,  label:'execution plan',    font:{size:11,color:'#555'} },
+  { from:4, to:5 },
+  { from:4, to:6 },
+  { from:4, to:7 },
+  { from:6, to:8 },
+  { from:6, to:9 },
+]);
+
+const container = document.getElementById('network');
+const options = {
+  layout: { hierarchical: { direction:'UD', sortMethod:'directed', levelSeparation:100, nodeSpacing:140 } },
+  physics: false,
+  interaction: { hover:true },
+  nodes: { shape:'box', borderWidth:2, shadow:false, margin:8, widthConstraint:{maximum:140} },
+  edges: { arrows:'to', color:{color:'#aaa'}, width:1.5, smooth:{type:'cubicBezier', forceDirection:'vertical'} },
+};
+
+const network = new vis.Network(container, {nodes, edges}, options);
+
+network.on('click', function(params) {
+  if (!params.nodes.length) { hideInfo(); return; }
+  showInfo(params.nodes[0]);
+});
+
+function showInfo(id) {
+  const d = INFO[id];
+  if (!d) { hideInfo(); return; }
+  document.getElementById('info-placeholder').style.display = 'none';
+  document.getElementById('info-content').style.display = 'block';
+  const badge = document.getElementById('i-layer-badge');
+  badge.textContent = d.layer;
+  badge.style.background = d.color;
+  document.getElementById('i-name').textContent = nodes.get(id).label.replace(/\n/g,' ');
+  document.getElementById('i-desc').textContent = d.desc;
+}
+
+function hideInfo() {
+  document.getElementById('info-placeholder').style.display = 'block';
+  document.getElementById('info-content').style.display = 'none';
+}
+
+function resetView() { network.fit({ animation:{duration:500, easingFunction:'easeInOutQuad'} }); }
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "title": "DBMS Architecture Explorer",
+  "description": "Understanding (Bloom's level 2) — students explain the role of each DBMS component and describe how the components interact to deliver persistence, concurrency, query processing, and durability.",
+  "creator": "Dementia Education Project",
+  "date": "2026-05-20",
+  "subject": [
+    "dementia"
+  ],
+  "type": "Interactive Simulation",
+  "format": "text/html",
+  "language": "en-US",
+  "rights": "CC BY 4.0",
+  "identifier": "dbms-architecture-explorer",
+  "library": "vis-network",
+  "bloomLevel": "TBD",
+  "bloomVerb": "TBD",
+  "completion_status": "scaffold",
+  "chapter_number": 2,
+  "chapter_title": "Chapter 2 - Database Foundations",
+  "chapter_dir": "02-database-foundations"
+}
